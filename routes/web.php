@@ -24,3 +24,11 @@ Route::get('/admin/category/edit/{id}', [CategoryController::class,'edit'])->nam
 Route::post('/admin/category/update/{id}', [CategoryController::class,'update'])->name('category.update');
 Route::get('/admin/category/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
 
+
+Route::get('/admin/brand/create', [BrandController::class,'create'])->name('brand.create');
+Route::post('/admin/brand/store', [BrandController::class,'store'])->name('brand.store');
+Route::get('/admin/brand/manage', [BrandController::class,'index'])->name('brand.index');
+Route::get('/admin/brand/edit/{id}', [BrandController::class,'edit'])->name('brand.edit');
+Route::post('/admin/brand/update/{id}', [BrandController::class,'update'])->name('brand.update');
+Route::get('/admin/brand/delete/{id}', [BrandController::class,'destroy'])->name('brand.delete');
+

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,4 +15,12 @@ Route::get('/admin/slider/manage', [SliderController::class,'index'])->name('sli
 Route::get('/admin/slider/edit/{id}', [SliderController::class,'edit'])->name('slider.edit');
 Route::post('/admin/slider/update/{id}', [SliderController::class,'update'])->name('slider.update');
 Route::get('/admin/slider/delete/{id}', [SliderController::class,'destroy'])->name('slider.delete');
+
+
+Route::get('/admin/category/create', [CategoryController::class,'create'])->name('category.create');
+Route::post('/admin/category/store', [CategoryController::class,'store'])->name('category.store');
+Route::get('/admin/category/manage', [CategoryController::class,'index'])->name('category.index');
+Route::get('/admin/category/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
+Route::post('/admin/category/update/{id}', [CategoryController::class,'update'])->name('category.update');
+Route::get('/admin/category/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
 

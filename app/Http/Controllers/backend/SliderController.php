@@ -5,16 +5,18 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Http\Traits\Uploder;
 
 class SliderController extends Controller
 {
+    use Uploder;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $sliders= Slider::all();
-        // dd($slider);
+        // dd($sliders);
        return view('backend.slider.manage', compact('sliders'));
     }
 
@@ -31,6 +33,7 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title'=> 'required|string|max:255',
             'description'=> 'required|string|',
@@ -47,8 +50,7 @@ class SliderController extends Controller
         $slider->ip = $request->ip();
         //image insert in Database
         if($request->hasFile('image')){
-            $image = $request->file('image');
-            $path = $image->storeAs('sliders', $image->getClientOriginalName(), 'public');
+            $path = $this->Upload($request->file('image'), "sliders");
             $slider->image = $path;
         }
 
@@ -99,11 +101,7 @@ class SliderController extends Controller
 
         if($request->hasFile('image')) {
             //Delete Old image
-            if($slider->image && file_exists(storage_path('app/public/' . $slider->image))){
-                unlink(storage_path('app/public/' . $slider->image));
-            }
-            $image = $request->file('image');
-            $path = $image->storeAs('sliders', $image->getClientOriginalName(), 'public');
+            $path = $this->Upload($request->file('image'), "sliders");
             $slider->image = $path;
         }
         $slider->update();

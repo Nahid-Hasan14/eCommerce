@@ -75,6 +75,12 @@
                       <li><a href="{{route('slider.index')}}">Manage</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-edit"></i> Category <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('category.create')}}">Create</a></li>
+                      <li><a href="{{route('category.index')}}">Manage</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="general_elements.html">General Elements</a></li>

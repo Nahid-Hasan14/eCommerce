@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,4 +32,17 @@ Route::get('/admin/brand/manage', [BrandController::class,'index'])->name('brand
 Route::get('/admin/brand/edit/{id}', [BrandController::class,'edit'])->name('brand.edit');
 Route::post('/admin/brand/update/{id}', [BrandController::class,'update'])->name('brand.update');
 Route::get('/admin/brand/delete/{id}', [BrandController::class,'destroy'])->name('brand.delete');
+
+
+
+Route::get('/admin/product/create', [ProductController::class,'create'])->name('product.create');
+Route::post('/admin/product/store', [ProductController::class,'store'])->name('product.store');
+Route::get('/admin/product/manage', [ProductController::class,'index'])->name('product.index');
+Route::get('/admin/product/edit/{id}', [ProductController::class,'edit'])->name('product.edit');
+Route::post('/admin/product/update/{id}', [ProductController::class,'update'])->name('product.update');
+Route::get('/admin/product/delete/{id}', [ProductController::class,'destroy'])->name('product.delete');
+Route::get('/admin/product/status/{id}', [ProductController::class,'changeStatus'])->name('product.status');
+
+
+
 

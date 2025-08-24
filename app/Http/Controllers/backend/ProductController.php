@@ -40,11 +40,16 @@ class productController extends Controller
 
         $request->validate([
             'title'      => 'required|string|max:255',
-            'description'=> 'required|string|',
+            'description'=> 'required|string',
+            'price'      => 'required|numeric',
+            'stock'      => 'required|integer',
+            'color'      => 'required|string',
+            'size'       => 'required|string',
+            'category_id'=> 'required|exists:categories,id',
+            'brand_id'   => 'required|exists:brands,id',
             'image'      => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'status'     => 'nullable|in:0,1',
         ]);
-
 
         $product = new Product();
         $product->title       = $request->title;
@@ -54,8 +59,8 @@ class productController extends Controller
         $product->color       = $request->color;
         $product->size        = $request->size;
         $product->status      = $request->input('status', 1); // default Public
-        $product->brand_id    = 2;
-        $product->category_id = 2;
+        $product->brand_id    = $request->brand_id;
+        $product->category_id = $request->category_id;
         $product->ip          = $request->ip();
         $product->is_deleted   = 0;
         $product->user_id     = 2;
@@ -86,8 +91,10 @@ class productController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $categories = Category::all();
+        $brands = Brand::all();
         // dd($products);
-        return view('backend.product.edit', compact('product'));
+        return view('backend.product.edit', compact('product', 'categories', 'brands'));
     }
 
     /**
@@ -99,7 +106,13 @@ class productController extends Controller
 
          $request->validate([
             'title'      => 'required|string|max:255',
-            'description'=> 'required|string|',
+            'description'=> 'required|string',
+            'price'      => 'required|numeric',
+            'stock'      => 'required|integer',
+            'color'      => 'required|string',
+            'size'       => 'required|string',
+            'category_id'=> 'required|exists:categories,id',
+            'brand_id'   => 'required|exists:brands,id',
             'image'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status'     => 'nullable|in:0,1',
         ]);
@@ -111,8 +124,8 @@ class productController extends Controller
         $product->color       = $request->color;
         $product->size        = $request->size;
         $product->status      = $request->input('status', 1); // default Public
-        $product->brand_id    = 2;
-        $product->category_id = 2;
+        $product->brand_id    = $request->brand_id;
+        $product->category_id = $request->category_id;
         $product->ip          = $request->ip();
         $product->is_deleted   = 0;
         $product->user_id     = 2;

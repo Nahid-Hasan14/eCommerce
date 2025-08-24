@@ -31,29 +31,32 @@
                                                 </ul>
                                             </div>
                                         @endif
+
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label for="title">Product Category<span class="required">*</span></label>
-                                                <select class="form-control">
+                                                <label for="category_id">Category<span class="required">*</span></label>
+                                                <select name="category_id" id="category_id" class="form-control">
                                                     <option value="">-- Select Category --</option>
-                                                    <option value="mobile">Mobile</option>
-                                                    <option value="camera">Camera</option>
-                                                    <option value="electronics">Electronics</option>
+                                                    @foreach ($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
+
                                             <div class="col-md-6 col-sm-6">
-                                                <label for="title">Product Brand<span class="required">*</span></label>
-                                                <select class="form-control">
+                                                <label for="brand_id">Brand<span class="required">*</span></label>
+                                                <select name="brand_id" id="brand_id" class="form-control">
                                                     <option value="">-- Select Brand --</option>
-                                                    <option value="sumsung">Sumsung</option>
-                                                    <option value="vivo">Vivo</option>
-                                                    <option value="dji">Dji</option>
+                                                    @foreach ($brands as $brand)
+                                                      <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="title">Product Title<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="title">Title<span class="required">*</span></label>
                                                 <input type="text" name="title" value="{{$product->title}}" required class="form-control ">
                                             </div>
                                         </div>
@@ -67,23 +70,23 @@
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="price">Product Price<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="price">Price<span class="required">*</span></label>
                                                 <input type="number" name="price" step="0.01" value="{{$product->price}}"  required class="form-control ">
                                             </div>
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="stock">Product Stock<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="stock">Stock<span class="required">*</span></label>
                                                 <input type="number" name="stock" value="{{$product->stock}}"  required class="form-control ">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="color">Product Color<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="color">Color<span class="required">*</span></label>
                                                 <input type="text" name="color" value="{{$product->color}}"  required class="form-control ">
                                             </div>
 
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="size">Product Size<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="size">Size<span class="required">*</span></label>
                                                 <input type="text" name="size" value="{{$product->size}}" required class="form-control ">
                                             </div>
                                         </div>
@@ -98,13 +101,13 @@
                                         </div>
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="first-name">Product Image<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="first-name">Image<span class="required">*</span></label>
                                                 <input type="file" name="image" id="first-name" class="form-control ">
                                             </div>
                                         </div>
 
                                         <div class="ln_solid"></div>
-                                        
+
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
                                                 <a href="{{route('product.index')}}" class="btn btn-dark" type="button">Back</a>

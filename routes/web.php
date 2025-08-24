@@ -4,9 +4,12 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\frontend\BaseController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/', [BaseController::class, 'index'])->name('index');
+
+Route::get('/home', function () {
     return view('backend.index');
 });
 

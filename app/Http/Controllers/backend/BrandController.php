@@ -115,4 +115,18 @@ class BrandController extends Controller
        $brand->delete();
        return redirect()->route('brand.index');
     }
+    /**
+     * Change Status.
+     */
+    public function changeStatus($id)
+    {
+       $brand = Brand::find($id);
+        if($brand->status == 1) {
+            $brand->status = 0;
+        } else {
+            $brand->status = 1;
+        }
+       $brand->save();
+       return redirect()->route('brand.index');
+    }
 }

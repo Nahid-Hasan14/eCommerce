@@ -37,7 +37,6 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'title'      => 'required|string|max:255',
             'description'=> 'required|string',
@@ -48,6 +47,7 @@ class productController extends Controller
             'category_id'=> 'required|exists:categories,id',
             'brand_id'   => 'required|exists:brands,id',
             'image'      => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'images'      => 'nullable|array',
             'status'     => 'nullable|in:0,1',
         ]);
 
@@ -68,6 +68,13 @@ class productController extends Controller
         if($request->hasFile('image')){
             $path = $this->Upload($request->file('image'), "products");
             $product->image = $path;
+        }
+        //upload multiple images
+         if($request->images){
+            foreach($request->images as $img){
+                $images[] = $this->Upload($img, "products");
+            }
+            $product->images = implode('|', $images);
         }
 
         $product->save();
@@ -94,6 +101,8 @@ class productController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         // dd($products);
+
+        session()->put('delete_image', []);
         return view('backend.product.edit', compact('product', 'categories', 'brands'));
     }
 
@@ -102,9 +111,7 @@ class productController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-
-         $request->validate([
+        $request->validate([
             'title'      => 'required|string|max:255',
             'description'=> 'required|string',
             'price'      => 'required|numeric',
@@ -114,9 +121,11 @@ class productController extends Controller
             'category_id'=> 'required|exists:categories,id',
             'brand_id'   => 'required|exists:brands,id',
             'image'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'images'      => 'nullable|array',
             'status'     => 'nullable|in:0,1',
         ]);
 
+        $product = Product::find($id);
         $product->title       = $request->title;
         $product->description = $request->description;
         $product->price       = $request->price;
@@ -135,14 +144,45 @@ class productController extends Controller
             $path = $this->Upload($request->file('image'), "products");
             $product->image = $path;
         }
-        $product->update();
 
+        if(session()->has('delete_image')){
+            $images = explode('|', $product->images);
+
+            foreach(session()->get('delete_image') as $delete_image){
+                if(file_exists(storage_path('app/public/' .$images[$delete_image]))){
+                    unlink(storage_path('app/public/' . $images[$delete_image]));
+                    unset($images[$delete_image]);
+                }
+            }
+
+            $product->images = implode('|', $images);
+        }
+        //Update Multiple image
+        $images = [];
+                 //Old image string to array
+        if($request->images){
+            $images = explode('|', $product->images);
+        }
+                  //new image add
+         if($request->hasFile('images')) {
+            foreach($request->file('images') as $img) {
+               $images[] = $this->Upload($img, "products");
+
+            }
+        }
+                 //save image DB array to string
+        if($images){
+            $product->images = implode('|', $images);
+        }
+
+        $product->update();
+        session()->forget('delete_image');
         return redirect()->route('product.index');
 
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from DB.
      */
     public function destroy($id)
     {
@@ -150,6 +190,33 @@ class productController extends Controller
 
         $product->delete();
         return redirect()->route('product.index');
+    }
+
+    //Multiple image delete function
+    // public function deleteImage($id, $index)
+    public function deleteImage(Request $request)
+    {
+        session()->push('delete_image', $request->image_index);
+
+        return response()->json([
+            'success'     => true,
+            'message'     => "Image marked for delete. when click Update then Delete. Now save session",
+            'image_index' => $request->image_index
+        ]);
+
+
+
+        // $product = Product::find($id);
+
+        // return  $product;
+        // $images = explode('|', $product->images);
+        // if(file_exists(storage_path('app/public/' .$images[$index]))){
+        //     unlink(storage_path('app/public/' . $images[$index]));
+        //     unset($images[$index]);
+        // }
+        // $product->images = implode('|', $images);
+        // $product->save();
+        // return redirect()->back();
     }
 
     /**

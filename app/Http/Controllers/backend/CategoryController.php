@@ -115,4 +115,19 @@ class CategoryController extends Controller
        $category->delete();
        return redirect()->route('category.index');
     }
+
+    /**
+     * Change Status.
+     */
+    public function changeStatus($id)
+    {
+       $category = Category::find($id);
+        if($category->status == 1){
+            $category->status = 0;
+        } else {
+            $category->status = 1;
+        }
+       $category->save();
+       return redirect()->route('category.index');
+    }
 }

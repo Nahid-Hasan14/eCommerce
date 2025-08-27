@@ -27,7 +27,7 @@
                           <tr class="headings">
                             <th class="column-title">Id</th>
                             <th class="column-title">Image </th>
-                            <th class="column-title">title </th>
+                            <th class="column-title">Title </th>
                             <th class="column-title">Stock </th>
                             <th class="column-title">Color </th>
                             <th class="column-title">Size </th>

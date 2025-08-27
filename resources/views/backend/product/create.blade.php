@@ -54,42 +54,46 @@
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
                                                 <label class="col-form-label label-align" for="title">Title<span class="required">*</span></label>
-                                                <input type="text" name="title" placeholder="Title" required class="form-control ">
+                                                <input type="text" name="title" value="{{old('title')}}" placeholder="Title" required class="form-control ">
                                             </div>
                                         </div>
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
                                                 <label class="col-form-label label-align" for="description">Description<span class="required">*</span></label>
-                                                <textarea type="text" name="description" placeholder="Description" rows="8" id="first-name" required class="form-control "></textarea>
+                                                <textarea type="text" name="description" placeholder="Description" rows="8" id="first-name" required class="form-control ">{{old('description')}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
                                                 <label class="col-form-label label-align" for="price">Price<span class="required">*</span></label>
-                                                <input type="number" name="price" step="0.01" placeholder="Price" required class="form-control ">
+                                                <input type="number" name="price" value="{{old('price')}}" step="0.01" placeholder="Price" required class="form-control ">
                                             </div>
                                             <div class="col-md-6 col-sm-6">
                                                 <label class="col-form-label label-align" for="stock">Stock<span class="required">*</span></label>
-                                                <input type="number" name="stock" placeholder="Stock" required class="form-control ">
+                                                <input type="number" name="stock" value="{{old('stock')}}" placeholder="Stock" required class="form-control ">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
                                                 <label class="col-form-label label-align" for="color">Color<span class="required">*</span></label>
-                                                <input type="text" name="color" placeholder="Color" required class="form-control ">
+                                                <input type="text" name="color" value="{{old('color')}}" placeholder="Color" required class="form-control ">
                                             </div>
                                             <div class="col-md-6 col-sm-6">
                                                 <label class="col-form-label label-align" for="size">Size<span class="required">*</span></label>
-                                                <input type="text" name="size" placeholder="Size" required class="form-control ">
+                                                <input type="text" name="size" value="{{old('size')}}" placeholder="Size" required class="form-control ">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
-                                            <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="image">Image<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label class="col-form-label label-align" for="image">Cover Photo<span class="required">*</span></label>
                                                 <input type="file" id="first-name" name="image" required class="form-control ">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label class="col-form-label label-align" for="image">Images<span class="required">*</span></label>
+                                                <input type="file" id="images" name="images[]" class="form-control " multiple>
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>

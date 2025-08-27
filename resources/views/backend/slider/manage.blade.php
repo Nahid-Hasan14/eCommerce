@@ -47,9 +47,13 @@
                             </td>
                             <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$slider->title}}</td>
                             <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$slider->description}}</i></td>
-                            <td class="text-cen align-middle ">{{$slider->status}}</td>
+                            <td class="text-cen align-middle ">{{$slider->status == 1 ? 'Public' : 'Draft'}}</td>
                             <td class="text-cen align-middle">
-                                <button class="btn btn-dark btn-sm">Draft</button>
+                                @if ($slider->status == 1)
+                                    <a href="{{route('slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                @else
+                                    <a href="{{route('slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                @endif
                                 <a href="{{route('slider.edit', $slider->id)}}" class="btn btn-success btn-sm">Edit</a>
                                 <a href="{{route('slider.delete', $slider->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>

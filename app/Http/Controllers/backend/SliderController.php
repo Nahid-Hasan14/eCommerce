@@ -120,4 +120,20 @@ class SliderController extends Controller
         $slider->delete();
         return redirect()->route('slider.index');
     }
+
+    /**
+     * Change Status.
+     */
+    public function changeStatus($id)
+    {
+        $slider = Slider::find($id);
+        if($slider->status == 1) {
+            $slider->status = 0;
+        } else {
+            $slider->status = 1;
+        }
+
+        $slider->save();
+        return redirect()->route('slider.index');
+    }
 }

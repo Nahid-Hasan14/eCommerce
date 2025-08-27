@@ -20,6 +20,8 @@
 
     <!-- Custom styling plus plugins -->
     <link href="{{asset('backend')}}/build/css/custom.min.css" rel="stylesheet">
+
+    @stack('style')
   </head>
 
   <body class="nav-md">
@@ -407,6 +409,6 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{{asset('backend')}}/build/js/custom.min.js"></script>
-
+      @stack('script')
   </body>
 </html>

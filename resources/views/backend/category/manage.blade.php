@@ -26,7 +26,7 @@
                           <tr class="headings">
                             <th class="column-title">Id</th>
                             <th class="column-title">Image </th>
-                            <th class="column-title">title </th>
+                            <th class="column-title">Category </th>
                             {{-- <th class="column-title">Description</th> --}}
                             <th class="column-title">Status</th>
                             <th class="column-title">Action </th>
@@ -48,7 +48,11 @@
                             {{-- <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$category->description}}</i></td> --}}
                             <td class="text-cen align-middle ">{{$category->status== 1 ? "Public" : "Draft"}}</td>
                             <td class="text-cen align-middle">
-                                <button class="btn btn-dark btn-sm">Draft</button>
+                                @if ($category->status == 1)
+                                    <a href="{{route('category.status', $category->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                @else
+                                    <a href="{{route('category.status', $category->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                @endif
                                 <a href="{{route('category.edit', $category->id)}}" class="btn btn-success btn-sm">Edit</a>
                                 <a href="{{route('category.delete', $category->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>

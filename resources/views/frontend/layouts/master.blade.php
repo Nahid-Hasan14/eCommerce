@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Subas || Home</title>
+    <title>@yield('title')</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,19 +57,19 @@
                             <div class="top-link clearfix">
                                 <ul class="link f-right">
                                     <li>
-                                        <a href="my-account.html">
+                                        <a href="{{route('dashboard')}}">
                                             <i class="zmdi zmdi-account"></i>
                                             My Account
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="wishlist.html">
+                                        <a href="{{route('wishlist')}}">
                                             <i class="zmdi zmdi-favorite"></i>
                                             Wish List (0)
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="login.html">
+                                        <a href="{{route('login')}}">
                                             <i class="zmdi zmdi-lock"></i>
                                             Login
                                         </a>
@@ -88,7 +88,7 @@
                             <!-- logo -->
                             <div class="col-md-2 col-sm-6 col-xs-12">
                                 <div class="logo">
-                                    <a href="index.html">
+                                    <a href="{{route('index')}}">
                                         <img src="{{asset('frontend')}}/img/logo/logo.png" alt="main logo">
                                     </a>
                                 </div>
@@ -97,167 +97,9 @@
                             <div class="col-md-8 hidden-sm hidden-xs">
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
-                                        <li><a href="index.html">Home</a>
-                                            <ul class="dropdwn">
-                                                <li>
-                                                    <a href="index.html">Home Version 1</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-2.html">Home Version 2</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-3.html">Home Version 3</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-4.html">Home 4 Animated Text</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-5.html">Home 5 Animated Text Ovlerlay</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-6.html">Home 6 Background Video</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-7.html">Home 7 BG-Video Ovlerlay</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-8.html">Home 8 Boxed</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-9.html">Home 9 Gradient</a>
-                                                </li>
-                                                <li>
-                                                    <a href="index-10.html">Home 10 Boxed-2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="mega-parent"><a href="#">elements</a>
-                                            <div class="mega-menu-area clearfix">
-                                                <div class="mega-menu-link mega-menu-link-4  f-left">
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Elements 1</li>
-                                                        <li>
-                                                            <a href="elements-header-1-sticky.html">header-1-sticky</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-header-1-no-sticky.html">header-1-no-sticky</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-header-2-sticky.html">header-2-sticky</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-header-2-no-sticky.html">header-2-no-sticky</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-footer-1.html">footer-1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-footer-2.html">footer-2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-footer-3.html">footer-3</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-contact-form.html">Dynamic Contact Form</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-map.html">Google Map</a>
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Elements 2</li>
-                                                        <li>
-                                                            <a href="elements-featured-product-1.html">featured-product-1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-featured-product-2.html">featured-product-2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-product-tab-1.html">product-tab-1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-product-tab-2.html">product-tab-2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-up-comming-product-1.html">up-comming-product-1</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-up-comming-product-2.html">up-comming-product-2</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-single-product.html">single-product</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-sidebar-left.html">sidebar-left</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-sidebar-right.html">sidebar-right</a>
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Elements 3</li>
-                                                        <li>
-                                                            <a href="elements-section-title.html">section-title</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-pagination.html">pagination</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-banner.html">Banner</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-brands.html">Brands</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-breadcrumbs.html">Breadcrumbs</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-newsletter.html">Newsletter</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-team.html">team</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-audio.html">Audio</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-video.html">Video</a>
-                                                        </li>
-                                                    </ul>
-                                                    <ul class="single-mega-item">
-                                                        <li class="menu-title">Elements 4</li>
-                                                        <li>
-                                                            <a href="elements-typography.html">typography</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-buttons.html">Buttons</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-call-to-action.html">Call to Action</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-accordion.html">Accordion</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-alerts.html">Alerts</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-progress-bars.html">progress-bars</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-tab.html">tab</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-toggles.html">toggles</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="elements-toggles.html">toggles</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="mega-parent"><a href="shop.html">Products</a>
+                                        <li><a href="{{route('index')}}">Home</a></li>
+                                        <li class="mega-parent"><a href="#">elements</a></li>
+                                        <li class="mega-parent"><a href="{{route('products')}}">Products</a>
                                             <div class="mega-menu-area clearfix">
                                                 <div class="mega-menu-link f-left">
                                                     <ul class="single-mega-item">
@@ -400,61 +242,12 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li><a href="blog.html">Blog</a>
-                                            <ul class="dropdwn">
-                                                <li><a href="blog-left-sidebar.html">Dropdown Repeat</a>
-													<ul class="dropdwn-repeat">
-														<li>
-															<a href="blog.html">Blog</a>
-														</li>
-														<li>
-															<a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-														</li>
-														<li>
-															<a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-														</li>
-														<li>
-															<a href="blog-2.html">Blog style 2</a>
-														</li>
-														<li>
-															<a href="blog-2-left-sidebar.html">Blog 2 Left Sidebar</a>
-														</li>
-														<li>
-															<a href="blog-2-right-sidebar.html">Blog 2 Right Sidebar</a>
-														</li>
-														<li>
-															<a href="single-blog.html">Blog Details</a>
-														</li>
-													</ul>
-                                                </li>
-                                                <li>
-                                                    <a href="blog.html">Blog</a>
-                                                </li>
-												<li>
-													<a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-2.html">Blog style 2</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-2-left-sidebar.html">Blog 2 Left Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="blog-2-right-sidebar.html">Blog 2 Right Sidebar</a>
-                                                </li>
-                                                <li>
-                                                    <a href="single-blog.html">Blog Details</a>
-                                                </li>
-                                            </ul>
+                                        <li><a href="{{route('blogs')}}">Blogs</a></li>
+                                        <li>
+                                            <a href="{{route('about')}}">About us</a>
                                         </li>
                                         <li>
-                                            <a href="about.html">About us</a>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html">Contact</a>
+                                            <a href="{{route('contact')}}">Contact</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -482,7 +275,7 @@
                                     <div class="total-cart f-left">
                                         <div class="total-cart-in">
                                             <div class="cart-toggler">
-                                                <a href="#">
+                                                <a href="{{route('cart')}}">
                                                     <span class="cart-quantity">02</span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
@@ -564,14 +357,14 @@
                                                 <li>
                                                     <div class="top-cart-inner view-cart">
                                                         <h4 class="text-uppercase">
-                                                            <a href="#">View cart</a>
+                                                            <a href="{{route('cart')}}">View cart</a>
                                                         </h4>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="top-cart-inner check-out">
                                                         <h4 class="text-uppercase">
-                                                            <a href="#">Check out</a>
+                                                            <a href="{{route('checkout')}}">Check out</a>
                                                         </h4>
                                                     </div>
                                                 </li>
@@ -684,7 +477,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">Blog</a>
+                                    <li><a href="{{route('blogs')}}">Blogs</a>
                                         <ul>
                                             <li>
                                                 <a href="blog.html">Blog</a>
@@ -710,10 +503,10 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="about.html">About Us</a>
+                                        <a href="{{route('about')}}">About Us</a>
                                     </li>
                                     <li>
-                                        <a href="contact.html">Contact</a>
+                                        <a href="{{route('contact')}}">Contact</a>
                                     </li>
                                 </ul>
                             </nav>

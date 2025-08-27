@@ -3,6 +3,48 @@
 
 @section('title', 'Product Edit')
 
+@push('style')
+  //Style for Multiple image delete button
+<style>
+    .image-wrapper {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        margin-right: 7px;
+    }
+
+    .image-wrapper img {
+        display: block;
+        transition: 0.3s ease;
+        border-radius: 8px;
+    }
+
+    .image-wrapper:hover img {
+        opacity: 0.6;
+    }
+
+    .image-wrapper .delete-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 0, 0, 0.8);
+        color: #fff;
+        font-size: 20px;
+        padding: 8px 14px;
+        border-radius: 50%;
+        text-decoration: none;
+        opacity: 0;
+        transition: 0.3s ease;
+    }
+
+    .image-wrapper:hover .delete-btn {
+        opacity: 1;
+    }
+</style>
+
+@endpush
+
 @section('content')
     <div class="right_col" role="main">
         <div class="clearfix"></div>
@@ -99,10 +141,30 @@
                                                 <img src="{{asset('storage/' . $product->image)}}" alt="Image" height="200px" width="400px"/>
                                             </div>
                                         </div>
+
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="first-name">Image<span class="required">*</span></label>
-                                                <input type="file" name="image" id="first-name" class="form-control ">
+                                                <label class="col-form-label label-align" for="image">Cover Photo<span class="required"></span></label>
+                                                <input type="file" name="image" id="image" class="form-control ">
+                                            </div>
+                                        </div>
+                                        @if ($product->images)
+                                        <div class="item form-group">
+                                            <div class="col-md-12 col-sm-12 images-gap">
+                                                @foreach (explode('|', $product->images) as $key => $image)
+                                                <div class="image-wrapper position-relative">
+                                                    <img src="{{asset('storage')}}/{{$image}}" class="images" id="{{$key}}" alt="Image" height="150px" width="150px"/>
+                                                    <a class="delete-btn" href="{{$product->id . '/' . $key}}">X</a>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        <div class="item form-group">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label class="col-form-label label-align" for="images">Images<span class="required"></span></label>
+                                                <input type="file" name="images[]" id="images" class="form-control" multiple>
                                             </div>
                                         </div>
 
@@ -147,6 +209,48 @@
         </div>
     </div>
 
-
-
 @endsection
+
+@push('script')
+
+<script>
+
+    let image = document.getElementsByClassName("delete-btn");
+
+
+    for(let i=0; i<image.length; i++ ){
+            image[i].addEventListener("click", function(e){
+            e.preventDefault();
+            let image_href = e.target.href.split('/').reverse();
+            let image_index = image_href[0];
+
+
+            $.ajax({
+                type: "POST",
+                url:"{{route('product.image.delete')}}",
+                dataType: "json",
+                data: {
+                        image_index:image_index,
+                        _token:"{{csrf_token()}}"
+                    },
+
+                success: function(res){
+                    // console.log(res)
+                    if(res.success) {
+                        e.target.classList.add('d-none')
+                        document.getElementById(res.image_index).classList.add('d-none')
+
+                        console.log(res.message)
+                    }
+                },
+
+                error: function(error){
+                    console.log(error)
+                }
+            })
+        });
+    }
+</script>
+
+@endpush
+

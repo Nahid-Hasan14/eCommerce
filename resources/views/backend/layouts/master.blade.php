@@ -17,7 +17,7 @@
     <link href="{{asset('backend')}}/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
     <link href="{{asset('backend')}}/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-
+    <link href="{{asset('toastr')}}/css/toastr.min.css" data-style="styles" rel="stylesheet">
     <!-- Custom styling plus plugins -->
     <link href="{{asset('backend')}}/build/css/custom.min.css" rel="stylesheet">
 
@@ -69,6 +69,12 @@
                       <li><a href="form_wizards.html">Form Wizard</a></li>
                       <li><a href="form_upload.html">Form Upload</a></li>
                       <li><a href="form_buttons.html">Form Buttons</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Orders <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      {{-- <li><a href="{{route('slider.create')}}">Create</a></li> --}}
+                      <li><a href="{{route('orders.manage')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Slider <span class="fa fa-chevron-down"></span></a>
@@ -396,6 +402,7 @@
 
     <!-- jQuery -->
     <script src="{{asset('backend')}}/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('toastr')}}/js/toastr.min.js"></script>
     <!-- Bootstrap -->
    <script src="{{asset('backend')}}/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
@@ -410,5 +417,6 @@
     <!-- Custom Theme Scripts -->
     <script src="{{asset('backend')}}/build/js/custom.min.js"></script>
       @stack('script')
+      {!! Toastr::message() !!}
   </body>
 </html>

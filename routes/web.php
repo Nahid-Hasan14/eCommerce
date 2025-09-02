@@ -3,8 +3,10 @@
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\frontend\BaseController;
+use App\Http\Controllers\frontend\CartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BaseController::class, 'index'])->name('index');
@@ -21,6 +23,10 @@ Route::get('/dashboard', [BaseController::class, 'dashboard'])->name('dashboard'
 Route::get('/products', [BaseController::class, 'products'])->name('products');
 Route::get('/product-details', [BaseController::class, 'productDetails'])->name('product.details');
 Route::get('/wishlist', [BaseController::class, 'wishlist'])->name('wishlist');
+Route::post('/add-to-cart', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/address', [CartController::class, 'address'])->name('checkout.address');
 
 
 
@@ -33,9 +39,7 @@ Route::get('/wishlist', [BaseController::class, 'wishlist'])->name('wishlist');
 
 
 
-
-
-
+//Admin Pannel
 Route::get('/home', function () {
     return view('backend.index');
 });
@@ -48,7 +52,6 @@ Route::post('/admin/slider/update/{id}', [SliderController::class,'update'])->na
 Route::get('/admin/slider/delete/{id}', [SliderController::class,'destroy'])->name('slider.delete');
 Route::get('/admin/slider/status/{id}', [SliderController::class,'changeStatus'])->name('slider.status');
 
-
 Route::get('/admin/category/create', [CategoryController::class,'create'])->name('category.create');
 Route::post('/admin/category/store', [CategoryController::class,'store'])->name('category.store');
 Route::get('/admin/category/manage', [CategoryController::class,'index'])->name('category.index');
@@ -57,7 +60,6 @@ Route::post('/admin/category/update/{id}', [CategoryController::class,'update'])
 Route::get('/admin/category/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
 Route::get('/admin/category/status/{id}', [CategoryController::class,'changeStatus'])->name('category.status');
 
-
 Route::get('/admin/brand/create', [BrandController::class,'create'])->name('brand.create');
 Route::post('/admin/brand/store', [BrandController::class,'store'])->name('brand.store');
 Route::get('/admin/brand/manage', [BrandController::class,'index'])->name('brand.index');
@@ -65,8 +67,6 @@ Route::get('/admin/brand/edit/{id}', [BrandController::class,'edit'])->name('bra
 Route::post('/admin/brand/update/{id}', [BrandController::class,'update'])->name('brand.update');
 Route::get('/admin/brand/delete/{id}', [BrandController::class,'destroy'])->name('brand.delete');
 Route::get('/admin/brand/status/{id}', [BrandController::class,'changeStatus'])->name('brand.status');
-
-
 
 Route::get('/admin/product/create', [ProductController::class,'create'])->name('product.create');
 Route::post('/admin/product/store', [ProductController::class,'store'])->name('product.store');
@@ -77,6 +77,9 @@ Route::get('/admin/product/delete/{id}', [ProductController::class,'destroy'])->
 // Route::get('/admin/product/image/delete/{id}/{index}', [ProductController::class,'deleteImage'])->name('product.image.delete');
 Route::post('/admin/product/image/delete', [ProductController::class,'deleteImage'])->name('product.image.delete');
 Route::get('/admin/product/status/{id}', [ProductController::class,'changeStatus'])->name('product.status');
+
+Route::get('/admin/orders-manage', [OrderController::class, 'orders'])->name('orders.manage');
+
 
 
 

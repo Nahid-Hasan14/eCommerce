@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Traits\Uploder;
 use App\Models\Brand;
 use App\Models\Category;
+use Brian2694\Toastr\Facades\Toastr;
 
 class productController extends Controller
 {
@@ -18,6 +19,7 @@ class productController extends Controller
     public function index()
     {
         $products= Product::all();
+        Toastr::success('Hello World');
         // dd($products);
        return view('backend.product.manage', compact('products'));
     }

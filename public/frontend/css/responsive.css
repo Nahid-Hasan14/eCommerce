@@ -1277,3 +1277,8 @@ hr {
 
 
 }
+
+/* Nahid CSS */
+.swal2-container {
+    z-index: 99999 !important;
+}

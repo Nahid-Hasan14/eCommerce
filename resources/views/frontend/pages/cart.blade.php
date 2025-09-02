@@ -37,15 +37,15 @@
                                         Shopping cart
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#wishlist" data-toggle="tab">
                                         <span>02</span>
                                         Wishlist
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a href="#checkout" data-toggle="tab">
-                                        <span>03</span>
+                                    <a>
+                                        <span>02</span>
                                         Checkout
                                     </a>
                                 </li>
@@ -77,83 +77,34 @@
                                                     </thead>
                                                     <tbody>
                                                         <!-- tr -->
-                                                        <tr>
+                                                        @foreach ($items as $item)
+                                                            <tr data-id="{{$item->id}}" id="{{$item->id}}">
                                                             <td class="product-thumbnail">
                                                                 <div class="pro-thumbnail-img">
-                                                                    <img src="{{asset('frontend')}}/img/cart/1.jpg" alt="">
+                                                                    <img src="{{ asset('storage') }}/{{$item->attributes->image}}" height="110px" alt="image">
                                                                 </div>
                                                                 <div class="pro-thumbnail-info text-left">
                                                                     <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
+                                                                        <a href="#">{{$item->name}}</a>
                                                                     </h6>
                                                                     <p>Brand: Brand Name</p>
                                                                     <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
+                                                                    <p> Color: {{$item->color}}</p>
                                                                 </div>
                                                             </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div>
+                                                            <td class="product-price">${{$item->price}}</td>
+                                                            <td class="updateBtn" >
+                                                                <button class="btn btn-xs btn-info update-cart" data-action="decrease" style="font-weight: bold; font-size: 1.6rem;"> - </button>
+                                                                <span class="show-qty" style="font-weight: bold; padding: 0 10px;">{{$item->quantity}}</span>
+                                                                <button class="btn btn-xs btn-info update-cart" data-action="increase" style="font-weight: bold; font-size: 1.6rem;"> + </button>
                                                             </td>
-                                                            <td class="product-subtotal">$1020.00</td>
+                                                            <td class="product-subtotal">${{number_format($item->price * $item->quantity)}}</td>
                                                             <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                                <a href="javascript:void(0)"  onclick="itemRemove({{$item->id}})"><i class="zmdi zmdi-close"></i></a>
                                                             </td>
                                                         </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img src="{{asset('frontend')}}/img/cart/2.jpg" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-left">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-subtotal">$1020.00</td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img src="{{asset('frontend')}}/img/cart/3.jpg" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-left">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-subtotal">$1020.00</td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
+                                                        @endforeach
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -172,11 +123,11 @@
                                                         <table>
                                                             <tr>
                                                                 <td class="td-title-1">Cart Subtotal</td>
-                                                                <td class="td-title-2">$155.00</td>
+                                                                <td id="total-price" class="order-total-price">$ {{ number_format(\Cart::session(1)->getTotal()) }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td-title-1">Shipping and Handing</td>
-                                                                <td class="td-title-2">$15.00</td>
+                                                                <td class="td-title-2">$00.00</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td-title-1">Vat</td>
@@ -184,9 +135,10 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="order-total">Order Total</td>
-                                                                <td class="order-total-price">$170.00</td>
+                                                                <td >$ </td>
                                                             </tr>
                                                         </table>
+                                                        <button href="#checkout" data-toggle="tab" class="btn btn-primary">Order</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,7 +169,7 @@
                                 </div>
                                 <!-- shopping-cart end -->
                                 <!-- wishlist start -->
-                                <div class="tab-pane" id="wishlist">
+                                {{-- <div class="tab-pane" id="wishlist">
                                     <div class="wishlist-content">
                                         <form action="#">
                                             <div class="table-content table-responsive mb-50">
@@ -315,43 +267,55 @@
                                             </div>
                                         </form>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!-- wishlist end -->
                                 <!-- checkout start -->
                                 <div class="tab-pane" id="checkout">
                                     <div class="checkout-content box-shadow p-30">
-                                        <form action="#">
+                                        <form action="{{route('checkout.address')}}" method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <!-- billing details -->
                                                 <div class="col-md-6">
                                                     <div class="billing-details pr-10">
-                                                        <h6 class="widget-title border-left mb-20">billing details</h6>
-                                                        <input type="text"  placeholder="Your Name Here...">
-                                                        <input type="text"  placeholder="Email address here...">
-                                                        <input type="text"  placeholder="Phone here...">
-                                                        <input type="text"  placeholder="Company neme here...">
-                                                        <select class="custom-select">
-                                                            <option value="defalt">country</option>
-                                                            <option value="c-1">Australia</option>
-                                                            <option value="c-2">Bangladesh</option>
-                                                            <option value="c-3">Unitd States</option>
-                                                            <option value="c-4">Unitd Kingdom</option>
+                                                        <div  style="border:1px solid #FFBF00; padding:10px; border-radius:4px; margin-bottom:15px;">
+                                                            <h4>Md. Nahid Hasan</h4>
+                                                            <span>hasan14@gmail.com</span><br/>
+                                                            <span>01774641500</span>
+                                                        </div>
+                                                        <h6 class="widget-title border-left mb-20">Address</h6>
+                                                        <input type="text" name="name" value="{{old('name')}}" id="name" placeholder="Your Name Here..."/>
+                                                        <input type="text" name= "email" value="{{old('email')}}" id="email" placeholder="Email address here..."/>
+                                                        <input type="text" name="phone" value="{{old('phone')}}" id="name" placeholder="Phone here..."/>
+                                                        <select class="custom-select" name="division">
+                                                            <option value="">Division</option>
+                                                            <option value="dhaka">Dhaka</option>
+                                                            <option value="rangpur">Rangpur</option>
+                                                            <option value="chattogram">Chattogram</option>
+                                                            <option value="rajshahi">Rajshahi</option>
+                                                            <option value="mymensingh">Mymensingh</option>
+                                                            <option value="sylet">Sylet</option>
+                                                            <option value="jasor">Jasor</option>
+                                                            <option value="barishal">Barishal</option>
                                                         </select>
-                                                        <select class="custom-select">
-                                                            <option value="defalt">State</option>
-                                                            <option value="c-1">Melbourne</option>
-                                                            <option value="c-2">Dhaka</option>
-                                                            <option value="c-3">New York</option>
-                                                            <option value="c-4">London</option>
+                                                        <select class="custom-select" name="district">
+                                                            <option value="">District</option>
+                                                            <option value="dhaka">Dhaka</option>
+                                                            <option value="kurigram">Kurigram</option>
+                                                            <option value="rangpur">Rangpur</option>
+                                                            <option value="lalmonirhat">Lalmonirhat</option>
+                                                            <option value="dinajpur">Dinajpur</option>
+                                                            <option value="gaibandha">Gaibandha</option>
+                                                            <option value="netrokona">Netrokona</option>
                                                         </select>
-                                                        <select class="custom-select">
-                                                            <option value="defalt">Town/City</option>
-                                                            <option value="c-1">Victoria</option>
-                                                            <option value="c-2">Chittagong</option>
-                                                            <option value="c-3">Boston</option>
-                                                            <option value="c-4">Cambridge</option>
+                                                        <select class="custom-select" name="thana">
+                                                            <option value="">Thana</option>
+                                                            <option value="kochakata">Kochakata</option>
+                                                            <option value="bhurungamari">Bhurungamari</option>
+                                                            <option value="nageswari">Nageswari</option>
+                                                            <option value="kurigram-sadar">Kurigram Sadar</option>
                                                         </select>
-                                                        <textarea class="custom-textarea" placeholder="Your address here..."></textarea>
+                                                        <textarea name="address" class="custom-textarea" placeholder="Your address here..."></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -442,7 +406,8 @@
                                 </div>
                                 <!-- checkout end -->
                                 <!-- order-complete start -->
-                                <div class="tab-pane" id="order-complete">
+
+                                {{-- <div class="tab-pane" id="order-complete">
                                     <div class="order-complete-content box-shadow">
                                         <div class="thank-you p-30 text-center">
                                             <h6 class="text-black-5 mb-0">Thank you. Your order has been received.</h6>
@@ -538,7 +503,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+
                                 <!-- order-complete end -->
                             </div>
                         </div>
@@ -549,3 +515,84 @@
 
         </section>
 @endsection
+
+
+@push('script')
+{{-- Update & Remove Item --}}
+<script>
+
+    let updateBtn = document.getElementsByClassName('update-cart');
+
+    for(let i = 0; i < updateBtn.length; i++ ) {
+        updateBtn[i].addEventListener('click', function(e){
+            e.preventDefault();
+
+            let action    = this.dataset.action;
+            let tr = this.closest('tr');
+            let productId = tr.dataset.id;
+
+            $.ajax({
+                type: "POST",
+                url: "{{route('cart.update')}}",
+                dataType: "json",
+                data: {
+                    productId: productId,
+                    action: action,
+                    _token:"{{csrf_token()}}",
+                },
+
+                success: function (res) {
+                    if (res.success) {
+
+                        tr.querySelector(".show-qty").innerText = res.quantity;
+                        tr.querySelector(".product-subtotal").innerText = '$' + res.subtotal;
+                        document.querySelector(".order-total-price").innerText = "$" + res.total;
+                        document.getElementById('total-price').innerText = "$" + res.total;
+                    }
+                },
+                error: function (error) {
+                    console.log("Error:", error)
+                }
+            })
+        })
+    }
+
+    function itemRemove (productId) {
+
+     $.ajax({
+        type: "POST",
+        url: "{{route('cart.remove')}}",
+        dataType: "json",
+        data: {
+            productId: productId,
+            _token:"{{csrf_token()}}",
+        },
+
+        success: function (res) {
+            if (res.success) {
+                Swal.fire({
+                    icon: res.status,
+                    title: res.status === 'success' ? 'Success!' : 'Error!',
+                    text: res.message,
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+                document.getElementById(res.id).remove();
+                document.getElementById("mini-cart").innerHTML = res.minicart;
+                document.getElementById("cart_count").innerText = res.cart_count;
+                if(!res.cart_count) {
+                    window.location.href = "/";
+                }
+                document.getElementById("total-price").innerText = "$" + res.total;
+                document.querySelector(".order-total-price").innerText = "$" + res.total;
+            }
+        },
+        error: function (error) {
+            console.log("Error:", error)
+        }
+    })
+    }
+</script>
+
+@endpush

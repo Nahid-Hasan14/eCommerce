@@ -23,16 +23,35 @@
     <link rel="stylesheet" href="{{asset('frontend')}}/style.css">
     <!-- Responsive css -->
     <link rel="stylesheet" href="{{asset('frontend')}}/css/responsive.css">
+
+    {{-- <link href="{{asset('toastr')}}/css/toastr.min.css" data-style="styles" rel="stylesheet"> --}}
     <!-- User style -->
     <link rel="stylesheet" href="{{asset('frontend')}}/css/custom.css">
 
     <!-- Style customizer (Remove these two lines please) -->
     <link rel="stylesheet" href="{{asset('frontend')}}/css/style-customizer.css">
-    <link href="#" data-style="styles" rel="stylesheet">
+    <script src="{{asset('sweetalert')}}/sweetalert2@11.js"></script>
 
-    <!-- Modernizr JS -->
-    <script src="{{asset('frontend')}}/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
+<style>
+    #mini-cart {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 5px;
+    }
+
+    #mini-cart::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #mini-cart::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+</style>
 
 <body>
     <!--[if lt IE 8]>
@@ -276,7 +295,7 @@
                                         <div class="total-cart-in">
                                             <div class="cart-toggler">
                                                 <a href="{{route('cart')}}">
-                                                    <span class="cart-quantity">02</span><br>
+                                                    <span id="cart_count" class="cart-quantity"> {{ \Cart::session(1)->getContent()->count() }}</span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>
@@ -289,68 +308,40 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="total-cart-pro">
+
+                                                    <div class="total-cart-pro" id="mini-cart">
+                                                        @if(\Cart::session(1)->isEmpty())
+                                                                <p class="text-center" style="padding: 15px 0 0 0; color:#FF7F00; font-size: 18px; font-weight: bold;">Cart Empty</p>
+                                                        @else
                                                         <!-- single-cart -->
-                                                        <div class="single-cart clearfix">
-                                                            <div class="cart-img f-left">
-                                                                <a href="#">
-                                                                    <img src="{{asset('frontend')}}/img/cart/1.jpg" alt="Cart Product" />
-                                                                </a>
-                                                                <div class="del-icon">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-close"></i>
-                                                                    </a>
+                                                           @foreach (\Cart::session(1)->getContent() as $item)
+                                                                <div class="single-cart clearfix">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="cart-img f-left">
+                                                                        <a href="#">
+                                                                            <img src="{{ asset('storage') }}/{{$item->attributes->image}}" height="120px" width="100px"  alt="Cart Product" />
+                                                                        </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-9">
+                                                                    <div class="cart-info">
+                                                                    <h6 class="text-capitalize">
+                                                                        <a href="#">{{$item->name}}</a><br>
+                                                                         Price: ${{number_format($item->price)}}
+                                                                    </h6>
+                                                                    </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="cart-info f-left">
-                                                                <h6 class="text-capitalize">
-                                                                    <a href="#">Dummy Product Name</a>
-                                                                </h6>
-                                                                <p>
-                                                                    <span>Brand <strong>:</strong></span>Brand Name
-                                                                </p>
-                                                                <p>
-                                                                    <span>Model <strong>:</strong></span>Grand s2
-                                                                </p>
-                                                                <p>
-                                                                    <span>Color <strong>:</strong></span>Black, White
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <!-- single-cart -->
-                                                        <div class="single-cart clearfix">
-                                                            <div class="cart-img f-left">
-                                                                <a href="#">
-                                                                    <img src="{{asset('frontend')}}/img/cart/1.jpg" alt="Cart Product" />
-                                                                </a>
-                                                                <div class="del-icon">
-                                                                    <a href="#">
-                                                                        <i class="zmdi zmdi-close"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="cart-info f-left">
-                                                                <h6 class="text-capitalize">
-                                                                    <a href="#">Dummy Product Name</a>
-                                                                </h6>
-                                                                <p>
-                                                                    <span>Brand <strong>:</strong></span>Brand Name
-                                                                </p>
-                                                                <p>
-                                                                    <span>Model <strong>:</strong></span>Grand s2
-                                                                </p>
-                                                                <p>
-                                                                    <span>Color <strong>:</strong></span>Black, White
-                                                                </p>
-                                                            </div>
-                                                        </div>
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="top-cart-inner subtotal">
                                                         <h4 class="text-uppercase g-font-2">
                                                             Total  =
-                                                            <span>$ 500.00</span>
+                                                            $ <span class="order-total-price">{{ number_format(\Cart::session(1)->getTotal()) }}</span>
                                                         </h4>
                                                     </div>
                                                 </li>
@@ -362,11 +353,6 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <div class="top-cart-inner check-out">
-                                                        <h4 class="text-uppercase">
-                                                            <a href="{{route('checkout')}}">Check out</a>
-                                                        </h4>
-                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -739,7 +725,7 @@
         <!-- END QUICKVIEW PRODUCT -->
 
         <!--style-customizer start -->
-        <div class="style-customizer closed">
+        {{-- <div class="style-customizer closed">
             <div class="buy-button">
                 <a href="index.html" class="customizer-logo"><img src="{{asset('frontend')}}/images/logo/logo.png" alt="Theme Logo"></a>
                 <a class="opener" href="#"><i class="zmdi zmdi-settings"></i></a>
@@ -791,7 +777,7 @@
                     <li><a class="button button-border button-reset" href="#">Reset All</a></li>
                 </ul>
             </div>
-        </div>
+        </div> --}}
         <!--style-customizer end -->
     </div>
     <!-- Body main wrapper end -->
@@ -799,8 +785,12 @@
 
     <!-- Placed JS at the end of the document so the pages load faster -->
 
+    <!-- Modernizr JS -->
+    <script src="{{asset('frontend')}}/js/vendor/modernizr-2.8.3.min.js"></script>
+
     <!-- jquery latest version -->
     <script src="{{asset('frontend')}}/js/vendor/jquery-3.1.1.min.js"></script>
+    {{-- <script src="{{asset('toastr')}}/js/jquery.min.js"></script> --}}
     <!-- Bootstrap framework js -->
     <script src="{{asset('frontend')}}/js/bootstrap.min.js"></script>
     <!-- jquery.nivo.slider js -->
@@ -809,6 +799,9 @@
     <script src="{{asset('frontend')}}/js/plugins.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{asset('frontend')}}/js/main.js"></script>
+    {{-- <script src="{{asset('toastr')}}/js/toastr.min.js"></script> --}}
+
+    @stack('script')
 
 </body>
 </html>

@@ -10,4 +10,12 @@ class OrderController extends Controller
     public function orders() {
         return view('backend.orders.orders');
     }
+
+    public function details() {
+        return view('backend.orders.details');
+    }
+
+    public function invoice() {
+        return view('backend.invoice.invoice');
+    }
 }

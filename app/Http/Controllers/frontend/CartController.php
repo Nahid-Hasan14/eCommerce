@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
+use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -90,15 +93,56 @@ class CartController extends Controller
     public function address (Request $request) {
         // dd($request);
         $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|max:255',
             'phone'   => 'required|string|max:15',
             'division'=> 'required|string|',
             'district'=> 'required|string|',
             'thana'   => 'required|string|',
             'address' => 'required|string|max:255',
         ]);
-       
+
+        $userId = 1;
+
+        $address = new Address();
+        $address->user_id  = $userId;
+        $address->phone    = $request->phone;
+        $address->division = $request->division;
+        $address->district = $request->district;
+        $address->thana    = $request->thana;
+        $address->address  = $request->address;
+        $address->save();
+
+        $cart = \Cart::session(1)->getContent();
+        // dd($cart);
+
+        $totalPrice = 0;
+            foreach($cart as $item){
+            $totalPrice += ($item['price'] * $item['quantity']);
+        }
+
+        $orderId = time();
+        //Order Create
+        $order = Order::create([
+            'user_id' => $userId,
+            'shipping_address' => $address,
+            'order_number'      => $orderId,
+            'total_price'       => $totalPrice,
+            'order_status_id'   => 1,
+            'payment_method_id' => 1,
+            'payment_status_id' => 0,
+        ]);
+        foreach($cart as $item){
+        OrderDetails::create([
+            'order_id'        => $order->id,
+            'product_id'      => $item['id'],
+            'quantity'        => $item['quantity'],
+            'price'           => $item['price'],
+            'total'           => $item['price'] * $item['quantity']
+        ]);
+    }
+
+
+        return redirect()->back();
+
     }
 
 }

@@ -101,6 +101,11 @@
                       <li><a href="{{route('product.index')}}">Manage</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-edit"></i> Invoice <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{route('order.invoice')}}">Invoice</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="general_elements.html">General Elements</a></li>

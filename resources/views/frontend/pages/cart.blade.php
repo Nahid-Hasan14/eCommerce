@@ -77,7 +77,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <!-- tr -->
-                                                        @foreach ($items as $item)
+                                                        @foreach ($data['items'] as $item)
                                                             <tr data-id="{{$item->id}}" id="{{$item->id}}">
                                                             <td class="product-thumbnail">
                                                                 <div class="pro-thumbnail-img">
@@ -138,7 +138,7 @@
                                                                 <td >$ </td>
                                                             </tr>
                                                         </table>
-                                                        <button href="#checkout" data-toggle="tab" class="btn btn-primary">Order</button>
+                                                        <button href="#checkout" data-toggle="tab" class="btn btn-primary" id="order_btn">Order</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -283,37 +283,20 @@
                                                             <span>hasan14@gmail.com</span><br/>
                                                             <span>01774641500</span>
                                                         </div>
-                                                        <h6 class="widget-title border-left mb-20">Address</h6>
-                                                        <input type="text" name="name" value="{{old('name')}}" id="name" placeholder="Your Name Here..."/>
-                                                        <input type="text" name= "email" value="{{old('email')}}" id="email" placeholder="Email address here..."/>
+                                                        <h6 class="widget-title border-left mb-20">Shipping Info</h6>
                                                         <input type="text" name="phone" value="{{old('phone')}}" id="name" placeholder="Phone here..."/>
-                                                        <select class="custom-select" name="division">
-                                                            <option value="">Division</option>
-                                                            <option value="dhaka">Dhaka</option>
-                                                            <option value="rangpur">Rangpur</option>
-                                                            <option value="chattogram">Chattogram</option>
-                                                            <option value="rajshahi">Rajshahi</option>
-                                                            <option value="mymensingh">Mymensingh</option>
-                                                            <option value="sylet">Sylet</option>
-                                                            <option value="jasor">Jasor</option>
-                                                            <option value="barishal">Barishal</option>
+                                                        <select class="custom-select" id="division" name="division">
+                                                            @foreach ($data['division']  as $division)
+                                                                <option value="{{$division->id}}">{{$division->name}}</option>
+
+                                                            @endforeach
+
                                                         </select>
-                                                        <select class="custom-select" name="district">
-                                                            <option value="">District</option>
-                                                            <option value="dhaka">Dhaka</option>
-                                                            <option value="kurigram">Kurigram</option>
-                                                            <option value="rangpur">Rangpur</option>
-                                                            <option value="lalmonirhat">Lalmonirhat</option>
-                                                            <option value="dinajpur">Dinajpur</option>
-                                                            <option value="gaibandha">Gaibandha</option>
-                                                            <option value="netrokona">Netrokona</option>
+                                                        <select id="district" class="custom-select" name="district">
+                                                            <option value="">Select District</option>
                                                         </select>
-                                                        <select class="custom-select" name="thana">
-                                                            <option value="">Thana</option>
-                                                            <option value="kochakata">Kochakata</option>
-                                                            <option value="bhurungamari">Bhurungamari</option>
-                                                            <option value="nageswari">Nageswari</option>
-                                                            <option value="kurigram-sadar">Kurigram Sadar</option>
+                                                        <select id="upazila" class="custom-select" name="thana">
+                                                            <option value="" >Select Thana</option>
                                                         </select>
                                                         <textarea name="address" class="custom-textarea" placeholder="Your address here..."></textarea>
                                                     </div>
@@ -345,7 +328,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="order-total">Order Total</td>
-                                                                <td class="order-total-price">$2425.00</td>
+                                                                <td class="order-total-price">$ {{ number_format(\Cart::session(1)->getTotal()) }}</td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -521,7 +504,77 @@
 {{-- Update & Remove Item --}}
 <script>
 
+
+
     let updateBtn = document.getElementsByClassName('update-cart');
+    const order_btn = document.getElementById("order_btn");
+    const division = document.getElementById("division");
+    const district = document.getElementById("district");
+
+        division.onchange = function() {
+            // console.log(this);
+            // console.log(this.value);
+            $.ajax({
+                type: "POST",
+                url: "{{route('get.district')}}",
+                dataType: "json",
+                data: {
+                    division_id: this.value,
+                    _token:"{{csrf_token()}}"
+                },
+
+                success: function (res) {
+                    if (res.success) {
+                        let defaultOption = '<option value="">Select District</option>';
+                        let option = res.data.map(district => `<option value="${district.id}">${district.name}</option>`).join('');
+                        document.getElementById('district').innerHTML = defaultOption + option;
+                    }
+                },
+                error: function (error) {
+                    console.log("Error:", error)
+                }
+            })
+        };
+
+
+        district.onchange = function() {
+            // console.log(this);
+            // console.log(this.value);
+            $.ajax({
+                type: "POST",
+                url: "{{route('get.upazila')}}",
+                dataType: "json",
+                data: {
+                    district_id: this.value,
+                    _token:"{{csrf_token()}}"
+                },
+
+                success: function (res) {
+                    // console.log(res);
+                    if (res.success) {
+                        let defaultOption = '<option value="">Select Upazila</option>';
+                        let option = res.data.map(upazila => `<option value="${upazila.id}">${upazila.name}</option>`).join('');
+                        console.log(option);
+                        document.getElementById('upazila').innerHTML = defaultOption + option;
+                    }
+                },
+                error: function (error) {
+                    console.log("Error:", error)
+                }
+            })
+        };
+
+
+
+        order_btn.onclick = function() {
+
+            if("{{auth()->user()}}") {
+                  alert("Login");
+            }
+
+
+        alert("unkhon user!");
+        };
 
     for(let i = 0; i < updateBtn.length; i++ ) {
         updateBtn[i].addEventListener('click', function(e){

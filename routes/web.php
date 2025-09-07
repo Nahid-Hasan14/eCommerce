@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\frontend\BaseController;
 use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\frontend\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BaseController::class, 'index'])->name('index');
@@ -17,7 +18,7 @@ Route::get('/cart', [BaseController::class, 'cart'])->name('cart');
 Route::get('/error-404', [BaseController::class, 'error'])->name('error');
 Route::get('/blogs-page', [BaseController::class, 'blogs'])->name('blogs');
 Route::get('/blog-details', [BaseController::class, 'blogDetails'])->name('blog.details');
-Route::get('/register', [BaseController::class, 'register'])->name('register');
+Route::get('/customer/register', [BaseController::class, 'register'])->name('register');
 Route::get('/login', [BaseController::class, 'login'])->name('login');
 Route::get('/dashboard', [BaseController::class, 'dashboard'])->name('dashboard');
 Route::get('/products', [BaseController::class, 'products'])->name('products');
@@ -27,6 +28,11 @@ Route::post('/add-to-cart', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/address', [CartController::class, 'address'])->name('checkout.address');
+Route::post('/district', [BaseController::class, 'getDistrict'])->name('get.district');
+Route::post('/upazila', [BaseController::class, 'getUpazila'])->name('get.upazila');
+
+Route::get('/user', [UserController::class, 'user'])->name('user.user');
+Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
 
 
 
@@ -79,6 +85,8 @@ Route::post('/admin/product/image/delete', [ProductController::class,'deleteImag
 Route::get('/admin/product/status/{id}', [ProductController::class,'changeStatus'])->name('product.status');
 
 Route::get('/admin/orders-manage', [OrderController::class, 'orders'])->name('orders.manage');
+Route::get('/admin/order-details', [OrderController::class, 'details'])->name('order.details');
+Route::get('/admin/invoice', [OrderController::class, 'invoice'])->name('order.invoice');
 
 
 

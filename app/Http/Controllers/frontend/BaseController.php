@@ -7,8 +7,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
-// use Brian2694\Toastr\Facades\Toastr;
-// use SweetAlert2\Laravel\Swal;
+use DB;
 
 class BaseController extends Controller
 {
@@ -25,14 +24,6 @@ class BaseController extends Controller
                                     ->take(6)
                                     ->get();
 
-        // Toastr::success('Hello World');
-        // Swal::fire([
-        //     'title' => 'Laravel + SweetAlert2 = <3',
-        //     'text' => 'This is a simple alert using SweetAlert2',
-        //     'icon' => 'success',
-        //     'confirmButtonText' => 'Cool'
-        // ]);
-
         return view('frontend.index', compact('sliders', 'products', 'brands'));
     }
 
@@ -41,7 +32,6 @@ class BaseController extends Controller
     }
 
     public function contact() {
-         Toastr::success('Hello World');
         return view('frontend.pages.contact');
     }
 
@@ -56,13 +46,14 @@ class BaseController extends Controller
         }
 
         // $cartItems = session()->get('cart', []);
-        $items = \Cart::session(1)->getContent();
-        $total = \Cart::session(1)->getTotal();
-        $subTotal = \Cart::session(1)->getSubTotal();
+        $data['items'] = \Cart::session(1)->getContent();
+        $data['total'] = \Cart::session(1)->getTotal();
+        $data['subTotal'] = \Cart::session(1)->getSubTotal();
+        $data['division'] = DB::table('divisions')->select('id', 'name')->orderBy('name', 'asc')->get();
 
 
         //  dd($cartItems);
-        return view('frontend.pages.cart', compact('items', 'total', 'subTotal'));
+        return view('frontend.pages.cart', compact('data'));
     }
 
     public function error() {
@@ -99,5 +90,24 @@ class BaseController extends Controller
 
     public function wishlist() {
         return view('frontend.pages.wishlist');
+    }
+    public function getDistrict(Request $request) {
+         $data['division'] = DB::table('districts')->where('division_id',$request->division_id)->select('id', 'name')->orderBy('name', 'asc')->get();
+         return response()->json([
+            'success'   => true,
+            'status' => 'success',
+            'message'   => "Successfully",
+            'data'   =>  $data['division']
+         ]);
+    }
+
+    public function getUpazila(Request $request) {
+         $data['district'] = DB::table('upazilas')->where('district_id',$request->district_id)->select('id', 'name')->orderBy('name', 'asc')->get();
+         return response()->json([
+            'success'   => true,
+            'status' => 'success',
+            'message'   => "Successfully",
+            'data'   =>  $data['district']
+         ]);
     }
 }

@@ -31,8 +31,10 @@
     <!-- Style customizer (Remove these two lines please) -->
     <link rel="stylesheet" href="{{asset('frontend')}}/css/style-customizer.css">
     <script src="{{asset('sweetalert')}}/sweetalert2@11.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
+    @stack('style')
 </head>
 <style>
     #mini-cart {
@@ -76,7 +78,7 @@
                             <div class="top-link clearfix">
                                 <ul class="link f-right">
                                     <li>
-                                        <a href="{{route('dashboard')}}">
+                                        <a href="{{route('customer.dashboard')}}">
                                             <i class="zmdi zmdi-account"></i>
                                             My Account
                                         </a>
@@ -87,12 +89,25 @@
                                             Wish List (0)
                                         </a>
                                     </li>
+                                    @auth('customer')
                                     <li>
-                                        <a href="{{route('login')}}">
+                                        <a href="{{route('customer.logout')}}">
+                                            <i class="zmdi zmdi-lock"></i>
+                                            Logout
+                                        </a>
+                                    </li>
+
+                                    @else
+
+                                    <li>
+                                        <a href="{{route('customer.login')}}">
                                             <i class="zmdi zmdi-lock"></i>
                                             Login
                                         </a>
                                     </li>
+
+                                    @endauth
+
                                 </ul>
                             </div>
                         </div>
@@ -505,6 +520,28 @@
 
         <!-- START page content -->
           @yield('content')
+
+          @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "{{ session('success') }}",
+                    timer: 3000,
+                    showConfirmButton: false
+                })
+            </script>
+        @endif
+
+        @if ($errors->any())
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "{{ $errors->first() }}"
+                })
+            </script>
+        @endif
         <!-- START FOOTER AREA -->
         <footer id="footer" class="footer-area">
             <div class="footer-top">

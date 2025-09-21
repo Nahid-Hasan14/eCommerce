@@ -1327,7 +1327,7 @@
             $.ajax({
                 type: "POST",
                 url: "{{route('cart.add')}}",
-                dataType: "json",
+                : "json",
                 data: {
                     productId: productId,
                     _token:"{{csrf_token()}}"

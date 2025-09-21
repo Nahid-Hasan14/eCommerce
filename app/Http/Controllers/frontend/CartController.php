@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
+use DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-
 
 class CartController extends Controller
 {
@@ -65,7 +67,7 @@ class CartController extends Controller
     }
 
     public function update(Request $request) {
-        $id   = $request->productId;
+        $id = $request->productId;
 
             if($request->action == 'increase') {
                 \Cart::session(1)->update($id, ['quantity' => 1]);
@@ -90,59 +92,90 @@ class CartController extends Controller
 
     // Check out Controlle
 
-    public function address (Request $request) {
-        // dd($request);
-        $request->validate([
-            'phone'   => 'required|string|max:15',
-            'division'=> 'required|string|',
-            'district'=> 'required|string|',
-            'thana'   => 'required|string|',
-            'address' => 'required|string|max:255',
-        ]);
+    public function checkout (Request $request) {
+        // dd($request->all());
 
-        $userId = 1;
+        $customer = auth()->guard('customer')->user();
 
-        $address = new Address();
-        $address->user_id  = $userId;
-        $address->phone    = $request->phone;
-        $address->division = $request->division;
-        $address->district = $request->district;
-        $address->thana    = $request->thana;
-        $address->address  = $request->address;
-        $address->save();
+        $shipping_id = $request->shipping_address;
 
-        $cart = \Cart::session(1)->getContent();
-        // dd($cart);
+        if(!$request->shipping_address) {
 
-        $totalPrice = 0;
-            foreach($cart as $item){
-            $totalPrice += ($item['price'] * $item['quantity']);
+            $request->validate([
+                'payment_method'   => 'required|integer',
+                'shipping_address' => 'nullable|integer',
+
+                'phone'   => 'required|string|max:15',
+                'division'=> 'required',
+                'district'=> 'required',
+                'upazila' =>'required',
+                'address' => 'required|string|max:255'
+            ]);
+
+            $address = new Address();
+            $address->customer_id = $customer->id;
+            $address->phone       = $request->phone;
+            $address->division    = $request->division;
+            $address->district    = $request->district;
+            $address->upazila     = $request->upazila;
+            $address->address     = $request->address;
+            $address->save();
+           $shipping_id  =  $address->id;
+        }
+        if($shipping_id) {
+            $data['shipping_address'] = DB::table('addresses as a')
+            ->join('divisions as d', 'd.id', 'a.division')
+            ->join('districts as dc', 'dc.id', 'a.district')
+            ->join('upazilas as u', 'u.id', 'a.upazila')
+            ->select('a.id', 'a.phone', 'a.address', 'd.name as division', 'dc.name as district', 'u.name as upazila')
+            ->where(['a.customer_id'=>auth('customer')->id(),'a.id'=>$shipping_id ])->first();
         }
 
-        $orderId = time();
+        $cart = \Cart::session(1)->getContent();
+        $totalPrice = \Cart::session(1)->getTotal();
+        $orderId = $customer->id.time(); //create Order ID
+
         //Order Create
         $order = Order::create([
-            'user_id' => $userId,
-            'shipping_address' => $address,
+            'customer_id' => $customer->id,
+            'shipping_address' => implode('|', (array) $data['shipping_address']),
             'order_number'      => $orderId,
             'total_price'       => $totalPrice,
-            'order_status_id'   => 1,
-            'payment_method_id' => 1,
-            'payment_status_id' => 0,
+            'order_status_id'   => 1, //default pendding
+            'payment_method_id' => $request->payment_method,
+            'payment_status_id' => 0
         ]);
         foreach($cart as $item){
-        OrderDetails::create([
-            'order_id'        => $order->id,
-            'product_id'      => $item['id'],
-            'quantity'        => $item['quantity'],
-            'price'           => $item['price'],
-            'total'           => $item['price'] * $item['quantity']
+            $product = Product::find($item['id']);
+            OrderDetails::create([
+                'order_id'        => $order->id,
+                'product_id'      => $item['id'],
+                'quantity'        => $item['quantity'],
+                'price'           => $item['price'],
+                'total'           => $item['price'] * $item['quantity']
+            ]);
+            $product->stock -= $item['quantity'];
+            $product->save();
+        }
+
+    if($order) {
+
+        \Cart::session(1)->clear();
+        Mail::to($customer->email)->send(new OrderConfirmationMail($order));
+
+        //Ajax  JSON response for thank you page
+        return response()->json([
+            'success' => 201,
+            'status' => 'success',
+            'message' => 'Your order has been placed successfully!',
+            'order_no'=> $order->order_number
         ]);
     }
 
-
-        return redirect()->back();
-
+        return response()->json([
+            'status'  => 'error',
+            'message' => 'Something went wrong, please try again.'
+        ], 500);
     }
 
 }

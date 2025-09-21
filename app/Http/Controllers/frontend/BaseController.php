@@ -40,10 +40,25 @@ class BaseController extends Controller
     }
 
     public function cart() {
+        //For Register User Address Find
+        $data['customer'] = auth('customer')->user();
 
+
+        $data['addresses'] = DB::table('addresses as a')
+        ->join('divisions as d', 'd.id', 'a.division')
+        ->join('districts as dc', 'dc.id', 'a.district')
+        ->join('upazilas as u', 'u.id', 'a.upazila')
+        ->select('a.id', 'a.phone', 'a.address', 'd.name as division', 'dc.name as district', 'u.name as upazila')
+        ->where('a.customer_id', auth('customer')->id())->get();
+
+
+        // dd($data);
         if(\Cart::session(1)->isEmpty()) {
             return redirect()->back();
         }
+
+        //For Payment Methods table data find
+        $data['payment_methods'] = DB::table('payment_methods')->get();
 
         // $cartItems = session()->get('cart', []);
         $data['items'] = \Cart::session(1)->getContent();
@@ -68,9 +83,9 @@ class BaseController extends Controller
         return view('frontend.pages.blog_details');
     }
 
-    public function register() {
-        return view('frontend.pages.register');
-    }
+    // public function register() {
+    //     return view('frontend.pages.register');
+    // }
 
     public function login() {
         return view('frontend.pages.login');
@@ -82,6 +97,10 @@ class BaseController extends Controller
 
     public function productDetails() {
         return view('frontend.pages.product_details');
+    }
+
+    public function thank() {
+        return view('frontend.pages.thankyou_order');
     }
 
     public function products() {

@@ -1,342 +1,393 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'Dashboard')
+@section('title', 'My Dashboard')
+
+@push('style')
+<style>
+    .black-text {
+        color: #000
+    }
+    .navbar {
+        padding: 15px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+    .profile-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        margin-bottom: 10px;
+    }
+    .nav-title > li {
+        padding: 7px 0;
+    }
+    .nav-title > li > a{
+        border-radius: 5px;
+        color: #555;
+        padding: 8px;
+    }
+    .nav-title > li.active > a,
+    .nav-title > li.active > a:hover,
+    .nav-title > li.active > a:focus {
+        color: #fff;
+        background-color: #337ab7;
+    }
+    .card-content {
+        padding-bottom: 15px;
+    }
+    .dashboard-card {
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .dashboard-card h1 , p{
+        color: #fff;
+    }
+    .bg-primary { background-color: #0d6efd !important; }
+    .bg-success { background-color: #28a745 !important; }
+    .bg-info    { background-color: #5bc0de !important; }
+    .bg-warning { background-color: #f0ad4e !important; }
+    .bg-danger  { background-color: #FF0000 !important; }
+
+    .order-details-container {
+        /* display: none; Initially hidden */
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .order-content {
+        margin-top: 20px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .table-heading {
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #eee;
+        padding: 15px;
+    }
+    .table-res > table {
+        padding: 15px;
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    .table-res > table th,
+    .table-res > table td {
+        padding: 10px;
+        color: #000;
+    }
+    .table > tbody > tr > td, .table > thead > tr > th {
+            vertical-align: middle;
+    }
+    .product-list .media {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    .product-list .media:last-child {
+        border-bottom: none;
+    }
+    .order-summary-table {
+        margin-top: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+</style>
+@endpush
 
 @section('content')
-   <div class="breadcrumbs-section plr-200 mb-80">
-            <div class="breadcrumbs overlay-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="breadcrumbs-inner">
-                                <h1 class="breadcrumbs-title">Dashboard</h1>
-                                <ul class="breadcrumb-list">
-                                    <li><a href="{{route('index')}}">Home</a></li>
-                                    <li>My Account</li>
-                                </ul>
-                            </div>
-                        </div>
+    <div class="container">
+        <h1 class="text-center">My Dashboard</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="navbar">
+                    <div class=" text-center">
+                        <img src="{{asset('frontend')}}/img//product/6.jpg" class="profile-img" height="100px" width="100px"/>
+                        <h2>{{ucwords(auth('customer')->user()->name)}}</h2>
+                        <ul class="nav-title" id="dashboard-tabs">
+                            <li class="active"><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
+                            <li><a href="{{route('user.profile')}}">My Profile</a></li>
+                            <li><a href="" data-toggle="tab">My Favorite</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- BREADCRUMBS SETCTION END -->
-
-        <!-- Start page content -->
-        <div id="page-content" class="page-wrapper">
-
-            <!-- LOGIN SECTION START -->
-            <div class="login-section mb-80">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <div class="my-account-content" id="accordion2">
-                                <!-- My Personal Information -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#personal_info">My Personal Information</a>
-                                        </h4>
-                                    </div>
-                                    <div id="personal_info" class="panel-collapse collapse in" role="tabpanel">
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <div class="new-customers">
-                                                    <div class="p-30">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <input type="text"  placeholder="First Name">
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text"  placeholder="last Name">
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">country</option>
-                                                                    <option value="c-1">Australia</option>
-                                                                    <option value="c-2">Bangladesh</option>
-                                                                    <option value="c-3">Unitd States</option>
-                                                                    <option value="c-4">Unitd Kingdom</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">State</option>
-                                                                    <option value="c-1">Melbourne</option>
-                                                                    <option value="c-2">Dhaka</option>
-                                                                    <option value="c-3">New York</option>
-                                                                    <option value="c-4">London</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">Town/City</option>
-                                                                    <option value="c-1">Victoria</option>
-                                                                    <option value="c-2">Chittagong</option>
-                                                                    <option value="c-3">Boston</option>
-                                                                    <option value="c-4">Cambridge</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text"  placeholder="Phone here...">
-                                                            </div>
-                                                        </div>
-                                                        <input type="text"  placeholder="Company neme here...">
-                                                        <input type="text"  placeholder="Email address here...">
-                                                        <input type="password"  placeholder="Password">
-                                                        <input type="password"  placeholder="Confirm Password">
-                                                        <textarea class="custom-textarea" placeholder="Additional information..."></textarea>
-                                                        <div class="checkbox">
-                                                            <label class="mr-10">
-                                                                <small>
-                                                                    <input type="checkbox" name="signup">I wish to subscribe to the 69 Fashion newsletter.
-                                                                </small>
-                                                            </label>
-                                                            <br>
-                                                            <label>
-                                                                <small>
-                                                                    <input type="checkbox" name="signup">I have read and agree to the <a href="#">Privacy Policy</a>
-                                                                </small>
-                                                            </label>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Save</button>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Clear</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="content">
+                    <div class="card-content" id="dashboard">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                <div class="dashboard-card bg-primary">
+                                    <h1>{{ $data['orders']->count() }}</h1>
+                                    <p>Total Orders</p>
                                 </div>
-                                <!-- My shipping address -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#my_shipping">My shipping address</a>
-                                        </h4>
-                                    </div>
-                                    <div id="my_shipping" class="panel-collapse collapse" role="tabpanel" >
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <div class="new-customers p-30">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <input type="text"  placeholder="First Name">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text"  placeholder="last Name">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">country</option>
-                                                                <option value="c-1">Australia</option>
-                                                                <option value="c-2">Bangladesh</option>
-                                                                <option value="c-3">Unitd States</option>
-                                                                <option value="c-4">Unitd Kingdom</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">State</option>
-                                                                <option value="c-1">Melbourne</option>
-                                                                <option value="c-2">Dhaka</option>
-                                                                <option value="c-3">New York</option>
-                                                                <option value="c-4">London</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Town/City</option>
-                                                                <option value="c-1">Victoria</option>
-                                                                <option value="c-2">Chittagong</option>
-                                                                <option value="c-3">Boston</option>
-                                                                <option value="c-4">Cambridge</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text"  placeholder="Phone here...">
-                                                        </div>
-                                                    </div>
-                                                    <input type="text"  placeholder="Company neme here...">
-                                                    <input type="text"  placeholder="Email address here...">
-                                                    <textarea class="custom-textarea" placeholder="Additional information..."></textarea>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Save</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Clear</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                <div class="dashboard-card bg-warning">
+                                    <h1>{{ $data['orders']->where('status', 'Pending')->count() }}</h1>
+                                    <p>Pending</p>
                                 </div>
-                                <!-- My billing details -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#billing_address">My billing details</a>
-                                        </h4>
-                                    </div>
-                                    <div id="billing_address" class="panel-collapse collapse" role="tabpanel" >
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <div class="billing-details p-30">
-                                                    <input type="text"  placeholder="Your Name Here...">
-                                                    <input type="text"  placeholder="Email address here...">
-                                                    <input type="text"  placeholder="Phone here...">
-                                                    <input type="text"  placeholder="Company neme here...">
-                                                    <select class="custom-select">
-                                                        <option value="defalt">country</option>
-                                                        <option value="c-1">Australia</option>
-                                                        <option value="c-2">Bangladesh</option>
-                                                        <option value="c-3">Unitd States</option>
-                                                        <option value="c-4">Unitd Kingdom</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">State</option>
-                                                        <option value="c-1">Melbourne</option>
-                                                        <option value="c-2">Dhaka</option>
-                                                        <option value="c-3">New York</option>
-                                                        <option value="c-4">London</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Town/City</option>
-                                                        <option value="c-1">Victoria</option>
-                                                        <option value="c-2">Chittagong</option>
-                                                        <option value="c-3">Boston</option>
-                                                        <option value="c-4">Cambridge</option>
-                                                    </select>
-                                                    <textarea class="custom-textarea" placeholder="Your address here..."></textarea>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Save</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Clear</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                <div class="dashboard-card bg-success">
+                                    <h1>{{$data['orders']->where('status', 'Completed')->count()}}</h1>
+                                    <p>Completed</p>
                                 </div>
-                                <!-- My Order info -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#My_order_info">My Order info</a>
-                                        </h4>
-                                    </div>
-                                    <div id="My_order_info" class="panel-collapse collapse" role="tabpanel" >
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <!-- our order -->
-                                                <div class="payment-details p-30">
-                                                    <table>
-                                                        <tr>
-                                                            <td class="td-title-1">Dummy Product Name x 2</td>
-                                                            <td class="td-title-2">$1855.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Dummy Product Name</td>
-                                                            <td class="td-title-2">$555.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Cart Subtotal</td>
-                                                            <td class="td-title-2">$2410.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Shipping and Handing</td>
-                                                            <td class="td-title-2">$15.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Vat</td>
-                                                            <td class="td-title-2">$00.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="order-total">Order Total</td>
-                                                            <td class="order-total-price">$2425.00</td>
-                                                        </tr>
-                                                    </table>
-                                                    <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Payment Method -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#My_payment_method">Payment Method</a>
-                                        </h4>
-                                    </div>
-                                    <div id="My_payment_method" class="panel-collapse collapse" role="tabpanel" >
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <div class="new-customers p-30">
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Card Type</option>
-                                                        <option value="c-1">Master Card</option>
-                                                        <option value="c-2">Paypal</option>
-                                                        <option value="c-3">Paypal</option>
-                                                        <option value="c-4">Paypal</option>
-                                                    </select>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <input type="text"  placeholder="Card Number">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text"  placeholder="Card Security Code">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Month</option>
-                                                                <option value="c-1">January</option>
-                                                                <option value="c-2">February</option>
-                                                                <option value="c-3">March</option>
-                                                                <option value="c-4">April</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Year</option>
-                                                                <option value="c-4">2017</option>
-                                                                <option value="c-1">2016</option>
-                                                                <option value="c-2">2015</option>
-                                                                <option value="c-3">2014</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">pay now</button>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">cancel order</button>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 f-right btn-hover-1" type="submit" value="register">continue</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                <div class="dashboard-card bg-danger">
+                                    <h1>{{ $data['orders']->where('status', 'Canceled')->count() }}</h1>
+                                    <p>Canceled</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="order-content">
+                        <div class="table-heading">
+                            <h2>Recent Order</h2>
+                        </div>
+                        <div class="table-responsive table-res" style="padding: 15px;">
+                            <table  class="table table-striped table-hover table-style">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Order Id</th>
+                                        <th>Date</th>
+                                        {{-- <th>Total Item</th> --}}
+                                        <th>Total Price</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data['orders'] as $order)
+                                    @php
+                                        $address = explode('|', $order->shipping_address);
+                                    @endphp
+                                        <tr>
+                                            <td>{{ $loop->index + 1 }}</td>
+                                            <td>#{{ $order->order_number }}</td>
+                                            <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
+                                            {{-- <td><img src="{{asset('storage')}}/{{ $order->image }}" height="80px" width="80px"/></td> --}}
+                                            {{-- <td>{{ $order->title }}</td> --}}
+                                            <td>$ {{ $order->total_price }}</td>
+                                            <td style="color: #e6982b">{{ $order->OrderStatus->name }}</td>
+                                            <td><button class="btn btn-info btn-sm view-details-btn" data-target= "{{ $order->order_number }}" style="border-radius: 4px;">View Details</button></td>
+                                        </tr>
+                                        {{-- for Order Details show --}}
+                                        <tr class="details-row">
+                                            <td colspan="6">
+                                                <div class="order-details-container" id="details-{{$order->order_number}}">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12">
+                                                            <div class="order-content">
+                                                                <div class="table-heading black-text">Details of Order #{{$order->order_number}}</div>
+                                                                <div class="order-info" style="padding: 15px;">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <h4 class="black-text">Order Info</h4>
+                                                                            <span class="black-text"><strong>Order Date: {{ date("d-M-Y", strtotime($order->created_at)) }}</strong></span><br>
+                                                                            <sapn class="black-text"><strong>Total Price:</strong> $ {{ $order->total_price }}</sapn><br>
+                                                                            <span class="black-text"><strong>Status:</strong> {{ $order->OrderStatus->name }}</span>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-sm-12">
+                                                                            <h4 class="black-text">Shipping Info</h4>
+                                                                            <address class="black-text">
+                                                                                <strong>{{$address[3]}}-> {{$address[4]}}-> {{$address[5]}}</strong> <br>
+                                                                                {{$address[2]}} <br>
+                                                                                {{$address[1]}}
+                                                                            </address>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr>
+
+                                                                    <div>
+                                                                        <h4>Order Products</h4>
+                                                                        <div class="product-list">
+                                                                            <div class="media">
+                                                                                <div class="media-left">
+                                                                                    <a>
+                                                                                        <img src="{{asset('storage')}}/{{ $order->image }}" height="80px" width="80px"/>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="media-body">
+                                                                                    <h4 class="media-heading">{{$order->title}}</h4>
+                                                                                    <span class="black-text"><strong>Price:</strong> {{$order->price}} | <strong>Quantity:</strong> {{$order->quantity}} | <strong>Total:</strong> {{$order->price}}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="order-summary-table text-right">
+                                                                            <span class="black-text"><strong>Sub Total:</strong> $120.50</span> <br>
+                                                                            <span class="black-text"><strong>Delivery fee:</strong> $0.00</span>
+                                                                            <h4 class="black-text"><strong>Total:</strong> $120.50</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-primary pull-right close-details-btn" >Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                     @endforeach
+                                </tbody>
+                            </table>
+                            {{ $data['orders']->links('pagination::bootstrap-4')}}
+                        </div>
+                    </div>
+                    {{-- For Order Details --}}
+                    {{-- <div class="order-details-container">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="order-content">
+                                    <div class="table-heading black-text">Details of Order #ORD1002</div>
+                                    <div class="order-info" style="padding: 15px;">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <h4 class="black-text">Order Info</h4>
+                                                <span class="black-text"><strong>Order Date: 2024-05-08</strong></span><br>
+                                                <sapn class="black-text"><strong>Total Price:</strong> $ 250</sapn><br>
+                                                <span class="black-text"><strong>Status:</strong> Pending</span>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <h4 class="black-text">Shipping Info</h4>
+                                                <address class="black-text">
+                                                    <strong>Rangpur->Kurigram-> Nageshwari</strong> <br>
+                                                    Dholuabari, Kochakata-5660 <br>
+                                                    01774641500
+                                                </address>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div>
+                                            <h4>Order Products</h4>
+                                            <div class="product-list">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a>
+                                                            <img class="media-object" src="https://placehold.co/80x80/007bff/ffffff?text=Product+1" alt="Product Image">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">A Good Camera for Gift.....</h4>
+                                                        <span class="black-text"><strong>Price:</strong> $50.00 | <strong>Quantity:</strong> 2 | <strong>Total:</strong> $100.00</span>
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a>
+                                                            <img class="media-object" src="https://placehold.co/80x80/007bff/ffffff?text=Product+1" alt="Product Image">
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">A Good Camera for Gift.....</h4>
+                                                        <span class="black-text"><strong>Price:</strong> $50.00 | <strong>Quantity:</strong> 2 | <strong>Total:</strong> $100.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="order-summary-table text-right">
+                                                <span class="black-text"><strong>সাবটোটাল:</strong> $120.50</span> <br>
+                                                <span class="black-text"><strong>শিপিং:</strong> $0.00</span>
+                                                <h4 class="black-text"><strong>মোট:</strong> $120.50</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary pull-right" id="closeDetailsBtn">বন্ধ করুন</button>
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
             </div>
-            <!-- LOGIN SECTION END -->
         </div>
+    </div>
 @endsection
+
+@push('script')
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        document.querySelectorAll(".order-details-container").forEach(el => {
+            el.style.display = "none";
+        });
+
+        document.querySelectorAll(".view-details-btn").forEach(button => {
+            button.addEventListener("click", function(e) {
+                e.preventDefault();
+                // alert("Button Working");
+
+                let buttonOrderNumber = this.dataset.target;
+                let targetEl = document.querySelector( "#details-" + buttonOrderNumber );
+                console.log(targetEl);
+
+                // document.querySelectorAll(".order-details-container").forEach(el=> {
+                //     if(el !== targetEl) {
+                //         el.style.display = "none";
+                //     }
+                // });
+
+                if(!targetEl.dataset.loaded) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('customer.order.details')}}",
+                        dataType: "json",
+                        data: {
+                            buttonOrderNumber: buttonOrderNumber,
+                            _token:"{{csrf_token()}}"
+                        },
+                        success: function(response) {
+                            console.log(response.html);
+                            targetEl.innerHTML = response.html;
+                            targetEl.style.display = "block";
+                            targetEl.dataset.loaded = true;
+                        },
+                        error: function(err) {
+                            console.error(err.responseText);
+                        }
+                    });
+                }else {
+                    targetEl.style.display = targetEl.style.display === "none" ? "block" : "none";
+                }
+
+                // if(targetEl.style.display === "none") {
+                //     targetEl.style.display ="block";
+                // }else {
+                //     targetEl.style.display = "none";
+                // }
+            })
+        })
+    //         document.querySelectorAll(".close-details-btn").forEach(button => {
+    //         button.addEventListener("click", function() {
+    //             console.log(this)
+    //             console.log(this.closest(".order-details-container"))
+    //             this.closest(".order-details-container").style.display = "none";
+    //         });
+    //    });
+
+
+
+    })
+    function closebtn(id) {
+
+        let order_details_section = document.getElementById("details-" + id);
+        let dashboard = document.getElementById("dashboard");
+        dashboard.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+        order_details_section .style.display = 'none';
+    }
+ </script>
+@endpush

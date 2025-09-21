@@ -445,22 +445,13 @@
                                 <div class="tab-pane active" id="order-complete">
                                     <div class="order-complete-content box-shadow">
                                         <div class="thank-you p-30 text-center">
-                                            <h6 class="text-black-5 mb-0">Thank you. Your order has been received.</h6>
+                                            <h2 class="text-black-5 mb-0">
+                                                <i class="fa-solid fa-check" style="color:green; margin-right:10px;"></i>
+                                                Thank you. Your order has been received.
+                                            </h2>
                                         </div>
                                         <div class="order-info p-30 mb-10">
                                             <ul class="order-info-list">
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
                                                 <li>
                                                     <h6>order no</h6>
                                                     <p>m 2653257</p>

@@ -10,13 +10,13 @@
             <div class="navbar">
                 <div class=" text-center">
                     <img src="{{asset('frontend')}}/img//product/6.jpg" class="profile-img" height="100px" width="100px"/>
-                    <h2>Md Jobbar Ali</h2>
+                    <h2>{{ucwords(auth('customer')->user()->name)}}</h2>
                     <ul class="nav-title" id="dashboard-tabs">
                         <li class=""><a href="{{route('user.user')}}">Dashboard</a></li>
                         <li class="active"><a href="" data-toggle="tab">My Profile</a></li>
                         <li><a href="" data-toggle="tab">My Favorite</a></li>
                     </ul>
-                    <button class="btn btn-sm  red-btn">Change Password</button>
+                    <a href="{{route('customer.change.password.show')}}" class="btn btn-sm  red-btn">Change Password</a>
                 </div>
             </div>
         </div>
@@ -25,38 +25,47 @@
                 <div class="personal-info">
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
-                            <div class="">
-                                <h5><strong>Name: </strong>Md Jobbar Ali</h5>
-                                <a class="red-btn">Edit Profile</a>
-                            </div>
+                            <h5><strong>Name: </strong>{{ucwords(auth('customer')->user()->name)}}</h5>
                         </div>
                         <div class="col-md-5 col-sm-12">
-                            <h5><strong>Email: </strong>jobbar@example.com</h5>
+                            <h5><strong>Email: </strong>{{auth('customer')->user()->email}}</h5>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <h5><strong>Phone: </strong>017xxxxxxxx</h5>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <h5><strong>Gender: </strong>Male</h5>
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                            <h5><strong>Date of Birth: </strong>25/09/2000</h5>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <a style="color: #f0ad4e">Edit Bio</a>
                         </div>
                     </div>
                 </div>
                 <div class="shipping">
                     <div class="shipping-header clearfix">
-                        <h3 class="pull-left">Shipping Addresss</h3>
+                        <h3 class="pull-left">Shipping Addresss ({{$data['addresses']->count()}}/4)</h3>
                         <button class="pull-right red-btn">Add New Address</button>
                     </div>
                     <div class="shipping-address">
                         <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="address-card">
-                                    <p>Kochakata-5660, Nageswari, Kurigram</p>
-                                    <a class="btn btn-sm btn-primary edit-btn">Edit</a>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="address-card">
-                                    <p>Dholuabri, Kochakata-5660, kurigram</p>
-                                    <a class="btn btn-sm btn-primary edit-btn">Edit</a>
-                                </div>
-                            </div>
+                            @if ($data['addresses']->isNotEmpty())
+                                @foreach ($data['addresses'] as $address)
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="address-card" style="margin-bottom: 10px;">
+                                            <span>{{ $address->division}} -> {{ $address->district}} -> {{ $address->upazila}}</span><br/>
+                                            <p>{{$address->address}}</p>
+                                            <p>{{$address->phone}}</p>
+                                            <div style="display: flex; justify-content: space-between">
+                                                <a class="btn btn-sm btn-primary edit-btn">Edit</a>
+                                                <a class="btn btn-sm btn-danger edit-btn">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -64,6 +73,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@push('style')
 <style>
     .navbar {
         padding: 15px;
@@ -123,7 +135,7 @@
         color: #c95252;
     }
     .shipping {
-        margin-top: 15px;
+        margin: 15px 0;
         border: 1px solid #949090;
         padding: 15px;
     }
@@ -146,4 +158,4 @@
     }
 
 </style>
-@endsection
+@endpush

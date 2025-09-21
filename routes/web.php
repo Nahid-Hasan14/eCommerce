@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Customer\ResetPasswordController;
+use App\Http\Controllers\Customer\ForgotPasswordController;
+use App\Http\Controllers\Customer\VerificationController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
@@ -8,6 +11,9 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\frontend\BaseController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\UserController;
+use App\Http\Controllers\Customer\LoginController;
+use App\Http\Controllers\Customer\RegisterController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BaseController::class, 'index'])->name('index');
@@ -18,26 +24,46 @@ Route::get('/cart', [BaseController::class, 'cart'])->name('cart');
 Route::get('/error-404', [BaseController::class, 'error'])->name('error');
 Route::get('/blogs-page', [BaseController::class, 'blogs'])->name('blogs');
 Route::get('/blog-details', [BaseController::class, 'blogDetails'])->name('blog.details');
-Route::get('/customer/register', [BaseController::class, 'register'])->name('register');
 Route::get('/login', [BaseController::class, 'login'])->name('login');
-Route::get('/dashboard', [BaseController::class, 'dashboard'])->name('dashboard');
+// Route::get('/dashboard', [BaseController::class, 'dashboard'])->name('dashboard');
 Route::get('/products', [BaseController::class, 'products'])->name('products');
+// Route::get('/thank-you', [BaseController::class, 'thank'])->name('order.completed');
 Route::get('/product-details', [BaseController::class, 'productDetails'])->name('product.details');
 Route::get('/wishlist', [BaseController::class, 'wishlist'])->name('wishlist');
 Route::post('/add-to-cart', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart-remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart-update', [CartController::class, 'update'])->name('cart.update');
-Route::post('/address', [CartController::class, 'address'])->name('checkout.address');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/district', [BaseController::class, 'getDistrict'])->name('get.district');
 Route::post('/upazila', [BaseController::class, 'getUpazila'])->name('get.upazila');
 
 Route::get('/user', [UserController::class, 'user'])->name('user.user');
 Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+// Route::get('/customer/register', [CustomerController::class, 'create'])->name('register.create');
 
 
 
 
+Route::prefix('customer')->group(function (){
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('customer.login');
+    Route::post('/login', [LoginController::class, 'login'])->name('customer.login.submit');
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('customer.register');
+    Route::post('/create', [RegisterController::class, 'register'])->name('customer.create');
+    Route::get('verify/{token}', [VerificationController::class, 'verify'])->name('customer.verify');
+    Route::get('/dashboard', [CustomerController::class, 'index'])->name('customer.dashboard');
+    Route::post('order/details', [CustomerController::class, 'OrderDetails'])->name('customer.order.details');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('customer.logout');
 
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('customer.forgot.password');
+    Route::post('/forgot-password/link', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('customer.password.email');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('customer.password.reset');
+    Route::Post('/reset-password', [ResetPasswordController::class, 'reset'])->name('customer.password.update');
+
+    Route::get('/change-password/show', [CustomerController::class, 'changePasswordShow'])->name('customer.change.password.show');
+    Route::post('/change-password', [CustomerController::class, 'changePassword'])->name('customer.change.password');
+
+});
 
 
 
@@ -92,3 +118,8 @@ Route::get('/admin/invoice', [OrderController::class, 'invoice'])->name('order.i
 
 
 
+
+Auth::routes();
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

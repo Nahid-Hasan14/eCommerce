@@ -5,7 +5,7 @@
   Author: codecarnival
   Version: 1.0
   Design and Developed by: codecarnival
-  NOTE: If you have any note put here. 
+  NOTE: If you have any note put here.
 
 */
 /*================================================
@@ -15,7 +15,7 @@
     1. jQuery MeanMenu
     2. wow js active
     3. jQuery Nivo Slider (home-2)
-    4. Slick Carousel 
+    4. Slick Carousel
         4.1 Active Slider - 1 (home-1)
         4.2 Active By Brand
         4.3 Active Featured Product
@@ -25,17 +25,17 @@
 		4.7 Active Team Member
     5. Countdown
     6. ScrollUp
-    7. Tooltip 
+    7. Tooltip
     8. Treeview active
     9. Price Slider
     10. Fancybox active
-    11. Elevate Zoom active 
+    11. Elevate Zoom active
     12. single-product-zoom-image carousel
     13. Cart Plus Minus Button
     14. bootstrap accordion one open at a time
     15. Cart tab menu active
-    16. Blog page manu dropdown 
-    17. Background Toutube Video 
+    16. Blog page manu dropdown
+    17. Background Toutube Video
     18. STICKY sticky-header
 
 ======================================
@@ -69,9 +69,9 @@
         prevText: '<i class="zmdi zmdi-long-arrow-up"></i>',
         nextText: '<i class="zmdi zmdi-long-arrow-down"></i>'
     });
-    
+
 	/* ********************************************
-		4. Slick Carousel 
+		4. Slick Carousel
 	******************************************** */
 
 	/* -------------------------------------
@@ -90,7 +90,7 @@
 
 	/*----------------------------
 			4.2 Active By Brand
-	------------------------------ */  
+	------------------------------ */
     $('.active-by-brand').slick({
         speed: 700,
         arrows: true,
@@ -105,10 +105,10 @@
             { breakpoint: 479, settings: { slidesToShow: 1 }  }
         ]
     });
-    
+
 	/*------------------------------------
 			4.3 Active Featured Product
-	----------------------------------- */  
+	----------------------------------- */
     $('.active-featured-product').slick({
         speed: 700,
         arrows: true,
@@ -122,11 +122,11 @@
             {  breakpoint: 767,   settings: { slidesToShow: 1, }   },
             {  breakpoint: 479,   settings: { slidesToShow: 1, }   },
         ]
-    });    
+    });
 
 	/*----------------------------
 			4.4 Active Blog
-	------------------------------ */  
+	------------------------------ */
     $('.active-blog').slick({
         speed: 700,
         arrows: false,
@@ -142,7 +142,7 @@
 
 	/*----------------------------
 			4.5 Active Blog 2
-	------------------------------ */ 
+	------------------------------ */
     $('.active-blog-2').slick({
         speed: 700,
         arrows: false,
@@ -196,7 +196,7 @@
         $this.countdown(finalDate, function(event) {
             $this.html(event.strftime('<span class="cdown days"><span class="time-count">%-D</span> <p>Days</p></span> <span class="cdown hour"><span class="time-count">%-H</span> <p>Hour</p></span> <span class="cdown minutes"><span class="time-count">%M</span> <p>Mint</p></span> <span class="cdown second"> <span><span class="time-count">%S</span> <p>Sec</p></span>'));
         });
-    }); 
+    });
 
 	/* ********************************************
 		6. ScrollUp
@@ -206,12 +206,12 @@
 		easingType: 'linear',
 		scrollSpeed: 900,
 		animation: 'fade'
-	}); 
+	});
 
 	/* ********************************************
-		7. Tooltip 
+		7. Tooltip
 	******************************************** */
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
 
 	/* ********************************************
 		8. Treeview active
@@ -243,7 +243,7 @@
         }
     });
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) ); 
+    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
 	/* ********************************************
 		10. Fancybox active
@@ -253,8 +253,8 @@
     });
 
 	/* ********************************************
-		11. Elevate Zoom active 
-	******************************************** */    
+		11. Elevate Zoom active
+	******************************************** */
     $("#zoom_03").elevateZoom({
         constrainType: "height",
         zoomType: "lens",
@@ -284,7 +284,7 @@
 
 	/* ********************************************
 		12. single-product-zoom-image carousel
-	******************************************** */ 
+	******************************************** */
     $('.carousel-btn').slick({
         speed: 700,
         arrows: true,
@@ -310,12 +310,12 @@
         var oldValue = $button.parent().find("input").val();
         if ($button.text() == "+") {
             var newVal = parseFloat(oldValue) + 1;
-        } 
+        }
         else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
-            } 
+            }
             else {
                 newVal = 0;
             }
@@ -325,7 +325,7 @@
 
 	/* ********************************************
 		14. bootstrap accordion one open at a time
-	******************************************** */ 
+	******************************************** */
     $('.payment-title a').on('click',function(e){
         if($(this).parents('.panel').children('.panel-collapse').hasClass('in')){
             e.stopPropagation();
@@ -337,7 +337,7 @@
 
 	/* ********************************************
 		15. Cart tab menu active
-	******************************************** */  
+	******************************************** */
     $('.cart-tab li a').on("click", function(){
         $(this).addClass("active");
         $(this).parent('li').prevAll('li').find('a').addClass("active");
@@ -345,7 +345,7 @@
     });
 
 	/* ********************************************
-		16. Blog page manu dropdown 
+		16. Blog page manu dropdown
 	******************************************** */
     $('.dropdown .option-btn').on('click', function(){
         if($(this).siblings('.dropdown-menu').hasClass('active')){
@@ -361,7 +361,7 @@
     });
 
 	/* ********************************************
-		17. Background Toutube Video 
+		17. Background Toutube Video
 	******************************************** */
     $(".youtube-bg").YTPlayer({
 		videoURL:"_OA2oggXehk",
@@ -381,7 +381,7 @@
     18. STICKY sticky-header
 ******************************************** */
     $(window).scroll(function() {
-        if ($(this).scrollTop() > 1){  
+        if ($(this).scrollTop() > 1){
             $('#sticky-header').addClass("sticky");
         }
         else{

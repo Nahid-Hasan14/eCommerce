@@ -691,7 +691,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        <div class="modal-body">
+                        <div id="quickview_modal_body" class="modal-body">
                             <div class="modal-product clearfix">
                                 <div class="product-images">
                                     <div class="main-image images">
@@ -839,6 +839,39 @@
     {{-- <script src="{{asset('toastr')}}/js/toastr.min.js"></script> --}}
 
     @stack('script')
+
+<script>
+    function addToCart (id){
+        let productId = id;
+        $.ajax({
+            type: "POST",
+            url: "{{route('cart.add')}}",
+            dataType: "json",
+            data: {
+                productId: productId,
+                _token: "{{csrf_token()}}"
+            },
+            success: function(res) {
+                if (res.success) {
+                    Swal.fire({
+                        icon: res.status,
+                        title: res.status === 'success' ? 'Success!' : 'Error!',
+                        text: res.message,
+                        timer: 1500,
+                        showConfirmButton: false,
+                        timerProgressBar: true
+                    });
+                    document.getElementById("mini-cart").innerHTML = res.minicart;
+                    document.getElementById("cart_count").innerText = res.cart_count;
+                    document.querySelector(".order-total-price").innerText = res.total;
+                }
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

@@ -128,25 +128,25 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-3">
                                 <div class="dashboard-card bg-primary">
-                                    <h1>{{ $data['orders']->count() }}</h1>
+                                    <h1>{{ $data['orders_status']->count() }}</h1>
                                     <p>Total Orders</p>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-3">
                                 <div class="dashboard-card bg-warning">
-                                    <h1>{{ $data['orders']->where('status', 'Pending')->count() }}</h1>
+                                    <h1>{{ $data['orders_status']->where('order_status_id', 1)->count() }}</h1>
                                     <p>Pending</p>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-3">
                                 <div class="dashboard-card bg-success">
-                                    <h1>{{$data['orders']->where('status', 'Completed')->count()}}</h1>
+                                    <h1>{{$data['orders_status']->where('order_status_id', 2)->count()}}</h1>
                                     <p>Completed</p>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-3">
                                 <div class="dashboard-card bg-danger">
-                                    <h1>{{ $data['orders']->where('status', 'Canceled')->count() }}</h1>
+                                    <h1>{{ $data['orders_status']->where('order_status_id', 3)->count() }}</h1>
                                     <p>Canceled</p>
                                 </div>
                             </div>

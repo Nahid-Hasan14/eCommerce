@@ -87,13 +87,13 @@
                                 <div class="col-xs-12">
                                 <div class="product-item">
                                     <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img src="{{'storage'}}/{{$product->image}}" height="290px" alt="image"/>
+                                        <a href="{{route('product.details',[$product->id,Str::slug($product->title)])}}">
+                                            <img src="{{'storage'}}/{{$product->image}}" height="200px" alt="image"/>
                                         </a>
                                     </div>
                                     <div class="product-info">
                                         <h6 class="product-title">
-                                            <a href="single-product.html">{{$product->title}}</a>
+                                            <a href="{{route('product.details', $product->id)}}">{{$product->title}}</a>
                                         </h6>
                                         <div class="pro-rating">
                                             <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -102,19 +102,16 @@
                                             <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                                             <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                         </div>
-                                        <h3 class="pro-price">$ {{$product->price}}</h3>
+                                        <h3 class="pro-price">{{__('currency')}} {{$product->price}}</h3>
                                         <ul class="action-button">
                                             <li>
                                                 <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" data-toggle="modal"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                <a href="#" class="productQuickViewModal" data-id="{{ $product->id }}"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-id="{{$product->id}}" class="add-to-cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                <a href="javascript:void(0)" onclick="addToCart({{ $product->id }})"  class="add-to-cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -216,13 +213,13 @@
                                         <div class="col-md-3 col-sm-4 col-xs-12">
                                         <div class="product-item">
                                             <div class="product-img">
-                                                <a href="single-product.html">
-                                                    <img src="{{'storage'}}/{{$product->image}}" height="290px" alt="image"/>
+                                                <a href="{{route('product.details',$product->id)}}">
+                                                    <img src="{{'storage'}}/{{$product->image}}" height="200px" alt="image"/>
                                                 </a>
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-title">
-                                                    <a href="single-product.html">{{$product->title}}</a>
+                                                    <a href="{{route('product.details', $product->id)}}">{{$product->title}}</a>
                                                 </h6>
                                                 <div class="pro-rating">
                                                     <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -231,16 +228,13 @@
                                                     <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                                                     <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                 </div>
-                                                <h3 class="pro-price">$ {{$product->price}}</h3>
+                                                <h3 class="pro-price">{{__('currency')}} {{ $product->price}}</h3>
                                                 <ul class="action-button">
                                                     <li>
                                                         <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" data-toggle="modal"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
+                                                        <a href="#"class="productQuickViewModal" data-id="{{ $product->id }}"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                     </li>
                                                     <li>
                                                         <a href="#" class="add-to-cart" data-id="{{$product->id}}"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
@@ -1314,37 +1308,68 @@
 @push('script')
 <script>
 
-    let cartButtons= document.getElementsByClassName('add-to-cart')
 
-    for(let i = 0; i < cartButtons.length; i++) {
-        cartButtons[i].addEventListener('click', function (e){
-            e.preventDefault();
 
-            let productId = this.dataset.id;
 
-            // console.log('Check ProductId:', productId)
 
-            $.ajax({
-                type: "POST",
-                url: "{{route('cart.add')}}",
-                : "json",
-                data: {
-                    productId: productId,
-                    _token:"{{csrf_token()}}"
-                },
-                success: function(res){
-                    if(res.success){
-                        Swal.fire({
-                            icon: res.status,
-                            title: res.status === 'success' ? 'Success!' : 'Error!',
-                            text: res.message,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            timerProgressBar: true
-                        });
-                         document.getElementById("mini-cart").innerHTML = res.minicart;
-                         document.getElementById("cart_count").innerText = res.cart_count;
-                         document.querySelector(".order-total-price").innerText = res.total;
+
+//add to cart function
+//     document.addEventListener('click', function (e) {
+//     if (e.target.closest('.add-to-cart')) {
+//         e.preventDefault();
+
+//         const element = e.target.closest('.add-to-cart')
+//         let productId = element.dataset.id;
+
+//         $.ajax({
+//             type: "POST",
+//             url: "{{route('cart.add')}}",
+//             dataType: "json",
+//             data: {
+//                 productId: productId,
+//                 _token: "{{csrf_token()}}"
+//             },
+//             success: function(res) {
+//                 if (res.success) {
+//                     Swal.fire({
+//                         icon: res.status,
+//                         title: res.status === 'success' ? 'Success!' : 'Error!',
+//                         text: res.message,
+//                         timer: 1500,
+//                         showConfirmButton: false,
+//                         timerProgressBar: true
+//                     });
+//                     document.getElementById("mini-cart").innerHTML = res.minicart;
+//                     document.getElementById("cart_count").innerText = res.cart_count;
+//                     document.querySelector(".order-total-price").innerText = res.total;
+//                 }
+//             },
+//             error: function(error) {
+//                 console.log("Error:", error);
+//             }
+//         });
+//     }
+// });
+
+//product details Modal/quick view function
+    document.addEventListener('DOMContentLoaded', function() {
+        const quickViewLink = document.querySelectorAll('.productQuickViewModal');
+
+        quickViewLink.forEach(function (link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const productId = this.getAttribute('data-id');
+
+               $.ajax({
+                type: "GET",
+                url: "{{route('product.details.quickview', ':id')}}".replace(':id',productId),
+                dataType: "json",
+                success: function(response){
+                    if(response){
+                        let modalBody = document.getElementById('quickview_modal_body').innerHTML = response.data;
+
+                        $('#productModal').modal('show');
                     }
                 },
                 error: function(error){
@@ -1352,8 +1377,9 @@
                 }
             })
 
+            })
         })
-    }
+    })
 
 </script>
 @endpush

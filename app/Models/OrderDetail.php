@@ -12,6 +12,7 @@ class OrderDetail extends Model
 
     protected $fillable = [
         'order_id', // Add this line to allow mass assignment for order_id
+        'payment_transaction_id',
         'product_id',
         'quantity',
         'price',

@@ -1,6 +1,6 @@
 
 /*
-    Template Name: Your template name 
+    Template Name: Your template name
     Template URI: http://bootexperts.com
     Author: BootExperts
     Author URI: http://bootexperts.com
@@ -14,15 +14,15 @@
 [  Table of contents  ]
 ================================================
     1. Avoid `console` errors in browsers that lack a console.
-    2. scrollup jquery 
+    2. scrollup jquery
     3. slick jquery carousel
-    4. jQuery UI / price range 
+    4. jQuery UI / price range
     5. WOW / scrolling animation
     6. meanMenu jquery menu plugin / mobile menu
-    7. countdown js jquery 
+    7. countdown js jquery
     8. Treeview 1.4.2 - jQuery plugin
     9. FancyBox v2.1.5
-    10. jQuery elevateZoom 
+    10. jQuery elevateZoom
     11. style customizer
     12. animate Textillate
     13. jquery.mb.YTPlayer
@@ -62,7 +62,7 @@
 
 
 /*-------------------------------------------------------------
-    2. scrollup jquery 
+    2. scrollup jquery
 ---------------------------------------------------------------*/
 
 /*!
@@ -100,7 +100,7 @@ d.slice(e-c+1,e+c+2).addClass("slick-active").attr("aria-hidden","false")),0===a
 
 
 /*-------------------------------------------------------------
-    4. jQuery UI / price range 
+    4. jQuery UI / price range
 ---------------------------------------------------------------*/
 
 /*! jQuery UI - v1.11.4 - 2016-06-07
@@ -412,7 +412,7 @@ d.slice(e-c+1,e+c+2).addClass("slick-active").attr("aria-hidden","false")),0===a
 
 
 /*-------------------------------------------------------------
-    7. countdown js jquery 
+    7. countdown js jquery
 ---------------------------------------------------------------*/
 !function(t){"use strict";"function"==typeof define&&define.amd?define(["jquery"],t):t(jQuery)}(function(t){"use strict";function e(t){if(t instanceof Date)return t;if(String(t).match(o))return String(t).match(/^[0-9]*$/)&&(t=Number(t)),String(t).match(/\-/)&&(t=String(t).replace(/\-/g,"/")),new Date(t);throw new Error("Couldn't cast `"+t+"` to a date object.")}function s(t){var e=t.toString().replace(/([.?*+^$[\]\\(){}|-])/g,"\\$1");return new RegExp(e)}function n(t){return function(e){var n=e.match(/%(-|!)?[A-Z]{1}(:[^;]+;)?/gi);if(n)for(var a=0,o=n.length;o>a;++a){var r=n[a].match(/%(-|!)?([a-zA-Z]{1})(:[^;]+;)?/),l=s(r[0]),c=r[1]||"",u=r[3]||"",f=null;r=r[2],h.hasOwnProperty(r)&&(f=h[r],f=Number(t[f])),null!==f&&("!"===c&&(f=i(u,f)),""===c&&10>f&&(f="0"+f.toString()),e=e.replace(l,f.toString()))}return e=e.replace(/%%/,"%")}}function i(t,e){var s="s",n="";return t&&(t=t.replace(/(:|;|\s)/gi,"").split(/\,/),1===t.length?s=t[0]:(n=t[0],s=t[1])),1===Math.abs(e)?n:s}var a=[],o=[],r={precision:100,elapse:!1};o.push(/^[0-9]*$/.source),o.push(/([0-9]{1,2}\/){2}[0-9]{4}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),o.push(/[0-9]{4}([\/\-][0-9]{1,2}){2}( [0-9]{1,2}(:[0-9]{2}){2})?/.source),o=new RegExp(o.join("|"));var h={Y:"years",m:"months",n:"daysToMonth",w:"weeks",d:"daysToWeek",D:"totalDays",H:"hours",M:"minutes",S:"seconds"},l=function(e,s,n){this.el=e,this.$el=t(e),this.interval=null,this.offset={},this.options=t.extend({},r),this.instanceNumber=a.length,a.push(this),this.$el.data("countdown-instance",this.instanceNumber),n&&("function"==typeof n?(this.$el.on("update.countdown",n),this.$el.on("stoped.countdown",n),this.$el.on("finish.countdown",n)):this.options=t.extend({},r,n)),this.setFinalDate(s),this.start()};t.extend(l.prototype,{start:function(){null!==this.interval&&clearInterval(this.interval);var t=this;this.update(),this.interval=setInterval(function(){t.update.call(t)},this.options.precision)},stop:function(){clearInterval(this.interval),this.interval=null,this.dispatchEvent("stoped")},toggle:function(){this.interval?this.stop():this.start()},pause:function(){this.stop()},resume:function(){this.start()},remove:function(){this.stop.call(this),a[this.instanceNumber]=null,delete this.$el.data().countdownInstance},setFinalDate:function(t){this.finalDate=e(t)},update:function(){if(0===this.$el.closest("html").length)return void this.remove();var e,s=void 0!==t._data(this.el,"events"),n=new Date;e=this.finalDate.getTime()-n.getTime(),e=Math.ceil(e/1e3),e=!this.options.elapse&&0>e?0:Math.abs(e),this.totalSecsLeft!==e&&s&&(this.totalSecsLeft=e,this.elapsed=n>=this.finalDate,this.offset={seconds:this.totalSecsLeft%60,minutes:Math.floor(this.totalSecsLeft/60)%60,hours:Math.floor(this.totalSecsLeft/60/60)%24,days:Math.floor(this.totalSecsLeft/60/60/24)%7,daysToWeek:Math.floor(this.totalSecsLeft/60/60/24)%7,daysToMonth:Math.floor(this.totalSecsLeft/60/60/24%30.4368),totalDays:Math.floor(this.totalSecsLeft/60/60/24),weeks:Math.floor(this.totalSecsLeft/60/60/24/7),months:Math.floor(this.totalSecsLeft/60/60/24/30.4368),years:Math.abs(this.finalDate.getFullYear()-n.getFullYear())},this.options.elapse||0!==this.totalSecsLeft?this.dispatchEvent("update"):(this.stop(),this.dispatchEvent("finish")))},dispatchEvent:function(e){var s=t.Event(e+".countdown");s.finalDate=this.finalDate,s.elapsed=this.elapsed,s.offset=t.extend({},this.offset),s.strftime=n(this.offset),this.$el.trigger(s)}}),t.fn.countdown=function(){var e=Array.prototype.slice.call(arguments,0);return this.each(function(){var s=t(this).data("countdown-instance");if(void 0!==s){var n=a[s],i=e[0];l.prototype.hasOwnProperty(i)?n[i].apply(n,e.slice(1)):null===String(i).match(/^[$A-Z_][0-9A-Z_$]*$/i)?(n.setFinalDate.call(n,i),n.start()):t.error("Method %s does not exist on jQuery.countdown".replace(/\%s/gi,i))}else new l(this,e[0],e[1])})}});
 
@@ -729,7 +729,7 @@ d[0].offsetTop||15===d[0].offsetTop;d.remove();a.fixedPosition=e}f.extend(b.defa
 
 
 /*-------------------------------------------------------------
-    10. jQuery elevateZoom 
+    10. jQuery elevateZoom
 ---------------------------------------------------------------*/
 
 /*
@@ -798,8 +798,8 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
-                //Create the image swap from the gallery 
-                $('#'+self.options.gallery + ' a').click( function(e) { 
+                //Create the image swap from the gallery
+                $('#'+self.options.gallery + ' a').click( function(e) {
 
                     //Set a class on the currently active gallery image
                     if(self.options.galleryActiveClass){
@@ -809,7 +809,7 @@ if ( typeof Object.create !== 'function' ) {
                     //stop any link on the a tag from working
                     e.preventDefault();
 
-                    //call the swap image function            
+                    //call the swap image function
                     if($(this).data("zoom-image")){self.zoomImagePre = $(this).data("zoom-image")}
                     else{self.zoomImagePre = $(this).data("image");}
                     self.swaptheimage($(this).data("image"), self.zoomImagePre);
@@ -857,12 +857,12 @@ if ( typeof Object.create !== 'function' ) {
                 self.isWindowActive = false;
                 self.isLensActive = false;
                 self.isTintActive = false;
-                self.overWindow = false;    
+                self.overWindow = false;
 
                 //CrossFade Wrappe
                 if(self.options.imageCrossfade){
-                    self.zoomWrap = self.$elem.wrap('<div style="height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" class="zoomWrapper" />');        
-                    self.$elem.css('position', 'absolute'); 
+                    self.zoomWrap = self.$elem.wrap('<div style="height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;" class="zoomWrapper" />');
+                    self.$elem.css('position', 'absolute');
                 }
 
                 self.zoomLock = 1;
@@ -875,45 +875,45 @@ if ( typeof Object.create !== 'function' ) {
                 self.nzOffset = self.$elem.offset();
                 //calculate the width ratio of the large/small image
                 self.widthRatio = (self.largeWidth/self.currentZoomLevel) / self.nzWidth;
-                self.heightRatio = (self.largeHeight/self.currentZoomLevel) / self.nzHeight; 
+                self.heightRatio = (self.largeHeight/self.currentZoomLevel) / self.nzHeight;
 
 
-                //if window zoom        
+                //if window zoom
                 if(self.options.zoomType == "window") {
                     self.zoomWindowStyle = "overflow: hidden;"
-                        + "background-position: 0px 0px;text-align:center;"  
-                        + "background-color: " + String(self.options.zoomWindowBgColour)            
+                        + "background-position: 0px 0px;text-align:center;"
+                        + "background-color: " + String(self.options.zoomWindowBgColour)
                         + ";width: " + String(self.options.zoomWindowWidth) + "px;"
                         + "height: " + String(self.options.zoomWindowHeight)
                         + "px;float: left;"
                         + "background-size: "+ self.largeWidth/self.currentZoomLevel+ "px " +self.largeHeight/self.currentZoomLevel + "px;"
                         + "display: none;z-index:100;"
-                        + "border: " + String(self.options.borderSize) 
-                        + "px solid " + self.options.borderColour 
+                        + "border: " + String(self.options.borderSize)
+                        + "px solid " + self.options.borderColour
                         + ";background-repeat: no-repeat;"
                         + "position: absolute;";
-                }    
+                }
 
 
-                //if inner  zoom    
+                //if inner  zoom
                 if(self.options.zoomType == "inner") {
                     //has a border been put on the image? Lets cater for this
 
                     var borderWidth = self.$elem.css("border-left-width");
 
                     self.zoomWindowStyle = "overflow: hidden;"
-                        + "margin-left: " + String(borderWidth) + ";" 
-                        + "margin-top: " + String(borderWidth) + ";"         
+                        + "margin-left: " + String(borderWidth) + ";"
+                        + "margin-top: " + String(borderWidth) + ";"
                         + "background-position: 0px 0px;"
                         + "width: " + String(self.nzWidth) + "px;"
                         + "height: " + String(self.nzHeight) + "px;"
                         + "px;float: left;"
                         + "display: none;"
                         + "cursor:"+(self.options.cursor)+";"
-                        + "px solid " + self.options.borderColour 
+                        + "px solid " + self.options.borderColour
                         + ";background-repeat: no-repeat;"
                         + "position: absolute;";
-                }    
+                }
 
 
 
@@ -924,14 +924,14 @@ if ( typeof Object.create !== 'function' ) {
                     // adjust images less than the window height
 
                     if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-                        lensHeight = self.nzHeight;              
+                        lensHeight = self.nzHeight;
                     }
                     else{
                         lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
                     }
                     if(self.largeWidth < self.options.zoomWindowWidth){
                         lensWidth = self.nzWidth;
-                    }       
+                    }
                     else{
                         lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
                     }
@@ -940,24 +940,24 @@ if ( typeof Object.create !== 'function' ) {
                     self.lensStyle = "background-position: 0px 0px;width: " + String((self.options.zoomWindowWidth)/self.widthRatio) + "px;height: " + String((self.options.zoomWindowHeight)/self.heightRatio)
                     + "px;float: right;display: none;"
                     + "overflow: hidden;"
-                    + "z-index: 999;"   
-                    + "-webkit-transform: translateZ(0);"               
+                    + "z-index: 999;"
+                    + "-webkit-transform: translateZ(0);"
                     + "opacity:"+(self.options.lensOpacity)+";filter: alpha(opacity = "+(self.options.lensOpacity*100)+"); zoom:1;"
                     + "width:"+lensWidth+"px;"
                     + "height:"+lensHeight+"px;"
-                    + "background-color:"+(self.options.lensColour)+";"                 
+                    + "background-color:"+(self.options.lensColour)+";"
                     + "cursor:"+(self.options.cursor)+";"
                     + "border: "+(self.options.lensBorderSize)+"px" +
                     " solid "+(self.options.lensBorderColour)+";background-repeat: no-repeat;position: absolute;";
-                } 
+                }
 
 
                 //tint style
                 self.tintStyle = "display: block;"
                     + "position: absolute;"
-                    + "background-color: "+self.options.tintColour+";"  
-                    + "filter:alpha(opacity=0);"        
-                    + "opacity: 0;" 
+                    + "background-color: "+self.options.tintColour+";"
+                    + "filter:alpha(opacity=0);"
+                    + "opacity: 0;"
                     + "width: " + self.nzWidth + "px;"
                     + "height: " + self.nzHeight + "px;"
 
@@ -992,10 +992,10 @@ if ( typeof Object.create !== 'function' ) {
                 //self.zoomContainer = $('<div/>').addClass('zoomContainer').css({"position":"relative", "height":self.nzHeight, "width":self.nzWidth});
 
                 self.zoomContainer = $('<div class="zoomContainer" style="-webkit-transform: translateZ(0);position:absolute;left:'+self.nzOffset.left+'px;top:'+self.nzOffset.top+'px;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;"></div>');
-                $('body').append(self.zoomContainer);   
+                $('body').append(self.zoomContainer);
 
 
-                //this will add overflow hidden and contrain the lens on lens mode       
+                //this will add overflow hidden and contrain the lens on lens mode
                 if(self.options.containLensZoom && self.options.zoomType == "lens"){
                     self.zoomContainer.css("overflow", "hidden");
                 }
@@ -1008,14 +1008,14 @@ if ( typeof Object.create !== 'function' ) {
 
 
                     if(self.options.tint) {
-                        self.tintContainer = $('<div/>').addClass('tintContainer'); 
+                        self.tintContainer = $('<div/>').addClass('tintContainer');
                         self.zoomTint = $("<div class='zoomTint' style='"+self.tintStyle+"'></div>");
 
 
                         self.zoomLens.wrap(self.tintContainer);
 
 
-                        self.zoomTintcss = self.zoomLens.after(self.zoomTint);  
+                        self.zoomTintcss = self.zoomLens.after(self.zoomTint);
 
                         //if tint enabled - set an image to show over the tint
 
@@ -1026,7 +1026,7 @@ if ( typeof Object.create !== 'function' ) {
                             self.$elem.trigger('click');
                         });
 
-                    }          
+                    }
 
                 }
 
@@ -1036,7 +1036,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
-                //create zoom window 
+                //create zoom window
                 if(isNaN(self.options.zoomWindowPosition)){
                     self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'>&nbsp;</div>")
                     .appendTo('body')
@@ -1049,112 +1049,112 @@ if ( typeof Object.create !== 'function' ) {
                     .click(function () {
                         self.$elem.trigger('click');
                     });
-                }              
+                }
                 self.zoomWindowContainer = $('<div/>').addClass('zoomWindowContainer').css("width",self.options.zoomWindowWidth);
                 self.zoomWindow.wrap(self.zoomWindowContainer);
 
 
-                //  self.captionStyle = "text-align: left;background-color: black;color: white;font-weight: bold;padding: 10px;font-family: sans-serif;font-size: 11px";                                                                                                                                                                                                                                          
+                //  self.captionStyle = "text-align: left;background-color: black;color: white;font-weight: bold;padding: 10px;font-family: sans-serif;font-size: 11px";
                 // self.zoomCaption = $('<div class="elevatezoom-caption" style="'+self.captionStyle+'display: block; width: 280px;">INSERT ALT TAG</div>').appendTo(self.zoomWindow.parent());
 
                 if(self.options.zoomType == "lens") {
-                    self.zoomLens.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+                    self.zoomLens.css({ backgroundImage: "url('" + self.imageSrc + "')" });
                 }
                 if(self.options.zoomType == "window") {
-                    self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+                    self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" });
                 }
                 if(self.options.zoomType == "inner") {
-                    self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" }); 
+                    self.zoomWindow.css({ backgroundImage: "url('" + self.imageSrc + "')" });
                 }
                 /*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
                 //touch events
-                self.$elem.bind('touchmove', function(e){    
+                self.$elem.bind('touchmove', function(e){
                     e.preventDefault();
-                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
+                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
                     self.setPosition(touch);
 
-                });  
-                self.zoomContainer.bind('touchmove', function(e){ 
+                });
+                self.zoomContainer.bind('touchmove', function(e){
                     if(self.options.zoomType == "inner") {
                         self.showHideWindow("show");
 
                     }
                     e.preventDefault();
-                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
-                    self.setPosition(touch); 
+                    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                    self.setPosition(touch);
 
-                });     
-                self.zoomContainer.bind('touchend', function(e){ 
+                });
+                self.zoomContainer.bind('touchend', function(e){
                     self.showHideWindow("hide");
                     if(self.options.showLens) {self.showHideLens("hide");}
                     if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
-                });     
+                });
 
-                self.$elem.bind('touchend', function(e){ 
+                self.$elem.bind('touchend', function(e){
                     self.showHideWindow("hide");
                     if(self.options.showLens) {self.showHideLens("hide");}
                     if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
-                });     
+                });
                 if(self.options.showLens) {
-                    self.zoomLens.bind('touchmove', function(e){ 
+                    self.zoomLens.bind('touchmove', function(e){
 
                         e.preventDefault();
-                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
-                        self.setPosition(touch); 
-                    });    
+                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                        self.setPosition(touch);
+                    });
 
 
-                    self.zoomLens.bind('touchend', function(e){ 
+                    self.zoomLens.bind('touchend', function(e){
                         self.showHideWindow("hide");
                         if(self.options.showLens) {self.showHideLens("hide");}
                         if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
-                    });  
+                    });
                 }
                 //Needed to work in IE
-                self.$elem.bind('mousemove', function(e){   
+                self.$elem.bind('mousemove', function(e){
                     if(self.overWindow == false){self.setElements("show");}
                     //make sure on orientation change the setposition is not fired
                     if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                         self.setPosition(e);
                         self.currentLoc = e;
-                    }   
+                    }
                     self.lastX = e.clientX;
-                    self.lastY = e.clientY;    
+                    self.lastY = e.clientY;
 
-                });     
+                });
 
-                self.zoomContainer.bind('mousemove', function(e){ 
+                self.zoomContainer.bind('mousemove', function(e){
 
-                    if(self.overWindow == false){self.setElements("show");} 
+                    if(self.overWindow == false){self.setElements("show");}
 
-                    //make sure on orientation change the setposition is not fired 
+                    //make sure on orientation change the setposition is not fired
                     if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                         self.setPosition(e);
                         self.currentLoc = e;
-                    }   
+                    }
                     self.lastX = e.clientX;
-                    self.lastY = e.clientY;    
-                });     
+                    self.lastY = e.clientY;
+                });
                 if(self.options.zoomType != "inner") {
-                    self.zoomLens.bind('mousemove', function(e){      
+                    self.zoomLens.bind('mousemove', function(e){
                         //make sure on orientation change the setposition is not fired
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                             self.setPosition(e);
                             self.currentLoc = e;
-                        }   
+                        }
                         self.lastX = e.clientX;
-                        self.lastY = e.clientY;    
+                        self.lastY = e.clientY;
                     });
                 }
                 if(self.options.tint && self.options.zoomType != "inner") {
-                    self.zoomTint.bind('mousemove', function(e){ 
+                    self.zoomTint.bind('mousemove', function(e){
                         //make sure on orientation change the setposition is not fired
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                             self.setPosition(e);
                             self.currentLoc = e;
-                        }   
+                        }
                         self.lastX = e.clientX;
-                        self.lastY = e.clientY;    
+                        self.lastY = e.clientY;
                     });
 
                 }
@@ -1165,9 +1165,9 @@ if ( typeof Object.create !== 'function' ) {
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                             self.setPosition(e);
                             self.currentLoc = e;
-                        }   
+                        }
                         self.lastX = e.clientX;
-                        self.lastY = e.clientY;    
+                        self.lastY = e.clientY;
                     });
 
                 }
@@ -1176,7 +1176,7 @@ if ( typeof Object.create !== 'function' ) {
                 //  lensFadeOut: 500,  zoomTintFadeIn
                 self.zoomContainer.add(self.$elem).mouseenter(function(){
 
-                    if(self.overWindow == false){self.setElements("show");} 
+                    if(self.overWindow == false){self.setElements("show");}
 
 
                 }).mouseleave(function(){
@@ -1193,8 +1193,8 @@ if ( typeof Object.create !== 'function' ) {
 
                 if(self.options.zoomType != "inner") {
                     self.zoomWindow.mouseenter(function(){
-                        self.overWindow = true;   
-                        self.setElements("hide");                  
+                        self.overWindow = true;
+                        self.setElements("hide");
                     }).mouseleave(function(){
 
                         self.overWindow = false;
@@ -1205,7 +1205,7 @@ if ( typeof Object.create !== 'function' ) {
 
 //              var delta = parseInt(e.originalEvent.wheelDelta || -e.originalEvent.detail);
 
-                //      $(this).empty();    
+                //      $(this).empty();
                 //    return false;
 
                 //fix for initial zoom setting
@@ -1228,7 +1228,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 //                      in IE there is issue with firing of mouseleave - So check whether still scrolling
-//                      and on mouseleave check if scrolllock          
+//                      and on mouseleave check if scrolllock
                         self.scrollLock = true;
                         clearTimeout($.data(this, 'timer'));
                         $.data(this, 'timer', setTimeout(function() {
@@ -1250,8 +1250,8 @@ if ( typeof Object.create !== 'function' ) {
 
                         if(theEvent /120 > 0) {
                             //scrolling up
-                            if(self.currentZoomLevel >= self.minZoomLevel){ 
-                                self.changeZoomLevel(self.currentZoomLevel-self.options.scrollZoomIncrement);        
+                            if(self.currentZoomLevel >= self.minZoomLevel){
+                                self.changeZoomLevel(self.currentZoomLevel-self.options.scrollZoomIncrement);
                             }
 
                         }
@@ -1260,12 +1260,12 @@ if ( typeof Object.create !== 'function' ) {
 
 
                             if(self.options.maxZoomLevel){
-                                if(self.currentZoomLevel <= self.options.maxZoomLevel){           
+                                if(self.currentZoomLevel <= self.options.maxZoomLevel){
                                     self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
                                 }
                             }
                             else{
-                                //andy 
+                                //andy
 
                                 self.changeZoomLevel(parseFloat(self.currentZoomLevel)+self.options.scrollZoomIncrement);
                             }
@@ -1295,12 +1295,12 @@ if ( typeof Object.create !== 'function' ) {
                     if(!self.options.tint) {self.showHideWindow("hide");}
                     if(self.options.showLens) {self.showHideLens("hide");}
                     if(self.options.tint) { self.showHideTint("hide");}
-                }   
+                }
             },
             setPosition: function(e) {
-      
+
                 var self = this;
-        
+
         if(!self.options.zoomEnabled){return false;}
 
                 //recaclc offset each time in case the image moves
@@ -1313,31 +1313,31 @@ if ( typeof Object.create !== 'function' ) {
                     self.zoomTint.css({ top: 0});
                     self.zoomTint.css({ left: 0});
                 }
-                //set responsive       
+                //set responsive
                 //will checking if the image needs changing before running this code work faster?
                 if(self.options.responsive && !self.options.scrollZoom){
-                    if(self.options.showLens){ 
+                    if(self.options.showLens){
                         if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-                            lensHeight = self.nzHeight;              
+                            lensHeight = self.nzHeight;
                         }
                         else{
                             lensHeight = String((self.options.zoomWindowHeight/self.heightRatio))
                         }
                         if(self.largeWidth < self.options.zoomWindowWidth){
                             lensWidth = self.nzWidth;
-                        }       
+                        }
                         else{
                             lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
                         }
                         self.widthRatio = self.largeWidth / self.nzWidth;
-                        self.heightRatio = self.largeHeight / self.nzHeight;        
+                        self.heightRatio = self.largeHeight / self.nzHeight;
                         if(self.options.zoomType != "lens") {
 
 
                             //possibly dont need to keep recalcalculating
                             //if the lens is heigher than the image, then set lens size to image size
                             if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-                                lensHeight = self.nzHeight;  
+                                lensHeight = self.nzHeight;
 
                             }
                             else{
@@ -1346,26 +1346,26 @@ if ( typeof Object.create !== 'function' ) {
 
                             if(self.nzWidth < self.options.zoomWindowHeight/self.heightRatio){
                                 lensWidth = self.nzWidth;
-                            }       
+                            }
                             else{
                                 lensWidth =  String((self.options.zoomWindowWidth/self.widthRatio));
-                            }            
-
-                            self.zoomLens.css('width', lensWidth);    
-                            self.zoomLens.css('height', lensHeight); 
-
-                            if(self.options.tint){    
-                                self.zoomTintImage.css('width', self.nzWidth);    
-                                self.zoomTintImage.css('height', self.nzHeight); 
                             }
 
-                        }                     
-                        if(self.options.zoomType == "lens") {  
+                            self.zoomLens.css('width', lensWidth);
+                            self.zoomLens.css('height', lensHeight);
 
-                            self.zoomLens.css({ width: String(self.options.lensSize) + 'px', height: String(self.options.lensSize) + 'px' })      
+                            if(self.options.tint){
+                                self.zoomTintImage.css('width', self.nzWidth);
+                                self.zoomTintImage.css('height', self.nzHeight);
+                            }
+
+                        }
+                        if(self.options.zoomType == "lens") {
+
+                            self.zoomLens.css({ width: String(self.options.lensSize) + 'px', height: String(self.options.lensSize) + 'px' })
 
 
-                        }        
+                        }
                         //end responsive image change
                     }
                 }
@@ -1381,19 +1381,19 @@ if ( typeof Object.create !== 'function' ) {
                 if(self.options.zoomType == "window") {
                     self.Etoppos = (self.mouseTop < (self.zoomLens.height()/2));
                     self.Eboppos = (self.mouseTop > self.nzHeight - (self.zoomLens.height()/2)-(self.options.lensBorderSize*2));
-                    self.Eloppos = (self.mouseLeft < 0+((self.zoomLens.width()/2))); 
-                    self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.zoomLens.width()/2)-(self.options.lensBorderSize*2)));  
+                    self.Eloppos = (self.mouseLeft < 0+((self.zoomLens.width()/2)));
+                    self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.zoomLens.width()/2)-(self.options.lensBorderSize*2)));
                 }
                 //calculate the bound regions - but only for inner zoom
-                if(self.options.zoomType == "inner"){ 
+                if(self.options.zoomType == "inner"){
                     self.Etoppos = (self.mouseTop < ((self.nzHeight/2)/self.heightRatio) );
                     self.Eboppos = (self.mouseTop > (self.nzHeight - ((self.nzHeight/2)/self.heightRatio)));
                     self.Eloppos = (self.mouseLeft < 0+(((self.nzWidth/2)/self.widthRatio)));
-                    self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.nzWidth/2)/self.widthRatio-(self.options.lensBorderSize*2)));  
+                    self.Eroppos = (self.mouseLeft > (self.nzWidth - (self.nzWidth/2)/self.widthRatio-(self.options.lensBorderSize*2)));
                 }
 
                 // if the mouse position of the slider is one of the outerbounds, then hide  window and lens
-                if (self.mouseLeft < 0 || self.mouseTop < 0 || self.mouseLeft > self.nzWidth || self.mouseTop > self.nzHeight ) {                         
+                if (self.mouseLeft < 0 || self.mouseTop < 0 || self.mouseLeft > self.nzWidth || self.mouseTop > self.nzHeight ) {
                     self.setElements("hide");
                     return;
                 }
@@ -1410,7 +1410,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
                     }
-                    //adjust the background position if the mouse is in one of the outer regions 
+                    //adjust the background position if the mouse is in one of the outer regions
 
                     //Top region
                     if(self.Etoppos){
@@ -1421,64 +1421,64 @@ if ( typeof Object.create !== 'function' ) {
                         self.windowLeftPos = 0;
                         self.lensLeftPos = 0;
                         self.tintpos=0;
-                    }     
+                    }
                     //Set bottom and right region for window mode
                     if(self.options.zoomType == "window") {
                         if(self.Eboppos){
                             self.lensTopPos = Math.max( (self.nzHeight)-self.zoomLens.height()-(self.options.lensBorderSize*2), 0 );
-                        } 
+                        }
                         if(self.Eroppos){
                             self.lensLeftPos = (self.nzWidth-(self.zoomLens.width())-(self.options.lensBorderSize*2));
-                        }  
-                    }  
+                        }
+                    }
                     //Set bottom and right region for inner mode
                     if(self.options.zoomType == "inner") {
                         if(self.Eboppos){
                             self.lensTopPos = Math.max( ((self.nzHeight)-(self.options.lensBorderSize*2)), 0 );
-                        } 
+                        }
                         if(self.Eroppos){
                             self.lensLeftPos = (self.nzWidth-(self.nzWidth)-(self.options.lensBorderSize*2));
-                        }  
+                        }
 
                     }
                     //if lens zoom
-                    if(self.options.zoomType == "lens") {  
-                        self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomLens.width() / 2) * (-1));   
+                    if(self.options.zoomType == "lens") {
+                        self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomLens.width() / 2) * (-1));
                         self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomLens.height() / 2) * (-1));
 
                         self.zoomLens.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
 
-                        if(self.changeBgSize){  
+                        if(self.changeBgSize){
 
-                            if(self.nzHeight>self.nzWidth){  
-                                if(self.options.zoomType == "lens"){       
+                            if(self.nzHeight>self.nzWidth){
+                                if(self.options.zoomType == "lens"){
                                     self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
-                                }   
+                                }
 
                                 self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
                             }
-                            else{     
-                                if(self.options.zoomType == "lens"){       
+                            else{
+                                if(self.options.zoomType == "lens"){
                                     self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
-                                }   
-                                self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+                                }
+                                self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
                             }
                             self.changeBgSize = false;
-                        }    
+                        }
 
-                        self.setWindowPostition(e);  
+                        self.setWindowPostition(e);
                     }
-                    //if tint zoom   
+                    //if tint zoom
                     if(self.options.tint && self.options.zoomType != "inner") {
                         self.setTintPosition(e);
 
                     }
-                    //set the css background position 
+                    //set the css background position
                     if(self.options.zoomType == "window") {
-                        self.setWindowPostition(e);   
+                        self.setWindowPostition(e);
                     }
                     if(self.options.zoomType == "inner") {
-                        self.setWindowPostition(e);   
+                        self.setWindowPostition(e);
                     }
                     if(self.options.showLens) {
 
@@ -1486,7 +1486,7 @@ if ( typeof Object.create !== 'function' ) {
                             self.lensLeftPos = 0;
 
                         }
-                        self.zoomLens.css({ left: self.lensLeftPos + 'px', top: self.lensTopPos + 'px' })  
+                        self.zoomLens.css({ left: self.lensLeftPos + 'px', top: self.lensTopPos + 'px' })
                     }
 
                 } //end else
@@ -1494,15 +1494,15 @@ if ( typeof Object.create !== 'function' ) {
 
             },
             showHideWindow: function(change) {
-                var self = this;              
-                if(change == "show"){      
+                var self = this;
+                if(change == "show"){
                     if(!self.isWindowActive){
                         if(self.options.zoomWindowFadeIn){
                             self.zoomWindow.stop(true, true, false).fadeIn(self.options.zoomWindowFadeIn);
                         }
                         else{self.zoomWindow.show();}
                         self.isWindowActive = true;
-                    }            
+                    }
                 }
                 if(change == "hide"){
                     if(self.isWindowActive){
@@ -1516,20 +1516,20 @@ if ( typeof Object.create !== 'function' ) {
                             });
                         }
                         else{self.zoomWindow.hide();}
-                        self.isWindowActive = false;        
-                    }      
+                        self.isWindowActive = false;
+                    }
                 }
             },
             showHideLens: function(change) {
-                var self = this;              
-                if(change == "show"){      
+                var self = this;
+                if(change == "show"){
                     if(!self.isLensActive){
                         if(self.options.lensFadeIn){
                             self.zoomLens.stop(true, true, false).fadeIn(self.options.lensFadeIn);
                         }
                         else{self.zoomLens.show();}
                         self.isLensActive = true;
-                    }            
+                    }
                 }
                 if(change == "hide"){
                     if(self.isLensActive){
@@ -1537,13 +1537,13 @@ if ( typeof Object.create !== 'function' ) {
                             self.zoomLens.stop(true, true).fadeOut(self.options.lensFadeOut);
                         }
                         else{self.zoomLens.hide();}
-                        self.isLensActive = false;        
-                    }      
+                        self.isLensActive = false;
+                    }
                 }
             },
             showHideTint: function(change) {
-                var self = this;              
-                if(change == "show"){      
+                var self = this;
+                if(change == "show"){
                     if(!self.isTintActive){
 
                         if(self.options.zoomTintFadeIn){
@@ -1556,17 +1556,17 @@ if ( typeof Object.create !== 'function' ) {
 
                         }
                         self.isTintActive = true;
-                    }            
+                    }
                 }
-                if(change == "hide"){      
-                    if(self.isTintActive){ 
+                if(change == "hide"){
+                    if(self.isTintActive){
 
                         if(self.options.zoomTintFadeOut){
                             self.zoomTint.stop(true, true).fadeOut(self.options.zoomTintFadeOut);
                         }
                         else{self.zoomTint.hide();}
-                        self.isTintActive = false;        
-                    }      
+                        self.isTintActive = false;
+                    }
                 }
             },
             setLensPostition: function( e ) {
@@ -1579,8 +1579,8 @@ if ( typeof Object.create !== 'function' ) {
 
                 if(!isNaN(self.options.zoomWindowPosition)){
 
-                    switch (self.options.zoomWindowPosition) { 
-                    case 1: //done         
+                    switch (self.options.zoomWindowPosition) {
+                    case 1: //done
                         self.windowOffsetTop = (self.options.zoomWindowOffety);//DONE - 1
                         self.windowOffsetLeft =(+self.nzWidth); //DONE 1, 2, 3, 4, 16
                         break;
@@ -1594,23 +1594,23 @@ if ( typeof Object.create !== 'function' ) {
 
                         }
                         break;
-                    case 3: //done        
+                    case 3: //done
                         self.windowOffsetTop = (self.nzHeight - self.zoomWindow.height() - (self.options.borderSize*2)); //DONE 3,9
                         self.windowOffsetLeft =(self.nzWidth); //DONE 1, 2, 3, 4, 16
-                        break;      
-                    case 4: //done  
+                        break;
+                    case 4: //done
                         self.windowOffsetTop = (self.nzHeight); //DONE - 4,5,6,7,8
                         self.windowOffsetLeft =(self.nzWidth); //DONE 1, 2, 3, 4, 16
                         break;
-                    case 5: //done  
+                    case 5: //done
                         self.windowOffsetTop = (self.nzHeight); //DONE - 4,5,6,7,8
                         self.windowOffsetLeft =(self.nzWidth-self.zoomWindow.width()-(self.options.borderSize*2)); //DONE - 5,15
                         break;
-                    case 6: 
+                    case 6:
                         if(self.options.zoomWindowHeight > self.nzHeight){ //positive margin
                             self.windowOffsetTop = (self.nzHeight);  //DONE - 4,5,6,7,8
 
-                            self.windowOffsetLeft =((self.options.zoomWindowWidth/2)-(self.nzWidth/2)+(self.options.borderSize*2))*(-1);  
+                            self.windowOffsetLeft =((self.options.zoomWindowWidth/2)-(self.nzWidth/2)+(self.options.borderSize*2))*(-1);
                         }
                         else{ //negative margin
 
@@ -1618,19 +1618,19 @@ if ( typeof Object.create !== 'function' ) {
 
 
                         break;
-                    case 7: //done  
+                    case 7: //done
                         self.windowOffsetTop = (self.nzHeight);  //DONE - 4,5,6,7,8
                         self.windowOffsetLeft = 0; //DONE 7, 13
                         break;
-                    case 8: //done  
+                    case 8: //done
                         self.windowOffsetTop = (self.nzHeight); //DONE - 4,5,6,7,8
                         self.windowOffsetLeft =(self.zoomWindow.width()+(self.options.borderSize*2) )* (-1);  //DONE 8,9,10,11,12
                         break;
-                    case 9:  //done  
+                    case 9:  //done
                         self.windowOffsetTop = (self.nzHeight - self.zoomWindow.height() - (self.options.borderSize*2)); //DONE 3,9
                         self.windowOffsetLeft =(self.zoomWindow.width()+(self.options.borderSize*2) )* (-1);  //DONE 8,9,10,11,12
                         break;
-                    case 10: 
+                    case 10:
                         if(self.options.zoomWindowHeight > self.nzHeight){ //positive margin
 
                             self.windowOffsetTop = ((self.options.zoomWindowHeight/2)-(self.nzHeight/2))*(-1);
@@ -1640,41 +1640,41 @@ if ( typeof Object.create !== 'function' ) {
 
                         }
                         break;
-                    case 11: 
+                    case 11:
                         self.windowOffsetTop = (self.options.zoomWindowOffety);
                         self.windowOffsetLeft =(self.zoomWindow.width()+(self.options.borderSize*2) )* (-1);  //DONE 8,9,10,11,12
                         break;
-                    case 12: //done  
+                    case 12: //done
                         self.windowOffsetTop = (self.zoomWindow.height()+(self.options.borderSize*2))*(-1); //DONE 12,13,14,15,16
                         self.windowOffsetLeft =(self.zoomWindow.width()+(self.options.borderSize*2) )* (-1);  //DONE 8,9,10,11,12
                         break;
-                    case 13: //done  
+                    case 13: //done
                         self.windowOffsetTop = (self.zoomWindow.height()+(self.options.borderSize*2))*(-1); //DONE 12,13,14,15,16
                         self.windowOffsetLeft =(0); //DONE 7, 13
                         break;
-                    case 14: 
+                    case 14:
                         if(self.options.zoomWindowHeight > self.nzHeight){ //positive margin
                             self.windowOffsetTop = (self.zoomWindow.height()+(self.options.borderSize*2))*(-1); //DONE 12,13,14,15,16
 
-                            self.windowOffsetLeft =((self.options.zoomWindowWidth/2)-(self.nzWidth/2)+(self.options.borderSize*2))*(-1);  
+                            self.windowOffsetLeft =((self.options.zoomWindowWidth/2)-(self.nzWidth/2)+(self.options.borderSize*2))*(-1);
                         }
                         else{ //negative margin
 
                         }
 
                         break;
-                    case 15://done   
+                    case 15://done
                         self.windowOffsetTop = (self.zoomWindow.height()+(self.options.borderSize*2))*(-1); //DONE 12,13,14,15,16
                         self.windowOffsetLeft =(self.nzWidth-self.zoomWindow.width()-(self.options.borderSize*2)); //DONE - 5,15
                         break;
-                    case 16:  //done  
+                    case 16:  //done
                         self.windowOffsetTop = (self.zoomWindow.height()+(self.options.borderSize*2))*(-1); //DONE 12,13,14,15,16
                         self.windowOffsetLeft =(self.nzWidth); //DONE 1, 2, 3, 4, 16
-                        break;            
-                    default: //done  
+                        break;
+                    default: //done
                         self.windowOffsetTop = (self.options.zoomWindowOffety);//DONE - 1
                     self.windowOffsetLeft =(self.nzWidth); //DONE 1, 2, 3, 4, 16
-                    } 
+                    }
                 } //end isNAN
                 else{
                     //WE CAN POSITION IN A CLASS - ASSUME THAT ANY STRING PASSED IS
@@ -1698,15 +1698,15 @@ if ( typeof Object.create !== 'function' ) {
                     self.zoomWindow.css({ top: 0});
                     self.zoomWindow.css({ left: 0});
 
-                }   
+                }
 
 
-                self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomWindow.width() / 2) * (-1));   
+                self.windowLeftPos = String(((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomWindow.width() / 2) * (-1));
                 self.windowTopPos = String(((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomWindow.height() / 2) * (-1));
                 if(self.Etoppos){self.windowTopPos = 0;}
-                if(self.Eloppos){self.windowLeftPos = 0;}     
-                if(self.Eboppos){self.windowTopPos = (self.largeHeight/self.currentZoomLevel-self.zoomWindow.height())*(-1);  } 
-                if(self.Eroppos){self.windowLeftPos = ((self.largeWidth/self.currentZoomLevel-self.zoomWindow.width())*(-1));}    
+                if(self.Eloppos){self.windowLeftPos = 0;}
+                if(self.Eboppos){self.windowTopPos = (self.largeHeight/self.currentZoomLevel-self.zoomWindow.height())*(-1);  }
+                if(self.Eroppos){self.windowLeftPos = ((self.largeWidth/self.currentZoomLevel-self.zoomWindow.width())*(-1));}
 
                 //stops micro movements
                 if(self.fullheight){
@@ -1717,7 +1717,7 @@ if ( typeof Object.create !== 'function' ) {
                     self.windowLeftPos = 0;
 
                 }
-                //set the css background position 
+                //set the css background position
 
 
                 if(self.options.zoomType == "window" || self.options.zoomType == "inner") {
@@ -1728,7 +1728,7 @@ if ( typeof Object.create !== 'function' ) {
 
                             self.windowLeftPos = 0;
                         }
-                        if(self.heightRatio <= 1){ 
+                        if(self.heightRatio <= 1){
                             self.windowTopPos = 0;
                         }
                     }
@@ -1755,46 +1755,46 @@ if ( typeof Object.create !== 'function' ) {
                         //            }
                         //set the pos to 0 if not set
                         if(!self.xp){self.xp = 0;}
-                        if(!self.yp){self.yp = 0;}  
-                        //if loop not already started, then run it 
-                        if (!self.loop){           
-                            self.loop = setInterval(function(){                
-                                //using zeno's paradox    
+                        if(!self.yp){self.yp = 0;}
+                        //if loop not already started, then run it
+                        if (!self.loop){
+                            self.loop = setInterval(function(){
+                                //using zeno's paradox
 
-                                self.xp += (self.windowLeftPos  - self.xp) / self.options.easingAmount; 
+                                self.xp += (self.windowLeftPos  - self.xp) / self.options.easingAmount;
                                 self.yp += (self.windowTopPos  - self.yp) / self.options.easingAmount;
                                 if(self.scrollingLock){
 
 
                                     clearInterval(self.loop);
                                     self.xp = self.windowLeftPos;
-                                    self.yp = self.windowTopPos            
+                                    self.yp = self.windowTopPos
 
                                     self.xp = ((e.pageX - self.nzOffset.left) * self.widthRatio - self.zoomWindow.width() / 2) * (-1);
-                                    self.yp = (((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomWindow.height() / 2) * (-1));                         
+                                    self.yp = (((e.pageY - self.nzOffset.top) * self.heightRatio - self.zoomWindow.height() / 2) * (-1));
 
-                                    if(self.changeBgSize){    
-                                        if(self.nzHeight>self.nzWidth){  
-                                            if(self.options.zoomType == "lens"){      
+                                    if(self.changeBgSize){
+                                        if(self.nzHeight>self.nzWidth){
+                                            if(self.options.zoomType == "lens"){
                                                 self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
-                                            }   
+                                            }
                                             self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
                                         }
-                                        else{   
-                                            if(self.options.zoomType != "lens"){      
+                                        else{
+                                            if(self.options.zoomType != "lens"){
                                                 self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
-                                            }            
-                                            self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+                                            }
+                                            self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
 
                                         }
 
                                         /*
              if(!self.bgxp){self.bgxp = self.largeWidth/self.newvalue;}
-                        if(!self.bgyp){self.bgyp = self.largeHeight/self.newvalue ;}  
-                 if (!self.bgloop){   
-                    self.bgloop = setInterval(function(){   
+                        if(!self.bgyp){self.bgyp = self.largeHeight/self.newvalue ;}
+                 if (!self.bgloop){
+                    self.bgloop = setInterval(function(){
 
-                 self.bgxp += (self.largeWidth/self.newvalue  - self.bgxp) / self.options.easingAmount; 
+                 self.bgxp += (self.largeWidth/self.newvalue  - self.bgxp) / self.options.easingAmount;
                                 self.bgyp += (self.largeHeight/self.newvalue  - self.bgyp) / self.options.easingAmount;
 
            self.zoomWindow.css({ "background-size": self.bgxp + 'px ' + self.bgyp + 'px' });
@@ -1819,84 +1819,84 @@ if ( typeof Object.create !== 'function' ) {
                                     self.loop = false;
                                 }
                                 else{
-                                    if(self.changeBgSize){    
-                                        if(self.nzHeight>self.nzWidth){ 
-                                            if(self.options.zoomType == "lens"){      
+                                    if(self.changeBgSize){
+                                        if(self.nzHeight>self.nzWidth){
+                                            if(self.options.zoomType == "lens"){
                                                 self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
-                                            }         
+                                            }
                                             self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
                                         }
-                                        else{                 
-                                            if(self.options.zoomType != "lens"){     
+                                        else{
+                                            if(self.options.zoomType != "lens"){
                                                 self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
-                                            }      
-                                            self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+                                            }
+                                            self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
                                         }
                                         self.changeBgSize = false;
-                                    }                   
+                                    }
 
                                     self.zoomWindow.css({ backgroundPosition: self.xp + 'px ' + self.yp + 'px' });
-                                }       
+                                }
                             }, 16);
                         }
-                    }   
-                    else{    
-                        if(self.changeBgSize){  
-                            if(self.nzHeight>self.nzWidth){  
-                                if(self.options.zoomType == "lens"){      
+                    }
+                    else{
+                        if(self.changeBgSize){
+                            if(self.nzHeight>self.nzWidth){
+                                if(self.options.zoomType == "lens"){
                                     self.zoomLens.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
-                                } 
+                                }
 
                                 self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
                             }
-                            else{     
-                                if(self.options.zoomType == "lens"){      
+                            else{
+                                if(self.options.zoomType == "lens"){
                                     self.zoomLens.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
-                                } 
-                                if((self.largeHeight/self.newvaluewidth) < self.options.zoomWindowHeight){ 
+                                }
+                                if((self.largeHeight/self.newvaluewidth) < self.options.zoomWindowHeight){
 
-                                    self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });            
+                                    self.zoomWindow.css({ "background-size": self.largeWidth/self.newvaluewidth + 'px ' + self.largeHeight/self.newvaluewidth + 'px' });
                                 }
                                 else{
 
-                                    self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });   
+                                    self.zoomWindow.css({ "background-size": self.largeWidth/self.newvalueheight + 'px ' + self.largeHeight/self.newvalueheight + 'px' });
                                 }
 
                             }
                             self.changeBgSize = false;
-                        }     
+                        }
 
-                        self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });       
+                        self.zoomWindow.css({ backgroundPosition: self.windowLeftPos + 'px ' + self.windowTopPos + 'px' });
                     }
-                } 
+                }
             },
             setTintPosition: function(e){
                 var self = this;
                 self.nzOffset = self.$elem.offset();
-                self.tintpos = String(((e.pageX - self.nzOffset.left)-(self.zoomLens.width() / 2)) * (-1)); 
-                self.tintposy = String(((e.pageY - self.nzOffset.top) - self.zoomLens.height() / 2) * (-1));    
+                self.tintpos = String(((e.pageX - self.nzOffset.left)-(self.zoomLens.width() / 2)) * (-1));
+                self.tintposy = String(((e.pageY - self.nzOffset.top) - self.zoomLens.height() / 2) * (-1));
                 if(self.Etoppos){
                     self.tintposy = 0;
                 }
                 if(self.Eloppos){
                     self.tintpos=0;
-                }     
+                }
                 if(self.Eboppos){
                     self.tintposy = (self.nzHeight-self.zoomLens.height()-(self.options.lensBorderSize*2))*(-1);
-                } 
+                }
                 if(self.Eroppos){
                     self.tintpos = ((self.nzWidth-self.zoomLens.width()-(self.options.lensBorderSize*2))*(-1));
-                }    
+                }
                 if(self.options.tint) {
                     //stops micro movements
                     if(self.fullheight){
                         self.tintposy = 0;
 
                     }
-                    if(self.fullwidth){ 
+                    if(self.fullwidth){
                         self.tintpos = 0;
 
-                    }   
+                    }
                     self.zoomTintImage.css({'left': self.tintpos+'px'});
                     self.zoomTintImage.css({'top': self.tintposy+'px'});
                 }
@@ -1904,7 +1904,7 @@ if ( typeof Object.create !== 'function' ) {
 
             swaptheimage: function(smallimage, largeimage){
                 var self = this;
-                var newImg = new Image(); 
+                var newImg = new Image();
 
                 if(self.options.loadingIcon){
                     self.spinner = $('<div style="background: url(\''+self.options.loadingIcon+'\') no-repeat center;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index: 2000;position: absolute; background-position: center center;"></div>');
@@ -1919,27 +1919,27 @@ if ( typeof Object.create !== 'function' ) {
                     self.zoomImage = largeimage;
                     self.zoomWindow.css({ "background-size": self.largeWidth + 'px ' + self.largeHeight + 'px' });
                     self.swapAction(smallimage, largeimage);
-                    return;              
-                }          
+                    return;
+                }
                 newImg.src = largeimage; // this must be done AFTER setting onload
 
             },
             swapAction: function(smallimage, largeimage){
 
 
-                var self = this;    
+                var self = this;
 
-                var newImg2 = new Image(); 
+                var newImg2 = new Image();
                 newImg2.onload = function() {
                     //re-calculate values
                     self.nzHeight = newImg2.height;
                     self.nzWidth = newImg2.width;
                     self.options.onImageSwapComplete(self.$elem);
 
-                    self.doneCallback();  
-                    return;      
-                }          
-                newImg2.src = smallimage; 
+                    self.doneCallback();
+                    return;
+                }
+                newImg2.src = smallimage;
 
                 //reset the zoomlevel to that initially set in options
                 self.currentZoomLevel = self.options.zoomLevel;
@@ -1947,16 +1947,16 @@ if ( typeof Object.create !== 'function' ) {
 
                 //swaps the main image
                 //self.$elem.attr("src",smallimage);
-                //swaps the zoom image     
+                //swaps the zoom image
                 if(self.options.zoomType == "lens") {
-                    self.zoomLens.css({ backgroundImage: "url('" + largeimage + "')" }); 
+                    self.zoomLens.css({ backgroundImage: "url('" + largeimage + "')" });
                 }
                 if(self.options.zoomType == "window") {
-                    self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
+                    self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" });
                 }
                 if(self.options.zoomType == "inner") {
-                    self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" }); 
-                } 
+                    self.zoomWindow.css({ backgroundImage: "url('" + largeimage + "')" });
+                }
 
 
 
@@ -1964,11 +1964,11 @@ if ( typeof Object.create !== 'function' ) {
 
                 if(self.options.imageCrossfade){
                     var oldImg = self.$elem;
-                    var newImg = oldImg.clone();         
+                    var newImg = oldImg.clone();
                     self.$elem.attr("src",smallimage)
                     self.$elem.after(newImg);
                     newImg.stop(true).fadeOut(self.options.imageCrossfade, function() {
-                        $(this).remove();         
+                        $(this).remove();
                     });
 
                     //                      if(self.options.zoomType == "inner"){
@@ -1982,11 +1982,11 @@ if ( typeof Object.create !== 'function' ) {
                     if(self.options.tint && self.options.zoomType != "inner") {
 
                         var oldImgTint = self.zoomTintImage;
-                        var newImgTint = oldImgTint.clone();         
+                        var newImgTint = oldImgTint.clone();
                         self.zoomTintImage.attr("src",largeimage)
                         self.zoomTintImage.after(newImgTint);
                         newImgTint.stop(true).fadeOut(self.options.imageCrossfade, function() {
-                            $(this).remove();         
+                            $(this).remove();
                         });
 
 
@@ -1999,12 +1999,12 @@ if ( typeof Object.create !== 'function' ) {
                         //resize the tint window
                         self.zoomTint.css({ height: self.$elem.height()});
                         self.zoomTint.css({ width: self.$elem.width()});
-                    }    
+                    }
 
                     self.zoomContainer.css("height", self.$elem.height());
                     self.zoomContainer.css("width", self.$elem.width());
 
-                    if(self.options.zoomType == "inner"){ 
+                    if(self.options.zoomType == "inner"){
                         if(!self.options.constrainType){
                             self.zoomWrap.parent().css("height", self.$elem.height());
                             self.zoomWrap.parent().css("width", self.$elem.width());
@@ -2012,71 +2012,71 @@ if ( typeof Object.create !== 'function' ) {
                             self.zoomWindow.css("height", self.$elem.height());
                             self.zoomWindow.css("width", self.$elem.width());
                         }
-                    } 
+                    }
 
-                    if(self.options.imageCrossfade){  
+                    if(self.options.imageCrossfade){
                         self.zoomWrap.css("height", self.$elem.height());
                         self.zoomWrap.css("width", self.$elem.width());
-                    } 
+                    }
                 }
                 else{
-                    self.$elem.attr("src",smallimage); 
+                    self.$elem.attr("src",smallimage);
                     if(self.options.tint) {
                         self.zoomTintImage.attr("src",largeimage);
                         //self.zoomTintImage.attr("width",elem.data("image"));
                         self.zoomTintImage.attr("height",self.$elem.height());
                         //self.zoomTintImage.attr('src') = elem.data("image");
-                        self.zoomTintImage.css({ height: self.$elem.height()}); 
+                        self.zoomTintImage.css({ height: self.$elem.height()});
                         self.zoomTint.css({ height: self.$elem.height()});
 
                     }
                     self.zoomContainer.css("height", self.$elem.height());
                     self.zoomContainer.css("width", self.$elem.width());
 
-                    if(self.options.imageCrossfade){  
+                    if(self.options.imageCrossfade){
                         self.zoomWrap.css("height", self.$elem.height());
                         self.zoomWrap.css("width", self.$elem.width());
-                    } 
-                }              
-                if(self.options.constrainType){     
+                    }
+                }
+                if(self.options.constrainType){
 
                     //This will contrain the image proportions
-                    if(self.options.constrainType == "height"){ 
+                    if(self.options.constrainType == "height"){
 
                         self.zoomContainer.css("height", self.options.constrainSize);
                         self.zoomContainer.css("width", "auto");
 
-                        if(self.options.imageCrossfade){  
+                        if(self.options.imageCrossfade){
                             self.zoomWrap.css("height", self.options.constrainSize);
-                            self.zoomWrap.css("width", "auto"); 
+                            self.zoomWrap.css("width", "auto");
                             self.constwidth = self.zoomWrap.width();
 
 
                         }
-                        else{                  
+                        else{
                             self.$elem.css("height", self.options.constrainSize);
                             self.$elem.css("width", "auto");
                             self.constwidth = self.$elem.width();
-                        } 
+                        }
 
                         if(self.options.zoomType == "inner"){
 
                             self.zoomWrap.parent().css("height", self.options.constrainSize);
-                            self.zoomWrap.parent().css("width", self.constwidth);   
+                            self.zoomWrap.parent().css("width", self.constwidth);
                             self.zoomWindow.css("height", self.options.constrainSize);
-                            self.zoomWindow.css("width", self.constwidth);    
-                        }        
+                            self.zoomWindow.css("width", self.constwidth);
+                        }
                         if(self.options.tint){
                             self.tintContainer.css("height", self.options.constrainSize);
                             self.tintContainer.css("width", self.constwidth);
                             self.zoomTint.css("height", self.options.constrainSize);
                             self.zoomTint.css("width", self.constwidth);
                             self.zoomTintImage.css("height", self.options.constrainSize);
-                            self.zoomTintImage.css("width", self.constwidth); 
-                        } 
+                            self.zoomTintImage.css("width", self.constwidth);
+                        }
 
                     }
-                    if(self.options.constrainType == "width"){       
+                    if(self.options.constrainType == "width"){
                         self.zoomContainer.css("height", "auto");
                         self.zoomContainer.css("width", self.options.constrainSize);
 
@@ -2085,27 +2085,27 @@ if ( typeof Object.create !== 'function' ) {
                             self.zoomWrap.css("width", self.options.constrainSize);
                             self.constheight = self.zoomWrap.height();
                         }
-                        else{            
+                        else{
                             self.$elem.css("height", "auto");
-                            self.$elem.css("width", self.options.constrainSize); 
-                            self.constheight = self.$elem.height();              
-                        } 
+                            self.$elem.css("width", self.options.constrainSize);
+                            self.constheight = self.$elem.height();
+                        }
                         if(self.options.zoomType == "inner"){
                             self.zoomWrap.parent().css("height", self.constheight);
-                            self.zoomWrap.parent().css("width", self.options.constrainSize);   
+                            self.zoomWrap.parent().css("width", self.options.constrainSize);
                             self.zoomWindow.css("height", self.constheight);
-                            self.zoomWindow.css("width", self.options.constrainSize);    
-                        } 
+                            self.zoomWindow.css("width", self.options.constrainSize);
+                        }
                         if(self.options.tint){
                             self.tintContainer.css("height", self.constheight);
                             self.tintContainer.css("width", self.options.constrainSize);
                             self.zoomTint.css("height", self.constheight);
                             self.zoomTint.css("width", self.options.constrainSize);
                             self.zoomTintImage.css("height", self.constheight);
-                            self.zoomTintImage.css("width", self.options.constrainSize); 
-                        }   
+                            self.zoomTintImage.css("width", self.options.constrainSize);
+                        }
 
-                    }        
+                    }
 
 
                 }
@@ -2115,8 +2115,8 @@ if ( typeof Object.create !== 'function' ) {
 
                 var self = this;
                 if(self.options.loadingIcon){
-                    self.spinner.hide();     
-                }   
+                    self.spinner.hide();
+                }
 
                 self.nzOffset = self.$elem.offset();
                 self.nzWidth = self.$elem.width();
@@ -2127,14 +2127,14 @@ if ( typeof Object.create !== 'function' ) {
 
                 //ratio of the large to small image
                 self.widthRatio = self.largeWidth / self.nzWidth;
-                self.heightRatio = self.largeHeight / self.nzHeight; 
+                self.heightRatio = self.largeHeight / self.nzHeight;
 
                 //NEED TO ADD THE LENS SIZE FOR ROUND
                 // adjust images less than the window height
                 if(self.options.zoomType == "window") {
 
                     if(self.nzHeight < self.options.zoomWindowWidth/self.widthRatio){
-                        lensHeight = self.nzHeight;  
+                        lensHeight = self.nzHeight;
 
                     }
                     else{
@@ -2143,7 +2143,7 @@ if ( typeof Object.create !== 'function' ) {
 
                     if(self.options.zoomWindowWidth < self.options.zoomWindowWidth){
                         lensWidth = self.nzWidth;
-                    }       
+                    }
                     else{
                         lensWidth =  (self.options.zoomWindowWidth/self.widthRatio);
                     }
@@ -2151,22 +2151,22 @@ if ( typeof Object.create !== 'function' ) {
 
                     if(self.zoomLens){
 
-                        self.zoomLens.css('width', lensWidth);    
-                        self.zoomLens.css('height', lensHeight); 
+                        self.zoomLens.css('width', lensWidth);
+                        self.zoomLens.css('height', lensHeight);
 
 
                     }
                 }
             },
             getCurrentImage: function(){
-                var self = this;  
-                return self.zoomImage; 
-            }, 
+                var self = this;
+                return self.zoomImage;
+            },
             getGalleryList: function(){
-                var self = this;   
+                var self = this;
                 //loop through the gallery options and set them in list for fancybox
                 self.gallerylist = [];
-                if (self.options.gallery){ 
+                if (self.options.gallery){
 
 
                     $('#'+self.options.gallery + ' a').each(function() {
@@ -2177,13 +2177,13 @@ if ( typeof Object.create !== 'function' ) {
                         }
                         else if($(this).data("image")){
                             img_src = $(this).data("image");
-                        }           
+                        }
                         //put the current image at the start
                         if(img_src == self.zoomImage){
                             self.gallerylist.unshift({
                                 href: ''+img_src+'',
                                 title: $(this).find('img').attr("title")
-                            }); 
+                            });
                         }
                         else{
                             self.gallerylist.push({
@@ -2194,22 +2194,22 @@ if ( typeof Object.create !== 'function' ) {
 
 
                     });
-                }                                                       
+                }
                 //if no gallery - return current image
                 else{
                     self.gallerylist.push({
                         href: ''+self.zoomImage+'',
                         title: $(this).find('img').attr("title")
-                    }); 
+                    });
                 }
                 return self.gallerylist;
 
             },
             changeZoomLevel: function(value){
-                var self = this;   
+                var self = this;
 
-                //flag a zoom, so can adjust the easing during setPosition     
-                self.scrollingLock = true;   
+                //flag a zoom, so can adjust the easing during setPosition
+                self.scrollingLock = true;
 
                 //round to two decimal places
                 self.newvalue = parseFloat(value).toFixed(2);
@@ -2219,8 +2219,8 @@ if ( typeof Object.create !== 'function' ) {
 
 
                 //maxwidth & Maxheight of the image
-                maxheightnewvalue = self.largeHeight/((self.options.zoomWindowHeight / self.nzHeight) * self.nzHeight);     
-                maxwidthtnewvalue = self.largeWidth/((self.options.zoomWindowWidth / self.nzWidth) * self.nzWidth);     
+                maxheightnewvalue = self.largeHeight/((self.options.zoomWindowHeight / self.nzHeight) * self.nzHeight);
+                maxwidthtnewvalue = self.largeWidth/((self.options.zoomWindowWidth / self.nzWidth) * self.nzWidth);
 
 
 
@@ -2235,7 +2235,7 @@ if ( typeof Object.create !== 'function' ) {
 
                     }
                     else{
-                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight; 
+                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight;
                         self.newvalueheight = newvalue;
                         self.fullheight = false;
 
@@ -2251,7 +2251,7 @@ if ( typeof Object.create !== 'function' ) {
 
                     }
                     else{
-                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth; 
+                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth;
                         self.newvaluewidth = newvalue;
                         self.fullwidth = false;
 
@@ -2262,7 +2262,7 @@ if ( typeof Object.create !== 'function' ) {
                             self.newvaluewidth = maxheightnewvalue;
 
                         } else{
-                            self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth; 
+                            self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth;
                             self.newvaluewidth = newvalue;
 
                             self.fullwidth = false;
@@ -2272,20 +2272,20 @@ if ( typeof Object.create !== 'function' ) {
 
                 if(self.options.zoomType == "inner")
                 {
-                    maxheightnewvalue = parseFloat(self.largeHeight/self.nzHeight).toFixed(2);     
-                    maxwidthtnewvalue = parseFloat(self.largeWidth/self.nzWidth).toFixed(2);      
+                    maxheightnewvalue = parseFloat(self.largeHeight/self.nzHeight).toFixed(2);
+                    maxwidthtnewvalue = parseFloat(self.largeWidth/self.nzWidth).toFixed(2);
                     if(newvalue > maxheightnewvalue){
                         newvalue = maxheightnewvalue;
                     }
                     if(newvalue > maxwidthtnewvalue){
                         newvalue = maxwidthtnewvalue;
-                    }      
+                    }
 
 
                     if(maxheightnewvalue <= newvalue){
 
 
-                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight; 
+                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight;
                         if(newvalue > maxheightnewvalue){
                             self.newvalueheight = maxheightnewvalue;
                         }else{
@@ -2299,7 +2299,7 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
-                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight; 
+                        self.heightRatio = (self.largeHeight/newvalue) / self.nzHeight;
 
                         if(newvalue > maxheightnewvalue){
 
@@ -2313,9 +2313,9 @@ if ( typeof Object.create !== 'function' ) {
 
 
 
-                    if(maxwidthtnewvalue <= newvalue){   
+                    if(maxwidthtnewvalue <= newvalue){
 
-                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth; 
+                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth;
                         if(newvalue > maxwidthtnewvalue){
 
                             self.newvaluewidth = maxwidthtnewvalue;
@@ -2327,12 +2327,12 @@ if ( typeof Object.create !== 'function' ) {
 
 
                     }
-                    else{  
+                    else{
 
-                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth; 
+                        self.widthRatio = (self.largeWidth/newvalue) / self.nzWidth;
                         self.newvaluewidth = newvalue;
                         self.fullwidth = false;
-                    }        
+                    }
 
 
                 } //end inner
@@ -2351,12 +2351,12 @@ if ( typeof Object.create !== 'function' ) {
                             self.fullwidth = true;
                         }
                     }
-                    if(self.nzHeight > self.nzWidth){     
+                    if(self.nzHeight > self.nzWidth){
                         if( self.newvaluewidth <= maxwidthtnewvalue){
                             scrcontinue = true;
                         }
                         else{
-                            scrcontinue = false;  
+                            scrcontinue = false;
 
                             self.fullheight = true;
                             self.fullwidth = true;
@@ -2381,18 +2381,18 @@ if ( typeof Object.create !== 'function' ) {
                     if(((self.options.zoomWindowHeight)/self.heightRatio) <= self.nzHeight){
 
 
-                        self.currentZoomLevel = self.newvalueheight; 
+                        self.currentZoomLevel = self.newvalueheight;
                         if(self.options.zoomType != "lens" && self.options.zoomType != "inner") {
                             self.changeBgSize = true;
 
-                            self.zoomLens.css({height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' }) 
+                            self.zoomLens.css({height: String((self.options.zoomWindowHeight)/self.heightRatio) + 'px' })
                         }
-                        if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {  
-                            self.changeBgSize = true;  
-                        }   
+                        if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {
+                            self.changeBgSize = true;
+                        }
 
 
-                    } 
+                    }
 
 
 
@@ -2403,7 +2403,7 @@ if ( typeof Object.create !== 'function' ) {
 
                         if(self.options.zoomType != "inner"){
                             if(self.newvaluewidth > self.newvalueheight)   {
-                                self.currentZoomLevel = self.newvaluewidth;                 
+                                self.currentZoomLevel = self.newvaluewidth;
 
                             }
                         }
@@ -2413,13 +2413,13 @@ if ( typeof Object.create !== 'function' ) {
 
                             self.zoomLens.css({width: String((self.options.zoomWindowWidth)/self.widthRatio) + 'px' })
                         }
-                        if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {  
+                        if(self.options.zoomType == "lens" || self.options.zoomType == "inner") {
                             self.changeBgSize = true;
-                        }   
+                        }
 
                     }
                     if(self.options.zoomType == "inner"){
-                        self.changeBgSize = true;  
+                        self.changeBgSize = true;
 
                         if(self.nzWidth > self.nzHeight){
                             self.currentZoomLevel = self.newvaluewidth;
@@ -2542,8 +2542,8 @@ if ( typeof Object.create !== 'function' ) {
   Version: 1.0
   Design and Developed by: codecarnival
 
-NOTE: This is js of style customizer, This file Change the styling of color, 
-backgrond patterns, Background images and box layout of the actual Template. 
+NOTE: This is js of style customizer, This file Change the styling of color,
+backgrond patterns, Background images and box layout of the actual Template.
 so you can change as your requirement.
 
 */
@@ -2573,7 +2573,7 @@ jQuery(document).ready(function($) {
     });
 
     /* ----------------------------------
-        style change 
+        style change
     ------------------------------------- */
     var link = $('link[data-style="styles"]'),
     link_no_cookie = $('link[data-style="styles-no-cookie"]');
@@ -2583,7 +2583,7 @@ jQuery(document).ready(function($) {
 	------------------------------------- */
 	var tp_stylesheet = $.cookie('tp_stylesheet'),
 	footer_bg = $.cookie('footer_bg'),
-	customizer_mode = $.cookie('customizer_mode'),      
+	customizer_mode = $.cookie('customizer_mode'),
 	pattern = $.cookie('pattern');
 
 	$(".style-customizer .selected").removeClass("selected");
@@ -2623,7 +2623,7 @@ jQuery(document).ready(function($) {
 			$('.style-customizer .layoutstyle li[data-style="boxed-layout"]').addClass("selected");
 			$('.style-customizer .layoutstyle li[data-style="wide-layout"]').removeClass("selected");
 			$(".owl-carousel .container").css("marginLeft", "0");
-		} else { 
+		} else {
 			$("body").addClass(customizer_mode);
 			$("body").removeClass("boxed-layout pattern-0 pattern-1 pattern-2 pattern-3 pattern-4 pattern-5  pattern-6  pattern-7  pattern-8 main-bg-1 main-bg-2 main-bg-3 main-bg-4 main-bg-5 main-bg-6 main-bg-7 main-bg-8 ");
 
@@ -2637,7 +2637,7 @@ jQuery(document).ready(function($) {
 		$('.style-customizer .patternChange li[data-style="'+pattern+'"]').addClass("selected");
 		$("body").removeClass("pattern-0 pattern-1 pattern-2 pattern-3 pattern-4 pattern-5  pattern-6  pattern-7  pattern-8 main-bg-1 main-bg-2 main-bg-3 main-bg-4 main-bg-5 main-bg-6 main-bg-7 main-bg-8 ");
 
-		$("body").addClass(pattern); 
+		$("body").addClass(pattern);
 		} else if (customizer_mode =="boxed-layout") {
 			$("body").removeClass("pattern-0 pattern-1 pattern-2 pattern-3 pattern-4 pattern-5  pattern-6  pattern-7  pattern-8 main-bg-1 main-bg-2 main-bg-3 main-bg-4 main-bg-5 main-bg-6 main-bg-7 main-bg-8 ");
 
@@ -2645,7 +2645,7 @@ jQuery(document).ready(function($) {
 		} else {
 			$('.style-customizer .patternChange li.selected').removeClass("selected");
 			$("body").removeClass("pattern-0 pattern-1 pattern-2 pattern-3 pattern-4 pattern-5  pattern-6  pattern-7  pattern-8 main-bg-1 main-bg-2 main-bg-3 main-bg-4 main-bg-5 main-bg-6 main-bg-7 main-bg-8 ");
-		
+
 	};
 
 	/* ----------------------------------
@@ -2694,7 +2694,7 @@ jQuery(document).ready(function($) {
 		};
 	});
 
-         
+
 	/* ----------------------------------
 		Patterns Changer
 	------------------------------------- */
@@ -2716,11 +2716,11 @@ jQuery(document).ready(function($) {
 		$(window).trigger('resize');
 	});
 
- 
+
 	/* ----------------------------------
 		layout Changer (boxed Layout)
 	------------------------------------- */
-	$('.style-customizer .layoutstyle li.boxed-layout').on('click',function(){ 
+	$('.style-customizer .layoutstyle li.boxed-layout').on('click',function(){
 		$("body").addClass("boxed-layout");
 		$("body").removeClass("wide-layout");
 		$('.style-customizer .layoutstyle li[data-style="boxed-layout"]').addClass("selected");
@@ -2743,7 +2743,7 @@ jQuery(document).ready(function($) {
 	/* ----------------------------------
 		layout Changer (Wide Layout)
 	------------------------------------- */
-	$('.style-customizer .layoutstyle li.wide-layout').on('click',function(){ 
+	$('.style-customizer .layoutstyle li.wide-layout').on('click',function(){
 		$("body").addClass("wide-layout");
 		$("body").removeClass("boxed-layout pattern-0 pattern-1 pattern-2 pattern-3 pattern-4 pattern-5  pattern-6  pattern-7  pattern-8 main-bg-1 main-bg-2 main-bg-3 main-bg-4 main-bg-5 main-bg-6 main-bg-7 main-bg-8 ");
 		$("body").removeClass("");
@@ -2759,7 +2759,7 @@ jQuery(document).ready(function($) {
 	/* ----------------------------------
 		Reset all customize styles
 	------------------------------------- */
-	$('.style-customizer .resetAll li a.button-reset').on('click',function() { 
+	$('.style-customizer .resetAll li a.button-reset').on('click',function() {
 		$.cookie('customizer_mode', 'wide-layout', 30);
 		$("body").addClass("wide-layout");
 		$("body").removeClass("boxed-layout");
@@ -2811,12 +2811,12 @@ jQuery(document).ready(function($){
         typeLettersDelay = 150,
         selectionDuration = 500,
         typeAnimationDelay = selectionDuration + 800,
-        //clip effect 
+        //clip effect
         revealDuration = 600,
         revealAnimationDelay = 1500;
-    
+
     initHeadline();
-    
+
 
     function initHeadline() {
         //insert <i> element for each letter of a changing word
@@ -2843,7 +2843,7 @@ jQuery(document).ready(function($){
         var duration = animationDelay;
         $headlines.each(function(){
             var headline = $(this);
-            
+
             if(headline.hasClass('loading-bar')) {
                 duration = barAnimationDelay;
                 setTimeout(function(){ headline.find('.cd-words-wrapper').addClass('is-loading') }, barWaiting);
@@ -2869,16 +2869,16 @@ jQuery(document).ready(function($){
 
     function hideWord($word) {
         var nextWord = takeNext($word);
-        
+
         if($word.parents('.cd-headline').hasClass('type')) {
             var parentSpan = $word.parent('.cd-words-wrapper');
-            parentSpan.addClass('selected').removeClass('waiting'); 
-            setTimeout(function(){ 
-                parentSpan.removeClass('selected'); 
+            parentSpan.addClass('selected').removeClass('waiting');
+            setTimeout(function(){
+                parentSpan.removeClass('selected');
                 $word.removeClass('is-visible').addClass('is-hidden').children('i').removeClass('in').addClass('out');
             }, selectionDuration);
             setTimeout(function(){ showWord(nextWord, typeLettersDelay) }, typeAnimationDelay);
-        
+
         } else if($word.parents('.cd-headline').hasClass('letters')) {
             var bool = ($word.children('i').length >= nextWord.children('i').length) ? true : false;
             hideLetter($word.find('i').eq(0), $word, bool, lettersDelay);
@@ -2908,33 +2908,33 @@ jQuery(document).ready(function($){
             $word.addClass('is-visible').removeClass('is-hidden');
 
         }  else if($word.parents('.cd-headline').hasClass('clip')) {
-            $word.parents('.cd-words-wrapper').animate({ 'width' : $word.width() + 10 }, revealDuration, function(){ 
-                setTimeout(function(){ hideWord($word) }, revealAnimationDelay); 
+            $word.parents('.cd-words-wrapper').animate({ 'width' : $word.width() + 10 }, revealDuration, function(){
+                setTimeout(function(){ hideWord($word) }, revealAnimationDelay);
             });
         }
     }
 
     function hideLetter($letter, $word, $bool, $duration) {
         $letter.removeClass('in').addClass('out');
-        
+
         if(!$letter.is(':last-child')) {
-            setTimeout(function(){ hideLetter($letter.next(), $word, $bool, $duration); }, $duration);  
-        } else if($bool) { 
+            setTimeout(function(){ hideLetter($letter.next(), $word, $bool, $duration); }, $duration);
+        } else if($bool) {
             setTimeout(function(){ hideWord(takeNext($word)) }, animationDelay);
         }
 
         if($letter.is(':last-child') && $('html').hasClass('no-csstransitions')) {
             var nextWord = takeNext($word);
             switchWord($word, nextWord);
-        } 
+        }
     }
 
     function showLetter($letter, $word, $bool, $duration) {
         $letter.addClass('in').removeClass('out');
-        
-        if(!$letter.is(':last-child')) { 
-            setTimeout(function(){ showLetter($letter.next(), $word, $bool, $duration); }, $duration); 
-        } else { 
+
+        if(!$letter.is(':last-child')) {
+            setTimeout(function(){ showLetter($letter.next(), $word, $bool, $duration); }, $duration);
+        } else {
             if($word.parents('.cd-headline').hasClass('type')) { setTimeout(function(){ $word.parents('.cd-words-wrapper').addClass('waiting'); }, 200);}
             if(!$bool) { setTimeout(function(){ hideWord($word) }, animationDelay) }
         }
@@ -2959,11 +2959,11 @@ jQuery(document).ready(function($){
 ---------------------------------------------------------------*/
 
 /*jquery.mb.YTPlayer 25-07-2016
- _ jquery.mb.components 
- _ email: matteo@open-lab.com 
- _ Copyright (c) 2001-2016. Matteo Bicocchi (Pupunzi); 
- _ blog: http://pupunzi.open-lab.com 
- _ Open Lab s.r.l., Florence - Italy 
+ _ jquery.mb.components
+ _ email: matteo@open-lab.com
+ _ Copyright (c) 2001-2016. Matteo Bicocchi (Pupunzi);
+ _ blog: http://pupunzi.open-lab.com
+ _ Open Lab s.r.l., Florence - Italy
  */
 function onYouTubeIframeAPIReady(){ytp.YTAPIReady||(ytp.YTAPIReady=!0,jQuery(document).trigger("YTAPIReady"))}function uncamel(a){return a.replace(/([A-Z])/g,function(a){return"-"+a.toLowerCase()})}function setUnit(a,b){return"string"!=typeof a||a.match(/^[\-0-9\.]+jQuery/)?""+a+b:a}function setFilter(a,b,c){var d=uncamel(b),e=jQuery.browser.mozilla?"":jQuery.CSS.sfx;a[e+"filter"]=a[e+"filter"]||"",c=setUnit(c>jQuery.CSS.filters[b].max?jQuery.CSS.filters[b].max:c,jQuery.CSS.filters[b].unit),a[e+"filter"]+=d+"("+c+") ",delete a[b]}var ytp=ytp||{},getYTPVideoID=function(a){var b,c;return a.indexOf("youtu.be")>0?(b=a.substr(a.lastIndexOf("/")+1,a.length),c=b.indexOf("?list=")>0?b.substr(b.lastIndexOf("="),b.length):null,b=c?b.substr(0,b.lastIndexOf("?")):b):a.indexOf("http")>-1?(b=a.match(/[\\?&]v=([^&#]*)/)[1],c=a.indexOf("list=")>0?a.match(/[\\?&]list=([^&#]*)/)[1]:null):(b=a.length>15?null:a,c=b?null:a),{videoID:b,playlistID:c}};!function(jQuery,ytp){jQuery.mbYTPlayer={name:"jquery.mb.YTPlayer",version:"3.0.8",build:"5878",author:"Matteo Bicocchi",apiKey:"",defaults:{containment:"body",ratio:"auto",videoURL:null,playlistURL:null,startAt:0,stopAt:0,autoPlay:!0,vol:50,addRaster:!1,mask:!1,opacity:1,quality:"default",mute:!1,loop:!0,showControls:!0,showAnnotations:!1,showYTLogo:!0,stopMovieOnBlur:!0,realfullscreen:!0,mobileFallbackImage:null,gaTrack:!0,optimizeDisplay:!0,align:"center,center",onReady:function(a){}},controls:{play:"P",pause:"p",mute:"M",unmute:"A",onlyYT:"O",showSite:"R",ytLogo:"Y"},controlBar:null,loading:null,locationProtocol:"https:",filters:{grayscale:{value:0,unit:"%"},hue_rotate:{value:0,unit:"deg"},invert:{value:0,unit:"%"},opacity:{value:0,unit:"%"},saturate:{value:0,unit:"%"},sepia:{value:0,unit:"%"},brightness:{value:0,unit:"%"},contrast:{value:0,unit:"%"},blur:{value:0,unit:"px"}},buildPlayer:function(options){return this.each(function(){var YTPlayer=this,$YTPlayer=jQuery(YTPlayer);YTPlayer.loop=0,YTPlayer.opt={},YTPlayer.state={},YTPlayer.filters=jQuery.mbYTPlayer.filters,YTPlayer.filtersEnabled=!0,YTPlayer.id=YTPlayer.id||"YTP_"+(new Date).getTime(),$YTPlayer.addClass("mb_YTPlayer");var property=$YTPlayer.data("property")&&"string"==typeof $YTPlayer.data("property")?eval("("+$YTPlayer.data("property")+")"):$YTPlayer.data("property");"undefined"!=typeof property&&"undefined"!=typeof property.vol&&(property.vol=0===property.vol?property.vol=1:property.vol),jQuery.extend(YTPlayer.opt,jQuery.mbYTPlayer.defaults,options,property),YTPlayer.hasChanged||(YTPlayer.defaultOpt={},jQuery.extend(YTPlayer.defaultOpt,jQuery.mbYTPlayer.defaults,options)),"true"==YTPlayer.opt.loop&&(YTPlayer.opt.loop=9999),YTPlayer.isRetina=window.retina||window.devicePixelRatio>1;var isIframe=function(){var a=!1;try{self.location.href!=top.location.href&&(a=!0)}catch(b){a=!0}return a};YTPlayer.canGoFullScreen=!(jQuery.browser.msie||jQuery.browser.opera||isIframe()),YTPlayer.canGoFullScreen||(YTPlayer.opt.realfullscreen=!1),$YTPlayer.attr("id")||$YTPlayer.attr("id","video_"+(new Date).getTime());var playerID="mbYTP_"+YTPlayer.id;YTPlayer.isAlone=!1,YTPlayer.hasFocus=!0;var videoID=this.opt.videoURL?getYTPVideoID(this.opt.videoURL).videoID:$YTPlayer.attr("href")?getYTPVideoID($YTPlayer.attr("href")).videoID:!1,playlistID=this.opt.videoURL?getYTPVideoID(this.opt.videoURL).playlistID:$YTPlayer.attr("href")?getYTPVideoID($YTPlayer.attr("href")).playlistID:!1;YTPlayer.videoID=videoID,YTPlayer.playlistID=playlistID,YTPlayer.opt.showAnnotations=YTPlayer.opt.showAnnotations?"0":"3";var playerVars={modestbranding:1,autoplay:0,controls:0,showinfo:0,rel:0,enablejsapi:1,version:3,playerapiid:playerID,origin:"*",allowfullscreen:!0,wmode:"transparent",iv_load_policy:YTPlayer.opt.showAnnotations};if(document.createElement("video").canPlayType&&jQuery.extend(playerVars,{html5:1}),jQuery.browser.msie&&jQuery.browser.version<9&&(this.opt.opacity=1),YTPlayer.isSelf="self"==YTPlayer.opt.containment,YTPlayer.defaultOpt.containment=YTPlayer.opt.containment=jQuery("self"==YTPlayer.opt.containment?this:YTPlayer.opt.containment),YTPlayer.isBackground=YTPlayer.opt.containment.is("body"),!YTPlayer.isBackground||!ytp.backgroundIsInited){var isPlayer=YTPlayer.opt.containment.is(jQuery(this));YTPlayer.canPlayOnMobile=isPlayer&&0===jQuery(this).children().length,YTPlayer.isPlayer=!1,isPlayer?YTPlayer.isPlayer=!0:$YTPlayer.hide();var overlay=jQuery("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%"}).addClass("YTPOverlay");YTPlayer.isPlayer&&overlay.on("click",function(){$YTPlayer.YTPTogglePlay()});var wrapper=jQuery("<div/>").addClass("mbYTP_wrapper").attr("id","wrapper_"+playerID);wrapper.css({position:"absolute",zIndex:0,minWidth:"100%",minHeight:"100%",left:0,top:0,overflow:"hidden",opacity:0});var playerBox=jQuery("<div/>").attr("id",playerID).addClass("playerBox");if(playerBox.css({position:"absolute",zIndex:0,width:"100%",height:"100%",top:0,left:0,overflow:"hidden"}),wrapper.append(playerBox),YTPlayer.opt.containment.children().not("script, style").each(function(){"static"==jQuery(this).css("position")&&jQuery(this).css("position","relative")}),YTPlayer.isBackground?(jQuery("body").css({boxSizing:"border-box"}),wrapper.css({position:"fixed",top:0,left:0,zIndex:0}),$YTPlayer.hide()):"static"==YTPlayer.opt.containment.css("position")&&YTPlayer.opt.containment.css({position:"relative"}),YTPlayer.opt.containment.prepend(wrapper),YTPlayer.wrapper=wrapper,playerBox.css({opacity:1}),jQuery.browser.mobile||(playerBox.after(overlay),YTPlayer.overlay=overlay),YTPlayer.isBackground||overlay.on("mouseenter",function(){YTPlayer.controlBar.length&&YTPlayer.controlBar.addClass("visible")}).on("mouseleave",function(){YTPlayer.controlBar.length&&YTPlayer.controlBar.removeClass("visible")}),ytp.YTAPIReady)setTimeout(function(){jQuery(document).trigger("YTAPIReady")},100);else{jQuery("#YTAPI").remove();var tag=jQuery("<script></script>").attr({src:jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/iframe_api?v="+jQuery.mbYTPlayer.version,id:"YTAPI"});jQuery("head").prepend(tag)}if(jQuery.browser.mobile&&!YTPlayer.canPlayOnMobile)return YTPlayer.opt.mobileFallbackImage&&YTPlayer.opt.containment.css({backgroundImage:"url("+YTPlayer.opt.mobileFallbackImage+")",backgroundPosition:"center center",backgroundSize:"cover",backgroundRepeat:"no-repeat"}),$YTPlayer.remove(),void jQuery(document).trigger("YTPUnavailable");jQuery(document).on("YTAPIReady",function(){YTPlayer.isBackground&&ytp.backgroundIsInited||YTPlayer.isInit||(YTPlayer.isBackground&&(ytp.backgroundIsInited=!0),YTPlayer.opt.autoPlay="undefined"==typeof YTPlayer.opt.autoPlay?YTPlayer.isBackground?!0:!1:YTPlayer.opt.autoPlay,YTPlayer.opt.vol=YTPlayer.opt.vol?YTPlayer.opt.vol:100,jQuery.mbYTPlayer.getDataFromAPI(YTPlayer),jQuery(YTPlayer).on("YTPChanged",function(){if(!YTPlayer.isInit){if(YTPlayer.isInit=!0,jQuery.browser.mobile&&YTPlayer.canPlayOnMobile){if(YTPlayer.opt.containment.outerWidth()>jQuery(window).width()){YTPlayer.opt.containment.css({maxWidth:"100%"});var h=.563*YTPlayer.opt.containment.outerWidth();YTPlayer.opt.containment.css({maxHeight:h})}return void new YT.Player(playerID,{videoId:YTPlayer.videoID.toString(),width:"100%",height:h,playerVars:playerVars,events:{onReady:function(a){YTPlayer.player=a.target,playerBox.css({opacity:1}),YTPlayer.wrapper.css({opacity:1})}}})}new YT.Player(playerID,{videoId:YTPlayer.videoID.toString(),playerVars:playerVars,events:{onReady:function(a){YTPlayer.player=a.target,YTPlayer.isReady||(YTPlayer.isReady=YTPlayer.isPlayer&&!YTPlayer.opt.autoPlay?!1:!0,YTPlayer.playerEl=YTPlayer.player.getIframe(),jQuery(YTPlayer.playerEl).unselectable(),$YTPlayer.optimizeDisplay(),YTPlayer.videoID=videoID,jQuery(window).off("resize.YTP_"+YTPlayer.id).on("resize.YTP_"+YTPlayer.id,function(){$YTPlayer.optimizeDisplay()}),jQuery.mbYTPlayer.checkForState(YTPlayer))},onStateChange:function(event){if("function"==typeof event.target.getPlayerState){var state=event.target.getPlayerState();if(YTPlayer.preventTrigger)return void(YTPlayer.preventTrigger=!1);YTPlayer.state=state;var eventType;switch(state){case-1:eventType="YTPUnstarted";break;case 0:eventType="YTPEnd";break;case 1:eventType="YTPPlay",YTPlayer.controlBar.length&&YTPlayer.controlBar.find(".mb_YTPPlaypause").html(jQuery.mbYTPlayer.controls.pause),"undefined"!=typeof _gaq&&eval(YTPlayer.opt.gaTrack)&&_gaq.push(["_trackEvent","YTPlayer","Play",YTPlayer.hasData?YTPlayer.videoData.title:YTPlayer.videoID.toString()]),"undefined"!=typeof ga&&eval(YTPlayer.opt.gaTrack)&&ga("send","event","YTPlayer","play",YTPlayer.hasData?YTPlayer.videoData.title:YTPlayer.videoID.toString());break;case 2:eventType="YTPPause",YTPlayer.controlBar.length&&YTPlayer.controlBar.find(".mb_YTPPlaypause").html(jQuery.mbYTPlayer.controls.play);break;case 3:YTPlayer.player.setPlaybackQuality(YTPlayer.opt.quality),eventType="YTPBuffering",YTPlayer.controlBar.length&&YTPlayer.controlBar.find(".mb_YTPPlaypause").html(jQuery.mbYTPlayer.controls.play);break;case 5:eventType="YTPCued"}var YTPEvent=jQuery.Event(eventType);YTPEvent.time=YTPlayer.currentTime,YTPlayer.canTrigger&&jQuery(YTPlayer).trigger(YTPEvent)}},onPlaybackQualityChange:function(a){var b=a.target.getPlaybackQuality(),c=jQuery.Event("YTPQualityChange");c.quality=b,jQuery(YTPlayer).trigger(c)},onError:function(a){150==a.data&&(console.log("Embedding this video is restricted by Youtube."),YTPlayer.isPlayList&&jQuery(YTPlayer).playNext()),2==a.data&&YTPlayer.isPlayList&&jQuery(YTPlayer).playNext(),"function"==typeof YTPlayer.opt.onError&&YTPlayer.opt.onError($YTPlayer,a)}}})}}))}),$YTPlayer.off("YTPTime.mask"),jQuery.mbYTPlayer.applyMask(YTPlayer)}})},getDataFromAPI:function(a){if(a.videoData=jQuery.mbStorage.get("YTPlayer_data_"+a.videoID),jQuery(a).off("YTPData.YTPlayer").on("YTPData.YTPlayer",function(){if(a.hasData&&a.isPlayer&&!a.opt.autoPlay){var b=a.videoData.thumb_max||a.videoData.thumb_high||a.videoData.thumb_medium;a.opt.containment.css({background:"rgba(0,0,0,0.5) url("+b+") center center",backgroundSize:"cover"}),a.opt.backgroundUrl=b}}),a.videoData)setTimeout(function(){a.opt.ratio="auto"==a.opt.ratio?"16/9":a.opt.ratio,a.dataReceived=!0,jQuery(a).trigger("YTPChanged");var b=jQuery.Event("YTPData");b.prop={};for(var c in a.videoData)b.prop[c]=a.videoData[c];jQuery(a).trigger(b)},500),a.hasData=!0;else if(jQuery.mbYTPlayer.apiKey)jQuery.getJSON(jQuery.mbYTPlayer.locationProtocol+"//www.googleapis.com/youtube/v3/videos?id="+a.videoID+"&key="+jQuery.mbYTPlayer.apiKey+"&part=snippet",function(b){function c(b){a.videoData={},a.videoData.id=a.videoID,a.videoData.channelTitle=b.channelTitle,a.videoData.title=b.title,a.videoData.description=b.description.length<400?b.description:b.description.substring(0,400)+" ...",a.videoData.aspectratio="auto"==a.opt.ratio?"16/9":a.opt.ratio,a.opt.ratio=a.videoData.aspectratio,a.videoData.thumb_max=b.thumbnails.maxres?b.thumbnails.maxres.url:null,a.videoData.thumb_high=b.thumbnails.high?b.thumbnails.high.url:null,a.videoData.thumb_medium=b.thumbnails.medium?b.thumbnails.medium.url:null,jQuery.mbStorage.set("YTPlayer_data_"+a.videoID,a.videoData)}a.dataReceived=!0,jQuery(a).trigger("YTPChanged"),c(b.items[0].snippet),a.hasData=!0;var d=jQuery.Event("YTPData");d.prop={};for(var e in a.videoData)d.prop[e]=a.videoData[e];jQuery(a).trigger(d)});else{if(setTimeout(function(){jQuery(a).trigger("YTPChanged")},50),a.isPlayer&&!a.opt.autoPlay){var b=jQuery.mbYTPlayer.locationProtocol+"//i.ytimg.com/vi/"+a.videoID+"/hqdefault.jpg";a.opt.containment.css({background:"rgba(0,0,0,0.5) url("+b+") center center",backgroundSize:"cover"}),a.opt.backgroundUrl=b}a.videoData=null,a.opt.ratio="auto"==a.opt.ratio?"16/9":a.opt.ratio}!a.isPlayer||a.opt.autoPlay||jQuery.browser.mobile||(a.loading=jQuery("<div/>").addClass("loading").html("Loading").hide(),jQuery(a).append(a.loading),a.loading.fadeIn())},removeStoredData:function(){jQuery.mbStorage.remove()},getVideoData:function(){var a=this.get(0);return a.videoData},getVideoID:function(){var a=this.get(0);return a.videoID||!1},setVideoQuality:function(a){var b=this.get(0);b.player.setPlaybackQuality(a)},playlist:function(a,b,c,d){var e=this,f=e.get(0);return f.isPlayList=!0,b&&(a=jQuery.shuffle(a)),f.videoID||(f.videos=a,f.videoCounter=0,f.videoLength=a.length,jQuery(f).data("property",a[0]),jQuery(f).mb_YTPlayer()),"function"==typeof c&&jQuery(f).one("YTPChanged",function(){c(f)}),jQuery(f).on("YTPEnd",function(){d="undefined"==typeof d?!0:d,jQuery(f).playNext(d)}),e},playNext:function(a){var b=this.get(0);return b.checkForStartAt&&(clearTimeout(b.checkForStartAt),clearInterval(b.getState)),b.videoCounter++,b.videoCounter>=b.videoLength&&a&&(b.videoCounter=0),b.videoCounter<b.videoLength?jQuery(b).changeMovie(b.videos[b.videoCounter]):b.videoCounter--,this},playPrev:function(){var a=this.get(0);return a.checkForStartAt&&(clearInterval(a.checkForStartAt),clearInterval(a.getState)),a.videoCounter--,a.videoCounter<0&&(a.videoCounter=a.videoLength-1),jQuery(a).changeMovie(a.videos[a.videoCounter]),this},playIndex:function(a){var b=this.get(0);return a-=1,b.checkForStartAt&&(clearInterval(b.checkForStartAt),clearInterval(b.getState)),b.videoCounter=a,b.videoCounter>=b.videoLength-1&&(b.videoCounter=b.videoLength-1),jQuery(b).changeMovie(b.videos[b.videoCounter]),this},changeMovie:function(a){var b=this,c=b.get(0);c.opt.startAt=0,c.opt.stopAt=0,c.opt.mask=!1,c.opt.mute=!0,c.hasData=!1,c.hasChanged=!0,c.player.loopTime=void 0,a&&jQuery.extend(c.opt,a),c.videoID=getYTPVideoID(c.opt.videoURL).videoID,"true"==c.opt.loop&&(c.opt.loop=9999),jQuery(c.playerEl).CSSAnimate({opacity:0},200,function(){var a=jQuery.Event("YTPChangeMovie");a.time=c.currentTime,a.videoId=c.videoID,jQuery(c).trigger(a),jQuery(c).YTPGetPlayer().cueVideoByUrl(encodeURI(jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/v/"+c.videoID),1,c.opt.quality),jQuery(c).optimizeDisplay(),jQuery.mbYTPlayer.checkForState(c),jQuery.mbYTPlayer.getDataFromAPI(c)}),jQuery.mbYTPlayer.applyMask(c)},getPlayer:function(){return jQuery(this).get(0).player},playerDestroy:function(){var a=this.get(0);ytp.YTAPIReady=!0,ytp.backgroundIsInited=!1,a.isInit=!1,a.videoID=null;var b=a.wrapper;return b.remove(),jQuery("#controlBar_"+a.id).remove(),clearInterval(a.checkForStartAt),clearInterval(a.getState),this},fullscreen:function(real){function hideMouse(){YTPlayer.overlay.css({cursor:"none"})}function RunPrefixMethod(a,b){for(var c,d,e=["webkit","moz","ms","o",""],f=0;f<e.length&&!a[c];){if(c=b,""==e[f]&&(c=c.substr(0,1).toLowerCase()+c.substr(1)),c=e[f]+c,d=typeof a[c],"undefined"!=d)return e=[e[f]],"function"==d?a[c]():a[c];f++}}function launchFullscreen(a){RunPrefixMethod(a,"RequestFullScreen")}function cancelFullscreen(){(RunPrefixMethod(document,"FullScreen")||RunPrefixMethod(document,"IsFullScreen"))&&RunPrefixMethod(document,"CancelFullScreen")}var YTPlayer=this.get(0);"undefined"==typeof real&&(real=YTPlayer.opt.realfullscreen),real=eval(real);var controls=jQuery("#controlBar_"+YTPlayer.id),fullScreenBtn=controls.find(".mb_OnlyYT"),videoWrapper=YTPlayer.isSelf?YTPlayer.opt.containment:YTPlayer.wrapper;if(real){var fullscreenchange=jQuery.browser.mozilla?"mozfullscreenchange":jQuery.browser.webkit?"webkitfullscreenchange":"fullscreenchange";jQuery(document).off(fullscreenchange).on(fullscreenchange,function(){var a=RunPrefixMethod(document,"IsFullScreen")||RunPrefixMethod(document,"FullScreen");a?(jQuery(YTPlayer).YTPSetVideoQuality("default"),jQuery(YTPlayer).trigger("YTPFullScreenStart")):(YTPlayer.isAlone=!1,fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT),jQuery(YTPlayer).YTPSetVideoQuality(YTPlayer.opt.quality),videoWrapper.removeClass("YTPFullscreen"),videoWrapper.CSSAnimate({opacity:YTPlayer.opt.opacity},500),videoWrapper.css({zIndex:0}),YTPlayer.isBackground?jQuery("body").after(controls):YTPlayer.wrapper.before(controls),jQuery(window).resize(),jQuery(YTPlayer).trigger("YTPFullScreenEnd"))})}return YTPlayer.isAlone?(jQuery(document).off("mousemove.YTPlayer"),clearTimeout(YTPlayer.hideCursor),YTPlayer.overlay.css({cursor:"auto"}),real?cancelFullscreen():(videoWrapper.CSSAnimate({opacity:YTPlayer.opt.opacity},500),videoWrapper.css({zIndex:0})),fullScreenBtn.html(jQuery.mbYTPlayer.controls.onlyYT),YTPlayer.isAlone=!1):(jQuery(document).on("mousemove.YTPlayer",function(a){YTPlayer.overlay.css({cursor:"auto"}),clearTimeout(YTPlayer.hideCursor),jQuery(a.target).parents().is(".mb_YTPBar")||(YTPlayer.hideCursor=setTimeout(hideMouse,3e3))}),hideMouse(),real?(videoWrapper.css({opacity:0}),videoWrapper.addClass("YTPFullscreen"),launchFullscreen(videoWrapper.get(0)),setTimeout(function(){videoWrapper.CSSAnimate({opacity:1},1e3),YTPlayer.wrapper.append(controls),jQuery(YTPlayer).optimizeDisplay(),YTPlayer.player.seekTo(YTPlayer.player.getCurrentTime()+.1,!0)},500)):videoWrapper.css({zIndex:1e4}).CSSAnimate({opacity:1},1e3),fullScreenBtn.html(jQuery.mbYTPlayer.controls.showSite),YTPlayer.isAlone=!0),this},toggleLoops:function(){var a=this.get(0),b=a.opt;return 1==b.loop?b.loop=0:(b.startAt?a.player.seekTo(b.startAt):a.player.playVideo(),b.loop=1),this},play:function(){var a=this.get(0);if(!a.isReady)return this;a.player.playVideo(),a.wrapper.CSSAnimate({opacity:a.isAlone?1:a.opt.opacity},2e3),jQuery(a.playerEl).CSSAnimate({opacity:1},1e3);var b=jQuery("#controlBar_"+a.id),c=b.find(".mb_YTPPlaypause");return c.html(jQuery.mbYTPlayer.controls.pause),a.state=1,jQuery(a).css("background-image","none"),this},togglePlay:function(a){var b=this.get(0);return 1==b.state?this.YTPPause():this.YTPPlay(),"function"==typeof a&&a(b.state),this},stop:function(){var a=this.get(0),b=jQuery("#controlBar_"+a.id),c=b.find(".mb_YTPPlaypause");return c.html(jQuery.mbYTPlayer.controls.play),a.player.stopVideo(),this},pause:function(){var a=this.get(0);return a.player.pauseVideo(),a.state=2,this},seekTo:function(a){var b=this.get(0);return b.player.seekTo(a,!0),this},setVolume:function(a){var b=this.get(0);return a||b.opt.vol||0!=b.player.getVolume()?!a&&b.player.getVolume()>0||a&&b.opt.vol==a?b.isMute?jQuery(b).YTPUnmute():jQuery(b).YTPMute():(b.opt.vol=a,b.player.setVolume(b.opt.vol),b.volumeBar&&b.volumeBar.length&&b.volumeBar.updateSliderVal(a)):jQuery(b).YTPUnmute(),this},toggleVolume:function(){var a=this.get(0);if(a)return a.player.isMuted()?(jQuery(a).YTPUnmute(),!0):(jQuery(a).YTPMute(),!1)},mute:function(){var a=this.get(0);if(!a.isMute){a.player.mute(),a.isMute=!0,a.player.setVolume(0),a.volumeBar&&a.volumeBar.length&&a.volumeBar.width()>10&&a.volumeBar.updateSliderVal(0);var b=jQuery("#controlBar_"+a.id),c=b.find(".mb_YTPMuteUnmute");c.html(jQuery.mbYTPlayer.controls.unmute),jQuery(a).addClass("isMuted"),a.volumeBar&&a.volumeBar.length&&a.volumeBar.addClass("muted");var d=jQuery.Event("YTPMuted");return d.time=a.currentTime,a.canTrigger&&jQuery(a).trigger(d),this}},unmute:function(){var a=this.get(0);if(a.isMute){a.player.unMute(),a.isMute=!1,a.player.setVolume(a.opt.vol),a.volumeBar&&a.volumeBar.length&&a.volumeBar.updateSliderVal(a.opt.vol>10?a.opt.vol:10);var b=jQuery("#controlBar_"+a.id),c=b.find(".mb_YTPMuteUnmute");c.html(jQuery.mbYTPlayer.controls.mute),jQuery(a).removeClass("isMuted"),a.volumeBar&&a.volumeBar.length&&a.volumeBar.removeClass("muted");var d=jQuery.Event("YTPUnmuted");return d.time=a.currentTime,a.canTrigger&&jQuery(a).trigger(d),this}},applyFilter:function(a,b){return this.each(function(){var c=this;c.filters[a].value=b,c.filtersEnabled&&jQuery(c).YTPEnableFilters()})},applyFilters:function(a){return this.each(function(){var b=this;if(!b.isReady)return void jQuery(b).on("YTPReady",function(){jQuery(b).YTPApplyFilters(a)});for(var c in a)jQuery(b).YTPApplyFilter(c,a[c]);jQuery(b).trigger("YTPFiltersApplied")})},toggleFilter:function(a,b){return this.each(function(){var c=this;c.filters[a].value?c.filters[a].value=0:c.filters[a].value=b,c.filtersEnabled&&jQuery(this).YTPEnableFilters()})},toggleFilters:function(a){return this.each(function(){var b=this;b.filtersEnabled?(jQuery(b).trigger("YTPDisableFilters"),jQuery(b).YTPDisableFilters()):(jQuery(b).YTPEnableFilters(),jQuery(b).trigger("YTPEnableFilters")),"function"==typeof a&&a(b.filtersEnabled)})},disableFilters:function(){return this.each(function(){var a=this,b=jQuery(a.playerEl);b.css("-webkit-filter",""),b.css("filter",""),a.filtersEnabled=!1})},enableFilters:function(){return this.each(function(){var a=this,b=jQuery(a.playerEl),c="";for(var d in a.filters)a.filters[d].value&&(c+=d.replace("_","-")+"("+a.filters[d].value+a.filters[d].unit+") ");b.css("-webkit-filter",c),b.css("filter",c),a.filtersEnabled=!0})},removeFilter:function(a,b){return this.each(function(){var c=this;if("function"==typeof a&&(b=a,a=null),a)jQuery(this).YTPApplyFilter(a,0),"function"==typeof b&&b(a);else for(var d in c.filters)jQuery(this).YTPApplyFilter(d,0),"function"==typeof b&&b(d)})},getFilters:function(){var a=this.get(0);return a.filters},addMask:function(a){var b=this.get(0),c=b.overlay;a||(a=b.actualMask);var d=jQuery("<img/>").attr("src",a).on("load",function(){c.CSSAnimate({opacity:0},500,function(){b.hasMask=!0,d.remove(),c.css({backgroundImage:"url("+a+")",backgroundRepeat:"no-repeat",backgroundPosition:"center center",backgroundSize:"cover"}),c.CSSAnimate({opacity:1},500)})});return this},removeMask:function(){var a=this.get(0),b=a.overlay;return b.CSSAnimate({opacity:0},500,function(){a.hasMask=!1,b.css({backgroundImage:"",backgroundRepeat:"",backgroundPosition:"",backgroundSize:""}),b.CSSAnimate({opacity:1},500)}),this},applyMask:function(a){var b=jQuery(a);if(b.off("YTPTime.mask"),a.opt.mask)if("string"==typeof a.opt.mask)b.YTPAddMask(a.opt.mask),a.actualMask=a.opt.mask;else if("object"==typeof a.opt.mask){for(var c in a.opt.mask)if(a.opt.mask[c]){jQuery("<img/>").attr("src",a.opt.mask[c])}a.opt.mask[0]&&b.YTPAddMask(a.opt.mask[0]),b.on("YTPTime.mask",function(c){for(var d in a.opt.mask)c.time==d&&(a.opt.mask[d]?(b.YTPAddMask(a.opt.mask[d]),a.actualMask=a.opt.mask[d]):b.YTPRemoveMask())})}},toggleMask:function(){var a=this.get(0),b=$(a);return a.hasMask?b.YTPRemoveMask():b.YTPAddMask(),this},manageProgress:function(){var a=this.get(0),b=jQuery("#controlBar_"+a.id),c=b.find(".mb_YTPProgress"),d=b.find(".mb_YTPLoaded"),e=b.find(".mb_YTPseekbar"),f=c.outerWidth(),g=Math.floor(a.player.getCurrentTime()),h=Math.floor(a.player.getDuration()),i=g*f/h,j=0,k=100*a.player.getVideoLoadedFraction();return d.css({left:j,width:k+"%"}),e.css({left:0,width:i}),{totalTime:h,currentTime:g}},buildControls:function(YTPlayer){var data=YTPlayer.opt;if(data.showYTLogo=data.showYTLogo||data.printUrl,!jQuery("#controlBar_"+YTPlayer.id).length){YTPlayer.controlBar=jQuery("<span/>").attr("id","controlBar_"+YTPlayer.id).addClass("mb_YTPBar").css({whiteSpace:"noWrap",position:YTPlayer.isBackground?"fixed":"absolute",zIndex:YTPlayer.isBackground?1e4:1e3}).hide();var buttonBar=jQuery("<div/>").addClass("buttonBar"),playpause=jQuery("<span>"+jQuery.mbYTPlayer.controls.play+"</span>").addClass("mb_YTPPlaypause ytpicon").click(function(){1==YTPlayer.player.getPlayerState()?jQuery(YTPlayer).YTPPause():jQuery(YTPlayer).YTPPlay()}),MuteUnmute=jQuery("<span>"+jQuery.mbYTPlayer.controls.mute+"</span>").addClass("mb_YTPMuteUnmute ytpicon").click(function(){0==YTPlayer.player.getVolume()?jQuery(YTPlayer).YTPUnmute():jQuery(YTPlayer).YTPMute()}),volumeBar=jQuery("<div/>").addClass("mb_YTPVolumeBar").css({display:"inline-block"});YTPlayer.volumeBar=volumeBar;var idx=jQuery("<span/>").addClass("mb_YTPTime"),vURL=data.videoURL?data.videoURL:"";vURL.indexOf("http")<0&&(vURL=jQuery.mbYTPlayer.locationProtocol+"//www.youtube.com/watch?v="+data.videoURL);var movieUrl=jQuery("<span/>").html(jQuery.mbYTPlayer.controls.ytLogo).addClass("mb_YTPUrl ytpicon").attr("title","view on YouTube").on("click",function(){window.open(vURL,"viewOnYT")}),onlyVideo=jQuery("<span/>").html(jQuery.mbYTPlayer.controls.onlyYT).addClass("mb_OnlyYT ytpicon").on("click",function(){jQuery(YTPlayer).YTPFullscreen(data.realfullscreen)}),progressBar=jQuery("<div/>").addClass("mb_YTPProgress").css("position","absolute").click(function(a){timeBar.css({width:a.clientX-timeBar.offset().left}),YTPlayer.timeW=a.clientX-timeBar.offset().left,YTPlayer.controlBar.find(".mb_YTPLoaded").css({width:0});var b=Math.floor(YTPlayer.player.getDuration());YTPlayer["goto"]=timeBar.outerWidth()*b/progressBar.outerWidth(),YTPlayer.player.seekTo(parseFloat(YTPlayer["goto"]),!0),YTPlayer.controlBar.find(".mb_YTPLoaded").css({width:0})}),loadedBar=jQuery("<div/>").addClass("mb_YTPLoaded").css("position","absolute"),timeBar=jQuery("<div/>").addClass("mb_YTPseekbar").css("position","absolute");progressBar.append(loadedBar).append(timeBar),buttonBar.append(playpause).append(MuteUnmute).append(volumeBar).append(idx),data.showYTLogo&&buttonBar.append(movieUrl),(YTPlayer.isBackground||eval(YTPlayer.opt.realfullscreen)&&!YTPlayer.isBackground)&&buttonBar.append(onlyVideo),YTPlayer.controlBar.append(buttonBar).append(progressBar),YTPlayer.isBackground?jQuery("body").after(YTPlayer.controlBar):(YTPlayer.controlBar.addClass("inlinePlayer"),YTPlayer.wrapper.before(YTPlayer.controlBar)),volumeBar.simpleSlider({initialval:YTPlayer.opt.vol,scale:100,orientation:"h",callback:function(a){0==a.value?jQuery(YTPlayer).YTPMute():jQuery(YTPlayer).YTPUnmute(),YTPlayer.player.setVolume(a.value),YTPlayer.isMute||(YTPlayer.opt.vol=a.value)}})}},checkForState:function(YTPlayer){var interval=YTPlayer.opt.showControls?100:400;return clearInterval(YTPlayer.getState),jQuery.contains(document,YTPlayer)?(jQuery.mbYTPlayer.checkForStart(YTPlayer),void(YTPlayer.getState=setInterval(function(){var prog=jQuery(YTPlayer).YTPManageProgress(),$YTPlayer=jQuery(YTPlayer),data=YTPlayer.opt,startAt=YTPlayer.opt.startAt?YTPlayer.opt.startAt:1,stopAt=YTPlayer.opt.stopAt>YTPlayer.opt.startAt?YTPlayer.opt.stopAt:0;if(stopAt=stopAt<YTPlayer.player.getDuration()?stopAt:0,YTPlayer.currentTime!=prog.currentTime){var YTPEvent=jQuery.Event("YTPTime");YTPEvent.time=YTPlayer.currentTime,jQuery(YTPlayer).trigger(YTPEvent)}if(YTPlayer.currentTime=prog.currentTime,YTPlayer.totalTime=YTPlayer.player.getDuration(),0==YTPlayer.player.getVolume()?$YTPlayer.addClass("isMuted"):$YTPlayer.removeClass("isMuted"),YTPlayer.opt.showControls&&(prog.totalTime?YTPlayer.controlBar.find(".mb_YTPTime").html(jQuery.mbYTPlayer.formatTime(prog.currentTime)+" / "+jQuery.mbYTPlayer.formatTime(prog.totalTime)):YTPlayer.controlBar.find(".mb_YTPTime").html("-- : -- / -- : --")),eval(YTPlayer.opt.stopMovieOnBlur)&&(document.hasFocus()?document.hasFocus()&&!YTPlayer.hasFocus&&-1!=YTPlayer.state&&0!=YTPlayer.state&&(YTPlayer.hasFocus=!0,$YTPlayer.YTPPlay()):1==YTPlayer.state&&(YTPlayer.hasFocus=!1,$YTPlayer.YTPPause())),YTPlayer.controlBar.length&&YTPlayer.controlBar.outerWidth()<=400&&!YTPlayer.isCompact?(YTPlayer.controlBar.addClass("compact"),YTPlayer.isCompact=!0,!YTPlayer.isMute&&YTPlayer.volumeBar&&YTPlayer.volumeBar.updateSliderVal(YTPlayer.opt.vol)):YTPlayer.controlBar.length&&YTPlayer.controlBar.outerWidth()>400&&YTPlayer.isCompact&&(YTPlayer.controlBar.removeClass("compact"),YTPlayer.isCompact=!1,!YTPlayer.isMute&&YTPlayer.volumeBar&&YTPlayer.volumeBar.updateSliderVal(YTPlayer.opt.vol)),1==YTPlayer.player.getPlayerState()&&(parseFloat(YTPlayer.player.getDuration()-1.5)<YTPlayer.player.getCurrentTime()||stopAt>0&&parseFloat(YTPlayer.player.getCurrentTime())>stopAt)){if(YTPlayer.isEnded)return;if(YTPlayer.isEnded=!0,setTimeout(function(){YTPlayer.isEnded=!1},1e3),YTPlayer.isPlayList){if(!data.loop||data.loop>0&&YTPlayer.player.loopTime===data.loop-1){YTPlayer.player.loopTime=void 0,clearInterval(YTPlayer.getState);var YTPEnd=jQuery.Event("YTPEnd");return YTPEnd.time=YTPlayer.currentTime,void jQuery(YTPlayer).trigger(YTPEnd)}}else if(!data.loop||data.loop>0&&YTPlayer.player.loopTime===data.loop-1)return YTPlayer.player.loopTime=void 0,YTPlayer.preventTrigger=!0,YTPlayer.state=2,jQuery(YTPlayer).YTPPause(),void YTPlayer.wrapper.CSSAnimate({opacity:0},500,function(){YTPlayer.controlBar.length&&YTPlayer.controlBar.find(".mb_YTPPlaypause").html(jQuery.mbYTPlayer.controls.play);var a=jQuery.Event("YTPEnd");a.time=YTPlayer.currentTime,jQuery(YTPlayer).trigger(a),YTPlayer.player.seekTo(startAt,!0),YTPlayer.isBackground||YTPlayer.opt.containment.css({background:"rgba(0,0,0,0.5) url("+YTPlayer.opt.backgroundUrl+") center center",backgroundSize:"cover"})});YTPlayer.player.loopTime=YTPlayer.player.loopTime?++YTPlayer.player.loopTime:1,startAt=startAt||1,YTPlayer.preventTrigger=!0,YTPlayer.state=2,jQuery(YTPlayer).YTPPause(),YTPlayer.player.seekTo(startAt,!0),$YTPlayer.YTPPlay()}},interval))):(jQuery(YTPlayer).YTPPlayerDestroy(),clearInterval(YTPlayer.getState),void clearInterval(YTPlayer.checkForStartAt))},getTime:function(){var a=this.get(0);return jQuery.mbYTPlayer.formatTime(a.currentTime)},getTotalTime:function(){var a=this.get(0);return jQuery.mbYTPlayer.formatTime(a.totalTime)},checkForStart:function(a){var b=jQuery(a);if(!jQuery.contains(document,a))return void jQuery(a).YTPPlayerDestroy();if(a.preventTrigger=!0,a.state=2,jQuery(a).YTPPause(),jQuery(a).muteYTPVolume(),jQuery("#controlBar_"+a.id).remove(),a.controlBar=!1,a.opt.showControls&&jQuery.mbYTPlayer.buildControls(a),a.opt.addRaster){var c="dot"==a.opt.addRaster?"raster-dot":"raster";a.overlay.addClass(a.isRetina?c+" retina":c)}else a.overlay.removeClass(function(a,b){var c=b.split(" "),d=[];return jQuery.each(c,function(a,b){/raster.*/.test(b)&&d.push(b)}),d.push("retina"),d.join(" ")});var d=a.opt.startAt?a.opt.startAt:1;a.player.playVideo(),a.player.seekTo(d,!0),a.checkForStartAt=setInterval(function(){jQuery(a).YTPMute();var c=a.player.getVideoLoadedFraction()>=d/a.player.getDuration();if(a.player.getDuration()>0&&a.player.getCurrentTime()>=d&&c){clearInterval(a.checkForStartAt),"function"==typeof a.opt.onReady&&a.opt.onReady(a),a.isReady=!0;var e=jQuery.Event("YTPReady");if(e.time=a.currentTime,jQuery(a).trigger(e),a.preventTrigger=!0,a.state=2,jQuery(a).YTPPause(),a.opt.mute||jQuery(a).YTPUnmute(),a.canTrigger=!0,a.opt.autoPlay){var f=jQuery.Event("YTPStart");f.time=a.currentTime,jQuery(a).trigger(f),b.css("background-image","none"),jQuery(a.playerEl).CSSAnimate({opacity:1},1e3),b.YTPPlay(),a.wrapper.CSSAnimate({opacity:a.isAlone?1:a.opt.opacity},1e3),jQuery.browser.safari&&(a.safariPlay=setInterval(function(){1!=a.state?b.YTPPlay():clearInterval(a.safariPlay)},10)),b.on("YTPReady",function(){b.YTPPlay()})}else a.player.pauseVideo(),a.isPlayer||(jQuery(a.playerEl).CSSAnimate({opacity:1},500),a.wrapper.CSSAnimate({opacity:a.isAlone?1:a.opt.opacity},500)),a.controlBar.length&&a.controlBar.find(".mb_YTPPlaypause").html(jQuery.mbYTPlayer.controls.play);a.isPlayer&&!a.opt.autoPlay&&a.loading&&a.loading.length&&(a.loading.html("Ready"),setTimeout(function(){a.loading.fadeOut()},100)),a.controlBar&&a.controlBar.length&&a.controlBar.slideDown(1e3)}else jQuery.browser.safari&&(a.player.playVideo(),d>=0&&a.player.seekTo(d,!0))},1)},setAlign:function(a){var b=this;b.optimizeDisplay(a)},getAlign:function(){var a=this.get(0);return a.opt.align},formatTime:function(a){var b=Math.floor(a/60),c=Math.floor(a-60*b);return(9>=b?"0"+b:b)+" : "+(9>=c?"0"+c:c)}},jQuery.fn.optimizeDisplay=function(a){var b=this.get(0),c=jQuery(b.playerEl),d={};b.opt.align=a||b.opt.align,b.opt.align="undefined "!=typeof b.opt.align?b.opt.align:"center,center";var e=b.opt.align.split(",");if(b.opt.optimizeDisplay){var f={},g=b.wrapper;f.width=g.outerWidth(),f.height=g.outerHeight(),d.width=f.width,d.height="16/9"==b.opt.ratio?Math.ceil(f.width*(9/16)):Math.ceil(.75*f.width),d.width=f.width,d.height="16/9"==b.opt.ratio?Math.ceil(f.width*(9/16)):Math.ceil(.75*f.width),d.marginTop=-((d.height-f.height)/2),d.marginLeft=0;var h=d.height<f.height;h&&(d.height=f.height,d.width="16/9"==b.opt.ratio?Math.floor(f.height*(16/9)):Math.floor(f.height*(4/3)),d.marginTop=0,d.marginLeft=-((d.width-f.width)/2));for(var i in e){var j=e[i].trim();
 switch(j){case"top":d.marginTop=h?-((d.height-f.height)/2):0;break;case"bottom":d.marginTop=h?0:-(d.height-f.height);break;case"left":d.marginLeft=0;break;case"right":d.marginLeft=h?-(d.width-f.width):0}}}else d.width="100%",d.height="100%",d.marginTop=0,d.marginLeft=0;c.css({width:d.width,height:d.height,marginTop:d.marginTop,marginLeft:d.marginLeft})},jQuery.shuffle=function(a){for(var b=a.slice(),c=b.length,d=c;d--;){var e=parseInt(Math.random()*c),f=b[d];b[d]=b[e],b[e]=f}return b},jQuery.fn.unselectable=function(){return this.each(function(){jQuery(this).css({"-moz-user-select":"none","-webkit-user-select":"none","user-select":"none"}).attr("unselectable","on")})},jQuery.fn.YTPlayer=jQuery.mbYTPlayer.buildPlayer,jQuery.fn.YTPGetPlayer=jQuery.mbYTPlayer.getPlayer,jQuery.fn.YTPGetVideoID=jQuery.mbYTPlayer.getVideoID,jQuery.fn.YTPChangeMovie=jQuery.mbYTPlayer.changeMovie,jQuery.fn.YTPPlayerDestroy=jQuery.mbYTPlayer.playerDestroy,jQuery.fn.YTPPlay=jQuery.mbYTPlayer.play,jQuery.fn.YTPTogglePlay=jQuery.mbYTPlayer.togglePlay,jQuery.fn.YTPStop=jQuery.mbYTPlayer.stop,jQuery.fn.YTPPause=jQuery.mbYTPlayer.pause,jQuery.fn.YTPSeekTo=jQuery.mbYTPlayer.seekTo,jQuery.fn.YTPlaylist=jQuery.mbYTPlayer.playlist,jQuery.fn.YTPPlayNext=jQuery.mbYTPlayer.playNext,jQuery.fn.YTPPlayPrev=jQuery.mbYTPlayer.playPrev,jQuery.fn.YTPPlayIndex=jQuery.mbYTPlayer.playIndex,jQuery.fn.YTPMute=jQuery.mbYTPlayer.mute,jQuery.fn.YTPUnmute=jQuery.mbYTPlayer.unmute,jQuery.fn.YTPToggleVolume=jQuery.mbYTPlayer.toggleVolume,jQuery.fn.YTPSetVolume=jQuery.mbYTPlayer.setVolume,jQuery.fn.YTPGetVideoData=jQuery.mbYTPlayer.getVideoData,jQuery.fn.YTPFullscreen=jQuery.mbYTPlayer.fullscreen,jQuery.fn.YTPToggleLoops=jQuery.mbYTPlayer.toggleLoops,jQuery.fn.YTPSetVideoQuality=jQuery.mbYTPlayer.setVideoQuality,jQuery.fn.YTPManageProgress=jQuery.mbYTPlayer.manageProgress,jQuery.fn.YTPApplyFilter=jQuery.mbYTPlayer.applyFilter,jQuery.fn.YTPApplyFilters=jQuery.mbYTPlayer.applyFilters,jQuery.fn.YTPToggleFilter=jQuery.mbYTPlayer.toggleFilter,jQuery.fn.YTPToggleFilters=jQuery.mbYTPlayer.toggleFilters,jQuery.fn.YTPRemoveFilter=jQuery.mbYTPlayer.removeFilter,jQuery.fn.YTPDisableFilters=jQuery.mbYTPlayer.disableFilters,jQuery.fn.YTPEnableFilters=jQuery.mbYTPlayer.enableFilters,jQuery.fn.YTPGetFilters=jQuery.mbYTPlayer.getFilters,jQuery.fn.YTPGetTime=jQuery.mbYTPlayer.getTime,jQuery.fn.YTPGetTotalTime=jQuery.mbYTPlayer.getTotalTime,jQuery.fn.YTPAddMask=jQuery.mbYTPlayer.addMask,jQuery.fn.YTPRemoveMask=jQuery.mbYTPlayer.removeMask,jQuery.fn.YTPToggleMask=jQuery.mbYTPlayer.toggleMask,jQuery.fn.YTPSetAlign=jQuery.mbYTPlayer.setAlign,jQuery.fn.YTPGetAlign=jQuery.mbYTPlayer.getAlign,jQuery.fn.mb_YTPlayer=jQuery.mbYTPlayer.buildPlayer,jQuery.fn.playNext=jQuery.mbYTPlayer.playNext,jQuery.fn.playPrev=jQuery.mbYTPlayer.playPrev,jQuery.fn.changeMovie=jQuery.mbYTPlayer.changeMovie,jQuery.fn.getVideoID=jQuery.mbYTPlayer.getVideoID,jQuery.fn.getPlayer=jQuery.mbYTPlayer.getPlayer,jQuery.fn.playerDestroy=jQuery.mbYTPlayer.playerDestroy,jQuery.fn.fullscreen=jQuery.mbYTPlayer.fullscreen,jQuery.fn.buildYTPControls=jQuery.mbYTPlayer.buildControls,jQuery.fn.playYTP=jQuery.mbYTPlayer.play,jQuery.fn.toggleLoops=jQuery.mbYTPlayer.toggleLoops,jQuery.fn.stopYTP=jQuery.mbYTPlayer.stop,jQuery.fn.pauseYTP=jQuery.mbYTPlayer.pause,jQuery.fn.seekToYTP=jQuery.mbYTPlayer.seekTo,jQuery.fn.muteYTPVolume=jQuery.mbYTPlayer.mute,jQuery.fn.unmuteYTPVolume=jQuery.mbYTPlayer.unmute,jQuery.fn.setYTPVolume=jQuery.mbYTPlayer.setVolume,jQuery.fn.setVideoQuality=jQuery.mbYTPlayer.setVideoQuality,jQuery.fn.manageYTPProgress=jQuery.mbYTPlayer.manageProgress,jQuery.fn.YTPGetDataFromFeed=jQuery.mbYTPlayer.getVideoData}(jQuery,ytp),jQuery.support.CSStransition=function(){var a=document.body||document.documentElement,b=a.style;return void 0!==b.transition||void 0!==b.WebkitTransition||void 0!==b.MozTransition||void 0!==b.MsTransition||void 0!==b.OTransition}(),jQuery.CSS={name:"mb.CSSAnimate",author:"Matteo Bicocchi",version:"2.0.0",transitionEnd:"transitionEnd",sfx:"",filters:{blur:{min:0,max:100,unit:"px"},brightness:{min:0,max:400,unit:"%"},contrast:{min:0,max:400,unit:"%"},grayscale:{min:0,max:100,unit:"%"},hueRotate:{min:0,max:360,unit:"deg"},invert:{min:0,max:100,unit:"%"},saturate:{min:0,max:400,unit:"%"},sepia:{min:0,max:100,unit:"%"}},normalizeCss:function(a){var b=jQuery.extend(!0,{},a);jQuery.browser.webkit||jQuery.browser.opera?jQuery.CSS.sfx="-webkit-":jQuery.browser.mozilla?jQuery.CSS.sfx="-moz-":jQuery.browser.msie&&(jQuery.CSS.sfx="-ms-");for(var c in b){"transform"===c&&(b[jQuery.CSS.sfx+"transform"]=b[c],delete b[c]),"transform-origin"===c&&(b[jQuery.CSS.sfx+"transform-origin"]=a[c],delete b[c]),"filter"!==c||jQuery.browser.mozilla||(b[jQuery.CSS.sfx+"filter"]=a[c],delete b[c]),"blur"===c&&setFilter(b,"blur",a[c]),"brightness"===c&&setFilter(b,"brightness",a[c]),"contrast"===c&&setFilter(b,"contrast",a[c]),"grayscale"===c&&setFilter(b,"grayscale",a[c]),"hueRotate"===c&&setFilter(b,"hueRotate",a[c]),"invert"===c&&setFilter(b,"invert",a[c]),"saturate"===c&&setFilter(b,"saturate",a[c]),"sepia"===c&&setFilter(b,"sepia",a[c]);var d="";"x"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" translateX("+setUnit(a[c],"px")+")",delete b[c]),"y"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" translateY("+setUnit(a[c],"px")+")",delete b[c]),"z"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" translateZ("+setUnit(a[c],"px")+")",delete b[c]),"rotate"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" rotate("+setUnit(a[c],"deg")+")",delete b[c]),"rotateX"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" rotateX("+setUnit(a[c],"deg")+")",delete b[c]),"rotateY"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" rotateY("+setUnit(a[c],"deg")+")",delete b[c]),"rotateZ"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" rotateZ("+setUnit(a[c],"deg")+")",delete b[c]),"scale"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" scale("+setUnit(a[c],"")+")",delete b[c]),"scaleX"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" scaleX("+setUnit(a[c],"")+")",delete b[c]),"scaleY"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" scaleY("+setUnit(a[c],"")+")",delete b[c]),"scaleZ"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" scaleZ("+setUnit(a[c],"")+")",delete b[c]),"skew"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" skew("+setUnit(a[c],"deg")+")",delete b[c]),"skewX"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" skewX("+setUnit(a[c],"deg")+")",delete b[c]),"skewY"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" skewY("+setUnit(a[c],"deg")+")",delete b[c]),"perspective"===c&&(d=jQuery.CSS.sfx+"transform",b[d]=b[d]||"",b[d]+=" perspective("+setUnit(a[c],"px")+")",delete b[c])}return b},getProp:function(a){var b=[];for(var c in a)b.indexOf(c)<0&&b.push(uncamel(c));return b.join(",")},animate:function(a,b,c,d,e){return this.each(function(){function f(){g.called=!0,g.CSSAIsRunning=!1,h.off(jQuery.CSS.transitionEnd+"."+g.id),clearTimeout(g.timeout),h.css(jQuery.CSS.sfx+"transition",""),"function"==typeof e&&e.apply(g),"function"==typeof g.CSSqueue&&(g.CSSqueue(),g.CSSqueue=null)}var g=this,h=jQuery(this);g.id=g.id||"CSSA_"+(new Date).getTime();var i=i||{type:"noEvent"};if(g.CSSAIsRunning&&g.eventType==i.type&&!jQuery.browser.msie&&jQuery.browser.version<=9)return void(g.CSSqueue=function(){h.CSSAnimate(a,b,c,d,e)});if(g.CSSqueue=null,g.eventType=i.type,0!==h.length&&a){if(a=jQuery.normalizeCss(a),g.CSSAIsRunning=!0,"function"==typeof b&&(e=b,b=jQuery.fx.speeds._default),"function"==typeof c&&(d=c,c=0),"string"==typeof c&&(e=c,c=0),"function"==typeof d&&(e=d,d="cubic-bezier(0.65,0.03,0.36,0.72)"),"string"==typeof b)for(var j in jQuery.fx.speeds){if(b==j){b=jQuery.fx.speeds[j];break}b=jQuery.fx.speeds._default}if(b||(b=jQuery.fx.speeds._default),"string"==typeof e&&(d=e,e=null),!jQuery.support.CSStransition){for(var k in a){if("transform"===k&&delete a[k],"filter"===k&&delete a[k],"transform-origin"===k&&delete a[k],"auto"===a[k]&&delete a[k],"x"===k){var l=a[k],m="left";a[m]=l,delete a[k]}if("y"===k){var l=a[k],m="top";a[m]=l,delete a[k]}("-ms-transform"===k||"-ms-filter"===k)&&delete a[k]}return void h.delay(c).animate(a,b,e)}var n={"default":"ease","in":"ease-in",out:"ease-out","in-out":"ease-in-out",snap:"cubic-bezier(0,1,.5,1)",easeOutCubic:"cubic-bezier(.215,.61,.355,1)",easeInOutCubic:"cubic-bezier(.645,.045,.355,1)",easeInCirc:"cubic-bezier(.6,.04,.98,.335)",easeOutCirc:"cubic-bezier(.075,.82,.165,1)",easeInOutCirc:"cubic-bezier(.785,.135,.15,.86)",easeInExpo:"cubic-bezier(.95,.05,.795,.035)",easeOutExpo:"cubic-bezier(.19,1,.22,1)",easeInOutExpo:"cubic-bezier(1,0,0,1)",easeInQuad:"cubic-bezier(.55,.085,.68,.53)",easeOutQuad:"cubic-bezier(.25,.46,.45,.94)",easeInOutQuad:"cubic-bezier(.455,.03,.515,.955)",easeInQuart:"cubic-bezier(.895,.03,.685,.22)",easeOutQuart:"cubic-bezier(.165,.84,.44,1)",easeInOutQuart:"cubic-bezier(.77,0,.175,1)",easeInQuint:"cubic-bezier(.755,.05,.855,.06)",easeOutQuint:"cubic-bezier(.23,1,.32,1)",easeInOutQuint:"cubic-bezier(.86,0,.07,1)",easeInSine:"cubic-bezier(.47,0,.745,.715)",easeOutSine:"cubic-bezier(.39,.575,.565,1)",easeInOutSine:"cubic-bezier(.445,.05,.55,.95)",easeInBack:"cubic-bezier(.6,-.28,.735,.045)",easeOutBack:"cubic-bezier(.175, .885,.32,1.275)",easeInOutBack:"cubic-bezier(.68,-.55,.265,1.55)"};n[d]&&(d=n[d]),h.off(jQuery.CSS.transitionEnd+"."+g.id);var o=jQuery.CSS.getProp(a),p={};jQuery.extend(p,a),p[jQuery.CSS.sfx+"transition-property"]=o,p[jQuery.CSS.sfx+"transition-duration"]=b+"ms",p[jQuery.CSS.sfx+"transition-delay"]=c+"ms",p[jQuery.CSS.sfx+"transition-timing-function"]=d,setTimeout(function(){h.one(jQuery.CSS.transitionEnd+"."+g.id,f),h.css(p)},1),g.timeout=setTimeout(function(){return g.called||!e?(g.called=!1,void(g.CSSAIsRunning=!1)):(h.css(jQuery.CSS.sfx+"transition",""),e.apply(g),g.CSSAIsRunning=!1,void("function"==typeof g.CSSqueue&&(g.CSSqueue(),g.CSSqueue=null)))},b+c+10)}})}},jQuery.fn.CSSAnimate=jQuery.CSS.animate,jQuery.normalizeCss=jQuery.CSS.normalizeCss,jQuery.fn.css3=function(a){return this.each(function(){var b=jQuery(this),c=jQuery.normalizeCss(a);b.css(c)})};var nAgt=navigator.userAgent;if(!jQuery.browser){jQuery.browser={},jQuery.browser.mozilla=!1,jQuery.browser.webkit=!1,jQuery.browser.opera=!1,jQuery.browser.safari=!1,jQuery.browser.chrome=!1,jQuery.browser.androidStock=!1,jQuery.browser.msie=!1,jQuery.browser.ua=nAgt,jQuery.browser.name=navigator.appName,jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion),jQuery.browser.majorVersion=parseInt(navigator.appVersion,10);var nameOffset,verOffset,ix;if(-1!=(verOffset=nAgt.indexOf("Opera")))jQuery.browser.opera=!0,jQuery.browser.name="Opera",jQuery.browser.fullVersion=nAgt.substring(verOffset+6),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+8));else if(-1!=(verOffset=nAgt.indexOf("OPR")))jQuery.browser.opera=!0,jQuery.browser.name="Opera",jQuery.browser.fullVersion=nAgt.substring(verOffset+4);else if(-1!=(verOffset=nAgt.indexOf("MSIE")))jQuery.browser.msie=!0,jQuery.browser.name="Microsoft Internet Explorer",jQuery.browser.fullVersion=nAgt.substring(verOffset+5);else if(-1!=nAgt.indexOf("Trident")||-1!=nAgt.indexOf("Edge")){jQuery.browser.msie=!0,jQuery.browser.name="Microsoft Internet Explorer";var start=nAgt.indexOf("rv:")+3,end=start+4;jQuery.browser.fullVersion=nAgt.substring(start,end)}else-1!=(verOffset=nAgt.indexOf("Chrome"))?(jQuery.browser.webkit=!0,jQuery.browser.chrome=!0,jQuery.browser.name="Chrome",jQuery.browser.fullVersion=nAgt.substring(verOffset+7)):nAgt.indexOf("mozilla/5.0")>-1&&nAgt.indexOf("android ")>-1&&nAgt.indexOf("applewebkit")>-1&&!(nAgt.indexOf("chrome")>-1)?(verOffset=nAgt.indexOf("Chrome"),jQuery.browser.webkit=!0,jQuery.browser.androidStock=!0,jQuery.browser.name="androidStock",jQuery.browser.fullVersion=nAgt.substring(verOffset+7)):-1!=(verOffset=nAgt.indexOf("Safari"))?(jQuery.browser.webkit=!0,jQuery.browser.safari=!0,jQuery.browser.name="Safari",jQuery.browser.fullVersion=nAgt.substring(verOffset+7),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+8))):-1!=(verOffset=nAgt.indexOf("AppleWebkit"))?(jQuery.browser.webkit=!0,jQuery.browser.safari=!0,jQuery.browser.name="Safari",jQuery.browser.fullVersion=nAgt.substring(verOffset+7),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+8))):-1!=(verOffset=nAgt.indexOf("Firefox"))?(jQuery.browser.mozilla=!0,jQuery.browser.name="Firefox",jQuery.browser.fullVersion=nAgt.substring(verOffset+8)):(nameOffset=nAgt.lastIndexOf(" ")+1)<(verOffset=nAgt.lastIndexOf("/"))&&(jQuery.browser.name=nAgt.substring(nameOffset,verOffset),jQuery.browser.fullVersion=nAgt.substring(verOffset+1),jQuery.browser.name.toLowerCase()==jQuery.browser.name.toUpperCase()&&(jQuery.browser.name=navigator.appName));-1!=(ix=jQuery.browser.fullVersion.indexOf(";"))&&(jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0,ix)),-1!=(ix=jQuery.browser.fullVersion.indexOf(" "))&&(jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0,ix)),jQuery.browser.majorVersion=parseInt(""+jQuery.browser.fullVersion,10),isNaN(jQuery.browser.majorVersion)&&(jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion),jQuery.browser.majorVersion=parseInt(navigator.appVersion,10)),jQuery.browser.version=jQuery.browser.majorVersion}jQuery.browser.android=/Android/i.test(nAgt),jQuery.browser.blackberry=/BlackBerry|BB|PlayBook/i.test(nAgt),jQuery.browser.ios=/iPhone|iPad|iPod|webOS/i.test(nAgt),jQuery.browser.operaMobile=/Opera Mini/i.test(nAgt),jQuery.browser.windowsMobile=/IEMobile|Windows Phone/i.test(nAgt),jQuery.browser.kindle=/Kindle|Silk/i.test(nAgt),jQuery.browser.mobile=jQuery.browser.android||jQuery.browser.blackberry||jQuery.browser.ios||jQuery.browser.windowsMobile||jQuery.browser.operaMobile||jQuery.browser.kindle,jQuery.isMobile=jQuery.browser.mobile,jQuery.isTablet=jQuery.browser.mobile&&jQuery(window).width()>765,jQuery.isAndroidDefault=jQuery.browser.android&&!/chrome/i.test(nAgt),!function(a){var b=(/iphone|ipod|ipad|android|ie|blackberry|fennec/.test(navigator.userAgent.toLowerCase()),"ontouchstart"in window||window.navigator&&window.navigator.msPointerEnabled&&window.MSGesture||window.DocumentTouch&&document instanceof DocumentTouch||!1);a.simpleSlider={defaults:{initialval:0,scale:100,orientation:"h",readonly:!1,callback:!1},events:{start:b?"touchstart":"mousedown",end:b?"touchend":"mouseup",move:b?"touchmove":"mousemove"},init:function(c){return this.each(function(){var d=this,e=a(d);e.addClass("simpleSlider"),d.opt={},a.extend(d.opt,a.simpleSlider.defaults,c),a.extend(d.opt,e.data());var f="h"==d.opt.orientation?"horizontal":"vertical",g=a("<div/>").addClass("level").addClass(f);e.prepend(g),d.level=g,e.css({cursor:"default"}),"auto"==d.opt.scale&&(d.opt.scale=a(d).outerWidth()),e.updateSliderVal(),d.opt.readonly||(e.on(a.simpleSlider.events.start,function(a){b&&(a=a.changedTouches[0]),d.canSlide=!0,e.updateSliderVal(a),e.css({cursor:"col-resize"}),a.preventDefault(),a.stopPropagation()}),a(document).on(a.simpleSlider.events.move,function(c){b&&(c=c.changedTouches[0]),d.canSlide&&(a(document).css({cursor:"default"}),e.updateSliderVal(c),c.preventDefault(),c.stopPropagation())}).on(a.simpleSlider.events.end,function(){a(document).css({cursor:"auto"}),d.canSlide=!1,e.css({cursor:"auto"})}))})},updateSliderVal:function(b){function c(a,b){return Math.floor(100*a/b)}var d=this,e=d.get(0);if(e.opt){e.opt.initialval="number"==typeof e.opt.initialval?e.opt.initialval:e.opt.initialval(e);var f=a(e).outerWidth(),g=a(e).outerHeight();e.x="object"==typeof b?b.clientX+document.body.scrollLeft-d.offset().left:"number"==typeof b?b*f/e.opt.scale:e.opt.initialval*f/e.opt.scale,e.y="object"==typeof b?b.clientY+document.body.scrollTop-d.offset().top:"number"==typeof b?(e.opt.scale-e.opt.initialval-b)*g/e.opt.scale:e.opt.initialval*g/e.opt.scale,e.y=d.outerHeight()-e.y,e.scaleX=e.x*e.opt.scale/f,e.scaleY=e.y*e.opt.scale/g,e.outOfRangeX=e.scaleX>e.opt.scale?e.scaleX-e.opt.scale:e.scaleX<0?e.scaleX:0,e.outOfRangeY=e.scaleY>e.opt.scale?e.scaleY-e.opt.scale:e.scaleY<0?e.scaleY:0,e.outOfRange="h"==e.opt.orientation?e.outOfRangeX:e.outOfRangeY,"undefined"!=typeof b?e.value="h"==e.opt.orientation?e.x>=d.outerWidth()?e.opt.scale:e.x<=0?0:e.scaleX:e.y>=d.outerHeight()?e.opt.scale:e.y<=0?0:e.scaleY:e.value="h"==e.opt.orientation?e.scaleX:e.scaleY,"h"==e.opt.orientation?e.level.width(c(e.x,f)+"%"):e.level.height(c(e.y,g)),"function"==typeof e.opt.callback&&e.opt.callback(e)}}},a.fn.simpleSlider=a.simpleSlider.init,a.fn.updateSliderVal=a.simpleSlider.updateSliderVal}(jQuery),!function(a){a.mbCookie={set:function(a,b,c,d){b=JSON.stringify(b),c||(c=7),d=d?"; domain="+d:"";var e,f=new Date;f.setTime(f.getTime()+864e5*c),e="; expires="+f.toGMTString(),document.cookie=a+"="+b+e+"; path=/"+d},get:function(a){for(var b=a+"=",c=document.cookie.split(";"),d=0;d<c.length;d++){for(var e=c[d];" "==e.charAt(0);)e=e.substring(1,e.length);if(0==e.indexOf(b))return JSON.parse(e.substring(b.length,e.length))}return null},remove:function(b){a.mbCookie.set(b,"",-1)}},a.mbStorage={set:function(a,b){b=JSON.stringify(b),localStorage.setItem(a,b)},get:function(a){return localStorage[a]?JSON.parse(localStorage[a]):null},remove:function(a){a?localStorage.removeItem(a):localStorage.clear()}}}(jQuery);
@@ -2972,5 +2972,5 @@ switch(j){case"top":d.marginTop=h?-((d.height-f.height)/2):0;break;case"bottom":
 /* **************************************************** */
 
 /* -------------------------------------------------------------
-   14. 
+   14.
 --------------------------------------------------------------- */

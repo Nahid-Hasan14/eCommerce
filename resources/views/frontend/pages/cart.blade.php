@@ -287,10 +287,16 @@
                                                                 </h4>
                                                                 <ul class="mt-10">
                                                                     @foreach ($data['payment_methods'] as $payment)
-                                                                    <li style="border:1px solid #FFBF00; padding:10px; border-radius:4px; margin-bottom:15px;" for="bkash">
-                                                                        <input type="radio" id="bkash" name="payment_method" value="{{$payment->id}}"/> {{ucwords($payment->name)}}
+                                                                    <li style="border:1px solid #FFBF00; padding:10px; border-radius:4px; margin-bottom:15px;">
+                                                                       <label for="payment-{{ $payment->id }}" style="cursor:pointer; display:block;">
+                                                                             <input type="radio" class="payment_radio" id="payment-{{ $payment->id }}" name="payment_method" value="{{$payment->id}}"/> {{ucwords($payment->name)}}
+                                                                       </label>
                                                                     </li>
                                                                     @endforeach
+                                                                    {{-- for hiden inpute --}}
+                                                                    <div class="transaction-box" id="transaction_id" style="display:none; margin-top:10px;">
+                                                                         <input type="text" name="payment_transaction_id" placeholder="Enter Transaction ID" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;"/>
+                                                                    </div>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -603,6 +609,20 @@
                     }
                 }
             })
+        })
+    })
+
+    //Payment Methot tranjection input Show
+    document.querySelectorAll('.payment_radio').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.transaction-box').forEach(box => box.style.display = 'none');
+
+            if(this.value != "1") {
+                let target = document.getElementById('transaction_id');
+                if(target) {
+                    target.style.display = 'block';
+                }
+            }
         })
     })
 

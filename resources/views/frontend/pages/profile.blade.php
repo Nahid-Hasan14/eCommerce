@@ -12,7 +12,7 @@
                     <img src="{{asset('frontend')}}/img//product/6.jpg" class="profile-img" height="100px" width="100px"/>
                     <h2>{{ucwords(auth('customer')->user()->name)}}</h2>
                     <ul class="nav-title" id="dashboard-tabs">
-                        <li class=""><a href="{{route('user.user')}}">Dashboard</a></li>
+                        <li class=""><a href="{{route('customer.dashboard')}}">Dashboard</a></li>
                         <li class="active"><a href="" data-toggle="tab">My Profile</a></li>
                         <li><a href="" data-toggle="tab">My Favorite</a></li>
                     </ul>

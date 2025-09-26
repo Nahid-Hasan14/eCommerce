@@ -38,8 +38,11 @@ class CustomerController extends BaseController
 
 
         $data['orders'] = Order::where('customer_id', auth('customer')->id())->paginate(4);
+        $data['orders_status'] = Order::where('customer_id', auth('customer')->id())->get();
 
-        // dd($data['orders']);
+
+
+        // dd($data['orders_status']);
 
         // $data['orders']->map(function($order){
         //     if($order->shipping_address){

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\OrderConfirmationMail;
 use App\Models\Address;
 use App\Models\Order;
-use App\Models\OrderDetails;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use DB;
 use Illuminate\Support\Facades\Mail;
@@ -93,7 +93,6 @@ class CartController extends Controller
     // Check out Controlle
 
     public function checkout (Request $request) {
-        // dd($request->all());
 
         $customer = auth()->guard('customer')->user();
 
@@ -102,14 +101,17 @@ class CartController extends Controller
         if(!$request->shipping_address) {
 
             $request->validate([
-                'payment_method'   => 'required|integer',
-                'shipping_address' => 'nullable|integer',
+                'payment_method'     => 'required|integer',
+                'payment_transaction_id' => 'required_unless:payment_method,1|nullable',
+                'shipping_address'   => 'nullable|integer',
 
                 'phone'   => 'required|string|max:15',
                 'division'=> 'required',
                 'district'=> 'required',
                 'upazila' =>'required',
                 'address' => 'required|string|max:255'
+            ],[
+                'payment_transaction_id.required_unless'=> "Transection Id is Required"
             ]);
 
             $address = new Address();
@@ -143,12 +145,13 @@ class CartController extends Controller
             'total_price'       => $totalPrice,
             'order_status_id'   => 1, //default pendding
             'payment_method_id' => $request->payment_method,
-            'payment_status_id' => 0
+            'payment_status_id' => $request->payment_method == 1 ? 2 : 3  //2=Unpaid, 3=Pending
         ]);
         foreach($cart as $item){
             $product = Product::find($item['id']);
-            OrderDetails::create([
+            OrderDetail::create([
                 'order_id'        => $order->id,
+                'payment_transaction_id'=> $request->payment_method == 1 ? null : $request->payment_transaction_id,
                 'product_id'      => $item['id'],
                 'quantity'        => $item['quantity'],
                 'price'           => $item['price'],

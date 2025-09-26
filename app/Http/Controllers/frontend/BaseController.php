@@ -95,8 +95,40 @@ class BaseController extends Controller
         return view('frontend.pages.dashboard');
     }
 
-    public function productDetails() {
-        return view('frontend.pages.product_details');
+    public function productDetails($id) {
+        $data['product'] = Product::with('brand:id,name')
+                    ->select('id', 'brand_id', 'category_id', 'title', 'price', 'color', 'size', 'image', 'images', 'description', 'stock')
+                    ->findOrFail($id);
+
+        $data['recentProducts'] = Product::select('id', 'title', 'price','image')
+                                ->where('id', '!=', $id)
+                                ->latest()
+                                ->take(7)
+                                ->get();
+
+        $data['reletedProducts'] = Product::select('id', 'title', 'price','image')
+                                ->where('category_id',  $data['product']->category_id)
+                                ->where('id', '!=', $id)
+                                ->inRandomOrder()  // every Refresh Change Product
+                                ->take(6)
+                                ->get();
+
+                                // dd($data['reletedProducts']);
+
+        return view('frontend.pages.product_details', compact('data'));
+    }
+
+    public function quickView($id) {
+        $product = Product::with('brand')->findOrFail($id);
+
+        $quickView = view('frontend.layouts.quickview', compact('product'))->render();
+
+        return response()->json([
+            'success'=> true,
+            'status' =>'success',
+            'message'=> 'Request Successfulled',
+            'data'   => $quickView
+        ]);
     }
 
     public function thank() {

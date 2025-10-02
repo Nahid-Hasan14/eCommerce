@@ -42,7 +42,7 @@ class BaseController extends Controller
     public function cart() {
         //For Register User Address Find
         $data['customer'] = auth('customer')->user();
-
+        $data['customer'] = 
 
         $data['addresses'] = DB::table('addresses as a')
         ->join('divisions as d', 'd.id', 'a.division')

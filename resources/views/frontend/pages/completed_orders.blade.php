@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'My Dashboard')
+@section('title', 'Completed Orders')
 
 @push('style')
 <style>
@@ -136,9 +136,9 @@
                             <div class="col-xs-6 col-sm-6 col-md-3">
                                 <a href="{{route('customer.pending.orders')}}">
                                     <div class="dashboard-card bg-warning">
-                                        <h1>{{ $data['orders_status']->where('order_status_id', 1)->count() }}</h1>
-                                        <p>Pending</p>
-                                    </div>
+                                    <h1>{{ $data['orders_status']->where('order_status_id', 1)->count() }}</h1>
+                                    <p>Pending</p>
+                                </div>
                                 </a>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-3">
@@ -161,7 +161,7 @@
                     </div>
                     <div class="order-content">
                         <div class="table-heading">
-                            <h2>Recent Order</h2>
+                            <h2>Completed Order</h2>
                         </div>
                         <div class="table-responsive table-res" style="padding: 15px;">
                             <table  class="table table-striped table-hover table-style">
@@ -177,7 +177,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data['orders'] as $order)
+                                    @foreach ($data['completed_order'] as $order)
                                     @php
                                         $address = explode('|', $order->shipping_address);
                                     @endphp
@@ -186,22 +186,9 @@
                                             <td>#{{ $order->order_number }}</td>
                                             <td>{{ date("d-M-Y", strtotime($order->created_at)) }}</td>
                                             <td>{{__('currency')}} {{ $order->total_price }}</td>
-                                            <td style="color:
-                                                @if($order->OrderStatus->name == 'Canceled') #FF0000
-                                                @elseif($order->OrderStatus->name == 'Completed') #28A745
-                                                @elseif($order->OrderStatus->name == 'Pending') #e6a800
-                                                @else #000
-                                                @endif">
-                                                {{ $order->OrderStatus->name }}
-                                            </td>
+                                            <td style="color: #28a745">{{ $order->OrderStatus->name }}</td>
                                             <td>
                                                 <button class="btn btn-info btn-sm view-details-btn" data-target= "{{ $order->order_number }}" style="border-radius: 4px;">View</button>
-                                                @if ($order->order_status_id !== 3 && $order->order_status_id !== 2)
-                                                    <form  action="{{route('customer.order.cancel', $order->id)}}" id="delete_{{$order->id}}" method="POST" style="display:inline;">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="orderCancel({{$order->id}})" style="border-radius: 4px;">Cancel</button>
-                                                    </form>
-                                                @endif
                                             </td>
                                         </tr>
                                         {{-- for Order Details show --}}
@@ -217,7 +204,7 @@
                                                                         <div class="col-md-6 col-sm-12">
                                                                             <h4 class="black-text">Order Info</h4>
                                                                             <span class="black-text"><strong>Order Date: {{ date("d-M-Y", strtotime($order->created_at)) }}</strong></span><br>
-                                                                            <sapn class="black-text"><strong>Total Price:</strong>{{__('currency')}} {{ $order->total_price }}</sapn><br>
+                                                                            <sapn class="black-text"><strong>Total Price:</strong> $ {{ $order->total_price }}</sapn><br>
                                                                             <span class="black-text"><strong>Status:</strong> {{ $order->OrderStatus->name }}</span>
                                                                         </div>
                                                                         <div class="col-md-6 col-sm-12">
@@ -243,7 +230,7 @@
                                                                                 </div>
                                                                                 <div class="media-body">
                                                                                     <h4 class="media-heading">{{$order->title}}</h4>
-                                                                                    <span class="black-text"><strong>Price:</strong>{{__('currency')}} {{$order->price}} | <strong>Quantity:</strong> {{$order->quantity}} | <strong>Total:</strong>{{__('currency')}} {{$order->price}}</span>
+                                                                                    <span class="black-text"><strong>Price:</strong> {{$order->price}} | <strong>Quantity:</strong> {{$order->quantity}} | <strong>Total:</strong> {{$order->price}}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -265,7 +252,7 @@
                                      @endforeach
                                 </tbody>
                             </table>
-                            {{ $data['orders']->links('pagination::bootstrap-4')}}
+                            {{ $data['completed_order']->links('pagination::bootstrap-4')}}
                         </div>
                     </div>
                     {{-- For Order Details --}}

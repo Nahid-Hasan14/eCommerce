@@ -2,38 +2,49 @@
 
 @section("title", 'Home Page')
 
+@push('style')
+    <style>
+        .product-gap-fix > [class*="col-"] {
+            /* left right padding fixed */
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+       
+    </style>
+@endpush
 @section('content')
    <div class="slider-area  plr-185  mb-80">
-            <div class="container-fluid">
-                <div class="slider-content">
-                    <div class="row">
-                        <div class="active-slider-1 slick-arrow-1 slick-dots-1">
-                            <!-- layer-1 Start -->
-                            @foreach ($sliders as $key => $slider)
-                            <div class="col-md-12">
-                                <div class="layer-1 {{$key == 0 ? 'active' : ''}}">
-                                    <div class="slider-img">
-                                        <img src="{{asset('storage')}}/{{$slider->image}}" alt="Image">
-                                    </div>
-                                    <div class="slider-info gray-bg">
-                                        <div class="slider-info-inner">
-                                            <h1 class="slider-title-1 text-uppercase text-black-1">{{$slider->title}}</h1>
-                                            <div class="slider-brief text-black-2">
-                                                <p>{{$slider->description}}</p>
-                                            </div>
-                                            <a href="#" class="button extra-small button-black">
-                                                <span class="text-uppercase">Buy now</span>
-                                            </a>
+        <div class="container-fluid">
+            <div class="slider-content">
+                <div class="row">
+                    <div class="active-slider-1 slick-arrow-1 slick-dots-1">
+                        <!-- layer-1 Start -->
+                        @foreach ($sliders as $key => $slider)
+                        <div class="col-md-12">
+                            <div class="layer-1 {{$key == 0 ? 'active' : ''}}">
+                                <div class="slider-img">
+                                    <img src="{{asset('storage')}}/{{$slider->image}}" alt="Image">
+                                </div>
+                                <div class="slider-info gray-bg">
+                                    <div class="slider-info-inner">
+                                        <h1 class="slider-title-1 text-uppercase text-black-1">{{$slider->title}}</h1>
+                                        <div class="slider-brief text-black-2">
+                                            <p>{{$slider->description}}</p>
                                         </div>
+                                        <a href="#" class="button extra-small button-black">
+                                            <span class="text-uppercase">Buy now</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
+    </div>
         <!-- END SLIDER AREA -->
 
         <!-- Start page content -->
@@ -76,7 +87,6 @@
                         <div class="col-md-12">
                             <div class="section-title text-left mb-40">
                                 <h2 class="uppercase">Featured product</h2>
-                                <h6>There are many variations of passages of brands available,</h6>
                             </div>
                         </div>
                     </div>
@@ -84,7 +94,7 @@
                         <div class="row active-featured-product slick-arrow-2">
                             <!-- product-item start -->
                             @foreach ($products as $product)
-                                <div class="col-xs-12">
+                                <div class="col-sm-12">
                                 <div class="product-item">
                                     <div class="product-img">
                                         <a href="{{route('product.details',[$product->id,Str::slug($product->title)])}}">
@@ -93,7 +103,7 @@
                                     </div>
                                     <div class="product-info">
                                         <h6 class="product-title">
-                                            <a href="{{route('product.details', $product->id)}}">{{$product->title}}</a>
+                                            <a href="{{route('product.details', [$product->id,Str::slug($product->title)])}}">{{$product->title}}</a>
                                         </h6>
                                         <div class="pro-rating">
                                             <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -102,13 +112,13 @@
                                             <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                                             <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                         </div>
-                                        <h3 class="pro-price">{{__('currency')}} {{$product->price}}</h3>
+                                        <h3 class="pro-price" style="color: #f00">{{__('currency')}} {{$product->price}}</h3>
                                         <ul class="action-button">
                                             <li>
                                                 <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" class="productQuickViewModal" data-id="{{ $product->id }}"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                <a href="#" class="productQuickViewModal" data-id="{{ $product->id }}"><i class="zmdi zmdi-zoom-in"></i></a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)" onclick="addToCart({{ $product->id }})"  class="add-to-cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
@@ -186,8 +196,7 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="section-title text-left mb-40">
-                                <h2 class="uppercase">product list</h2>
-                                <h6>There are many variations of passages of brands available,</h6>
+                                <h2 class="uppercase">Product list</h2>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
@@ -207,19 +216,19 @@
                         <div class="tab-content">
                             <!-- popular-product start -->
                             <div class="tab-pane active" id="popular-product">
-                                <div class="row">
+                                <div class="row product-gap-fix">
                                     <!-- product-item start -->
                                     @foreach ($products as $product)
-                                        <div class="col-md-3 col-sm-4 col-xs-12">
+                                        <div class="col-md-3 col-sm-6 col-xs-6">
                                         <div class="product-item">
                                             <div class="product-img">
-                                                <a href="{{route('product.details',$product->id)}}">
+                                                <a href="{{route('product.details',[$product->id,Str::slug($product->title)])}}">
                                                     <img src="{{'storage'}}/{{$product->image}}" height="200px" alt="image"/>
                                                 </a>
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-title">
-                                                    <a href="{{route('product.details', $product->id)}}">{{$product->title}}</a>
+                                                    <a href="{{route('product.details', [$product->id,Str::slug($product->title)])}}">{{$product->title}}</a>
                                                 </h6>
                                                 <div class="pro-rating">
                                                     <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -228,7 +237,7 @@
                                                     <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                                                     <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                 </div>
-                                                <h3 class="pro-price">{{__('currency')}} {{ $product->price}}</h3>
+                                                <h3 class="pro-price" style="color: #f00">{{__('currency')}} {{ $product->price}}</h3>
                                                 <ul class="action-button">
                                                     <li>
                                                         <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -237,7 +246,7 @@
                                                         <a href="#"class="productQuickViewModal" data-id="{{ $product->id }}"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="add-to-cart" data-id="{{$product->id}}"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                        <a href="javascript:void(0)" onclick="addToCart({{ $product->id }})" class="add-to-cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1350,36 +1359,5 @@
 //         });
 //     }
 // });
-
-//product details Modal/quick view function
-    document.addEventListener('DOMContentLoaded', function() {
-        const quickViewLink = document.querySelectorAll('.productQuickViewModal');
-
-        quickViewLink.forEach(function (link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const productId = this.getAttribute('data-id');
-
-               $.ajax({
-                type: "GET",
-                url: "{{route('product.details.quickview', ':id')}}".replace(':id',productId),
-                dataType: "json",
-                success: function(response){
-                    if(response){
-                        let modalBody = document.getElementById('quickview_modal_body').innerHTML = response.data;
-
-                        $('#productModal').modal('show');
-                    }
-                },
-                error: function(error){
-                    console.log("Error:", error);
-                }
-            })
-
-            })
-        })
-    })
-
 </script>
 @endpush

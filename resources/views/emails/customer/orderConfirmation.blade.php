@@ -10,7 +10,7 @@ Order ID: #{{ $order->order_number }}
 
 **Total:** ${{ number_format($order->total_price, 2) }}
 
-@component('mail::button', ['url' => route('user.profile', $order->id)])
+@component('mail::button', ['url' => route('customer.profile', $order->id)])
 View Order
 @endcomponent
 

@@ -26,22 +26,27 @@ class Order extends Model
      /**
      * Get the phone associated with the user.
      */
-    public function OrderStatus()
+    public function orderStatus()
     {
-        return $this->belongsTo(OrderStatus::class);
+        return $this->belongsTo(OrderStatus::class)->select('id', 'name');
     }
 
-    public function PaymentMethod()
+    public function paymentMethod()
     {
-        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id')->select('id', 'name');
     }
-    public function PaymentStatus()
+    public function paymentStatus()
     {
-        return $this->belongsTo(PaymentStatus::class, 'payment_status_id');
+        return $this->belongsTo(PaymentStatus::class, 'payment_status_id')->select('id', 'name');
     }
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class)->select('name','email');
+        return $this->belongsTo(Customer::class)->select('id', 'name','email');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 }

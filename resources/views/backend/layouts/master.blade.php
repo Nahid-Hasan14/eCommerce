@@ -307,7 +307,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            SobKichu.com - This website developed by <a href="https://colorlib.com" style="color: blue">Md. Nahid Hasan</a>
           </div>
           <div class="clearfix"></div>
         </footer>

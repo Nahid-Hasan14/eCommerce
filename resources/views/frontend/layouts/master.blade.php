@@ -132,7 +132,6 @@
                                 <nav id="primary-menu">
                                     <ul class="main-menu text-center">
                                         <li><a href="{{route('index')}}">Home</a></li>
-                                        <li class="mega-parent"><a href="#">elements</a></li>
                                         <li class="mega-parent"><a href="{{route('products')}}">Products</a>
                                             <div class="mega-menu-area clearfix">
                                                 <div class="mega-menu-link f-left">
@@ -277,12 +276,12 @@
                                             </div>
                                         </li>
                                         <li><a href="{{route('blogs')}}">Blogs</a></li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="{{route('about')}}">About us</a>
                                         </li>
                                         <li>
                                             <a href="{{route('contact')}}">Contact</a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </nav>
                             </div>
@@ -292,17 +291,18 @@
                                     <!-- header-search -->
                                     <div class="header-search f-left">
                                         <div class="header-search-inner">
-                                           <button class="search-toggle">
-                                            <i class="zmdi zmdi-search"></i>
-                                           </button>
-                                            <form action="#">
-                                                <div class="top-search-box">
-                                                    <input type="text" placeholder="Search here your product...">
-                                                    <button type="submit">
-                                                        <i class="zmdi zmdi-search"></i>
-                                                    </button>
+                                            <div class="top-search-box">
+                                                <input type="text" id="productSearch" placeholder="Search here your product...">
+                                                <button type="submit">
+                                                    <i class="zmdi zmdi-search"></i>
+                                                </button>
+                                                <div id="searchResults"
+                                                    style="position:absolute; margin-top:5px; top:100%; left:0; right:0;
+                                                        background:#fff; border:1px solid #ddd;
+                                                        z-index:9999; display:none; max-height:250px;
+                                                        overflow-y:auto;">
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- total-cart -->
@@ -633,14 +633,14 @@
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="single-footer">
                                         <h4 class="footer-title border-left">Get in touch</h4>
-                                        <div class="footer-message">
-                                            <form action="#">
-                                                <input type="text" name="name" placeholder="Your name here...">
-                                                <input type="text" name="email" placeholder="Your email here...">
-                                                <textarea class="height-80" name="message" placeholder="Your messege here..."></textarea>
-                                                <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">submit message</button>
-                                            </form>
-                                        </div>
+                                        <ul class="footer-menu">
+                                            <li>
+                                                <a href="my-account.html"><i class="zmdi zmdi-circle"></i><span>Contact Us</span></a>
+                                            </li>
+                                            <li>
+                                                <a href="wishlist.html"><i class="zmdi zmdi-circle"></i><span>About Us</span></a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -655,24 +655,8 @@
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="copyright-text">
-                                        <p>&copy; <a href="#" target="_blank">DevItems</a> 2017. All Rights Reserved.</p>
+                                        <p>&copy; <a href="#">SobKichu.com</a> 2017. All Rights Reserved.</p>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <ul class="footer-payment text-right">
-                                        <li>
-                                            <a href="#"><img src="{{asset('frontend')}}/img/payment/1.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{{asset('frontend')}}/img/payment/2.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{{asset('frontend')}}/img/payment/3.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img src="{{asset('frontend')}}/img/payment/4.jpg" alt=""></a>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -836,11 +820,15 @@
     <script src="{{asset('frontend')}}/js/plugins.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
     <script src="{{asset('frontend')}}/js/main.js"></script>
+    <!-- Custome js file function for multiple pages(my js). -->
+    <script src="{{asset('frontend')}}/js/custom.js"></script>
     {{-- <script src="{{asset('toastr')}}/js/toastr.min.js"></script> --}}
+
 
     @stack('script')
 
 <script>
+    //add to cart
     function addToCart (id){
         let productId = id;
         $.ajax({
@@ -871,6 +859,142 @@
             }
         });
     }
+
+    //product details Modal/quick view function
+    document.addEventListener('DOMContentLoaded', function() {
+        const quickViewLink = document.querySelectorAll('.productQuickViewModal');
+
+        quickViewLink.forEach(function (link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const productId = this.getAttribute('data-id');
+
+               $.ajax({
+                type: "GET",
+                url: "{{route('product.details.quickview', ':id')}}".replace(':id',productId),
+                dataType: "json",
+                success: function(response){
+                    if(response){
+                        let modalBody = document.getElementById('quickview_modal_body').innerHTML = response.data;
+
+                        $('#productModal').modal('show');
+                    }
+                },
+                error: function(error){
+                    console.log("Error:", error);
+                }
+            })
+
+            })
+        })
+    })
+
+    //For Address Create/Edit
+    document.addEventListener('DOMContentLoaded', function(){
+
+        const division = document.getElementById("division");
+        const district = document.getElementById("district");
+
+            if(division) {
+                division.onchange = function() {
+                    // console.log(this);
+                    // console.log(this.value);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('get.district')}}",
+                        dataType: "json",
+                        data: {
+                            division_id: this.value,
+                            _token:"{{csrf_token()}}"
+                        },
+
+                        success: function (res) {
+                            if (res.success) {
+                                let defaultOption = '<option value="">Select District</option>';
+                                let option = res.data.map(district => `<option value="${district.id}">${district.name}</option>`).join('');
+                                document.getElementById('district').innerHTML = defaultOption + option;
+                            }
+                        },
+                        error: function (error) {
+                            console.log("Error:", error)
+                        }
+                    })
+                };
+            }
+
+            if(district) {
+                district.onchange = function() {
+                    // console.log(this.value);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('get.upazila')}}",
+                        dataType: "json",
+                        data: {
+                            district_id: this.value,
+                            _token:"{{csrf_token()}}"
+                        },
+
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.success) {
+                                let defaultOption = '<option value="">Select Upazila</option>';
+                                let option = res.data.map(upazila => `<option value="${upazila.id}">${upazila.name}</option>`).join('');
+                                // console.log(option);
+                                document.getElementById('upazila').innerHTML = defaultOption + option;
+                            }
+                        },
+                        error: function (error) {
+                            console.log("Error:", error)
+                        }
+                    })
+                };
+            }
+    })
+
+   //Products Search
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("productSearch");
+        const resultsBox = document.getElementById("searchResults");
+
+        searchInput.addEventListener("keyup", function() {
+            let query = this.value.trim();
+
+            if(query.length < 3) {
+                resultsBox.style.display = "none";
+                return;
+            }
+
+            $.ajax({
+                url: `/search-products?q=${query}`,
+                type: "GET",
+                dataType: "json",
+                success: function(responce) {
+                    console.log(responce)
+
+                    if(responce.html.trim() !== '') {
+                        resultsBox.innerHTML = responce.html;
+                        resultsBox.style.display = "block";
+                    } else {
+                        resultsBox.innerHTML = '<div style="padding:8px;">No products found</div>';
+                        resultsBox.style.display = "block";
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                    resultsBox.innerHTML = '<div style="padding:8px; color: red;">Sorry, an error occurred while searching.</div>';
+                    resultsBox.style.display = "block";
+                }
+            })
+        })
+
+        //click out of input hide search result
+        document.addEventListener("click", function(e) {
+            if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+                resultsBox.style.display = "none";
+            }
+        })
+    })
 </script>
 
 </body>

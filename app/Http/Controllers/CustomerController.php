@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Customer;
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Upazila;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +41,10 @@ class CustomerController extends BaseController
         // ->get();
 
 
-        $data['orders'] = Order::where('customer_id', auth('customer')->id())->paginate(4);
+        $data['orders'] = Order::where('customer_id', auth('customer')->id())
+                            ->orderBy('id', 'desc')
+                            ->paginate(4);
+
         $data['orders_status'] = Order::where('customer_id', auth('customer')->id())->get();
 
 
@@ -60,6 +67,53 @@ class CustomerController extends BaseController
         // dd($data);
         // dd($data['orders']->where('status', 'Pending')->count());
         return view('frontend.pages.dashboard', compact('data'));
+    }
+
+    public function cancelOrders() {
+
+        $data['cancel_order'] = Order::where('customer_id', auth('customer')->id())
+                                ->where('order_status_id', 3)
+                                ->paginate(10);
+
+        $data['orders_status'] = Order::where('customer_id', auth('customer')->id())->get();
+
+        return view('frontend.pages.cancel_orders', compact('data'));
+    }
+
+    public function completedOrders() {
+
+        $data['completed_order'] = Order::where('customer_id', auth('customer')->id())
+                                ->where('order_status_id', 2)
+                                ->paginate(10);
+
+        // dd($data['completed_order'][0]->OrderStatus->name);
+
+        $data['orders_status'] = Order::where('customer_id', auth('customer')->id())->get();
+
+        return view('frontend.pages.completed_orders', compact('data'));
+    }
+
+    public function pendingOrders() {
+
+        $data['pending_order'] = Order::where('customer_id', auth('customer')->id())
+                                ->where('order_status_id', 1)
+                                ->paginate(10);
+
+        $data['orders_status'] = Order::where('customer_id', auth('customer')->id())->get();
+
+        return view('frontend.pages.pending_orders', compact('data'));
+    }
+
+    //Order Cancel Function
+    public function orderCancel($id) {
+        $order = Order::where('customer_id', auth('customer')->id())
+                        ->where('id', $id)
+                        ->firstOrFail(); //if 2 condition not matching show 404 page
+
+        $order->order_status_id = 3;
+        $order->save();
+
+        return redirect()->back()->with('success', "Your Order Cancel Successfilly");
     }
 
 
@@ -122,6 +176,127 @@ class CustomerController extends BaseController
 
             return redirect()->back()->withErrors(['old_password' => 'Old password does not match.']);
         }
+
+    }
+
+    //For Profile page
+    public function profile () {
+        //For Register User Address Find
+        $data['customer'] = auth('customer')->user();
+
+        $data['addresses'] = DB::table('addresses as a')
+        ->join('divisions as d', 'd.id', 'a.division')
+        ->join('districts as dc', 'dc.id', 'a.district')
+        ->join('upazilas as u', 'u.id', 'a.upazila')
+        ->select('a.id','a.phone', 'a.address', 'd.name as division', 'dc.name as district', 'u.name as upazila', )
+        ->where('a.customer_id', auth('customer')->id())->get();
+
+        return view('frontend.pages.profile', compact('data'));
+    }
+
+    //Edit user Profile
+    public function editProfileShow(){
+
+        return view('frontend.pages.profile_edit');
+    }
+
+    public function updateProfile(Request $request){
+       $customer = auth()->user();
+
+       $check = $request->validate([
+            'name'=> 'required|string|max:155',
+            'email'=> 'required|email|unique:customers,email,' . $customer->id,
+            'phone'=> 'nullable|string|max:15',
+            'dob'  => 'nullable|date',
+            'gender'=> 'nullable|string'
+        ]);
+
+        $customer->update([
+            'name'=> $request->name,
+            'email'=> $request->email,
+            'phone'=> $request->phone,
+            'dob'=> $request->dob,
+            'gender'=> $request->gender
+        ]);
+        return redirect()->route('customer.profile')->with('success', 'Youre Profile Update Successfully');
+    }
+
+    //Customer Address Edit form
+    public function editAddressShow($id) {
+        $address = Address::with(['divisionInfo', 'districtInfo', 'upazilaInfo'])
+                        ->where('id', $id)
+                        ->first();
+
+        $divisions = Division::all();
+        // dd($address);
+        return view('frontend.pages.address_edit', compact('address', 'divisions'));
+
+    }
+
+    public function updateAddress(Request $request, $id) {
+        $customer = auth('customer')->user();
+
+        $request->validate([
+            'phone' => 'nullable|string|max:15',
+            'division' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'upazila' => 'nullable|string|max:255',
+            'full_address'=> 'nullable|string|max:255'
+        ]);
+
+        $address = Address::where('id', $id)->where('customer_id', $customer->id)->firstOrFail();
+
+       $address->update([
+        'phone'=>$request->phone,
+        'division'=>$request->division,
+        'district'=>$request->district,
+        'upazila'=>$request->upazila,
+        'address'=>$request->full_address,
+       ]);
+
+       return redirect()->route('customer.profile')->with('success', 'Your Shipping Address Updated Successfully');
+    }
+
+    //Create New Address
+    public function createAddressShow() {
+        $divisions = Division::all();
+        return view('frontend.pages.address_create', compact('divisions'));
+    }
+
+
+    public function addressStore(Request $request) {
+
+        $customer = auth('customer')->user();
+
+        $request->validate([
+            'phone' => 'nullable|string|max:15',
+            'division' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'upazila' => 'nullable|string|max:255',
+            'full_address'=> 'nullable|string|max:255'
+        ]);
+
+       $address = new Address();
+       $address->customer_id = $customer->id;
+       $address->phone = $request->phone;
+       $address->division = $request->division;
+       $address->district = $request->district;
+       $address->upazila = $request->upazila;
+       $address->address = $request->full_address;
+       $address->save();
+
+       return redirect()->route('customer.profile')->with('success', 'Your Shipping Address Create Successfully');
+    }
+
+    public function addressDelete($id) {
+
+        $customer = auth('customer')->user();
+
+        $address = Address::where('id', $id)->where('customer_id', $customer->id)->firstOrFail();
+
+        $address->delete();
+
+        return redirect()->back()->with('success', 'Your Shipping Address Deleted Successfully');
 
     }
 

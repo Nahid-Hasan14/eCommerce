@@ -15,7 +15,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <h4 class="black-text">Order Info</h4>
                                 <span class="black-text"><strong>Order Date: {{ date("d-M-Y", strtotime($data['order']->created_at)) }}</strong></span><br>
-                                <sapn class="black-text"><strong>Total Price:</strong> $ {{ $data['order']->total_price }}</sapn><br>
+                                <sapn class="black-text"><strong>Total Price:</strong> {{__('currency')}} {{ $data['order']->total_price }}</sapn><br>
                                 <span class="black-text"><strong>Status:</strong> {{ $data['order']->OrderStatus->name }}</span>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -42,15 +42,15 @@
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading">{{$order->product->title}}</h4>
-                                        <span class="black-text"><strong>Price:</strong> {{$order->price}} | <strong>Quantity:</strong> {{$order->quantity}} | <strong>Total:</strong> {{$order->price}}</span>
+                                        <span class="black-text"><strong>Price:</strong> {{__('currency')}} {{$order->price}} | <strong>Quantity:</strong> {{$order->quantity}} | <strong>Sub-total:</strong> {{__('currency')}} {{$order->price}}</span>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                             <div class="order-summary-table text-right">
-                                <span class="black-text"><strong>Sub Total:</strong> ${{$data['order']->total_price}}</span> <br>
-                                <span class="black-text"><strong>Delivery fee:</strong> $0.00</span>
-                                <h4 class="black-text"><strong>Total:</strong> $120.50</h4>
+                                <span class="black-text"><strong>Sub Total:</strong> {{__('currency')}}{{$data['order']->total_price}}</span> <br>
+                                <span class="black-text"><strong>Delivery fee:</strong> {{__('currency')}}0.00</span>
+                                <h4 class="black-text"><strong>Total:</strong> {{__('currency')}}120.50</h4>
                             </div>
                         </div>
                     </div>

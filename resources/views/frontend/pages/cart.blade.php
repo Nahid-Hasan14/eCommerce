@@ -211,7 +211,7 @@
                                                         <a href="javascrept:void(0)" id="add-address-btn" class="btn btn-sm btn-info">Add New Shipping Address</a>
                                                         <div id="new-shipping-address" style="display: none; margin-top: 15px;">
                                                             <div style="margin-bottom: 20px;">
-                                                            <input type="text" name="phone" value="{{old('phone')}}" id="name" placeholder="Phone here..." style="margin-bottom: 0px;"/>
+                                                                <input type="text" name="phone" value="{{old('phone')}}" id="name" placeholder="Phone here..." style="margin-bottom: 0px;"/>
                                                             <span class="text-danger phone_error"></span>
                                                             </div>
 
@@ -334,7 +334,7 @@
                                         </div>
                                         <div style="padding: 10px; display:flex; justify-content:center">
                                             <h3>Please go to your
-                                                <a href="{{route('user.user')}}" style="color: #FF850B; font-weight: bold; text-decoration: none; border-bottom: 2px solid #FF850B; padding: 2px 6px; border-radius: 4px;">Dashboard</a>
+                                                <a href="{{route('customer.dashboard')}}" style="color: #FF850B; font-weight: bold; text-decoration: none; border-bottom: 2px solid #FF850B; padding: 2px 6px; border-radius: 4px;">Dashboard</a>
                                                 and check order status!</h3>
                                         </div>
                                     </div>
@@ -355,86 +355,27 @@
 {{-- Update & Remove Item --}}
 <script>
 
-
-
     let updateBtn = document.getElementsByClassName('update-cart');
     const order_btn = document.getElementById("order_btn");
-    const division = document.getElementById("division");
-    const district = document.getElementById("district");
 
-        division.onchange = function() {
-            // console.log(this);
-            // console.log(this.value);
-            $.ajax({
-                type: "POST",
-                url: "{{route('get.district')}}",
-                dataType: "json",
-                data: {
-                    division_id: this.value,
-                    _token:"{{csrf_token()}}"
-                },
+    order_btn.onclick = function(e) {
+        e.preventDefault();
 
-                success: function (res) {
-                    if (res.success) {
-                        let defaultOption = '<option value="">Select District</option>';
-                        let option = res.data.map(district => `<option value="${district.id}">${district.name}</option>`).join('');
-                        document.getElementById('district').innerHTML = defaultOption + option;
-                    }
-                },
-                error: function (error) {
-                    console.log("Error:", error)
+        if ("{{ Auth::guard('customer')->check() ? 'true' : 'false' }}" === "true") {
+
+            document.getElementById('shopping-cart').style.display = 'none'; //hide cart div
+            document.getElementById('checkout').style.display = 'block'; //show checkout div
+
+            document.getElementById('viewport').scrollIntoView({ behavior: "smooth", block: "start" }); //for view port
+
+                let orderCompleteLi = document.querySelector(".cart-tab li.checkout a"); //for side navbar active
+                if(orderCompleteLi){
+                    orderCompleteLi.classList.add("active");
                 }
-            })
-        };
-
-
-        district.onchange = function() {
-            // console.log(this);
-            // console.log(this.value);
-            $.ajax({
-                type: "POST",
-                url: "{{route('get.upazila')}}",
-                dataType: "json",
-                data: {
-                    district_id: this.value,
-                    _token:"{{csrf_token()}}"
-                },
-
-                success: function (res) {
-                    // console.log(res);
-                    if (res.success) {
-                        let defaultOption = '<option value="">Select Upazila</option>';
-                        let option = res.data.map(upazila => `<option value="${upazila.id}">${upazila.name}</option>`).join('');
-                        console.log(option);
-                        document.getElementById('upazila').innerHTML = defaultOption + option;
-                    }
-                },
-                error: function (error) {
-                    console.log("Error:", error)
-                }
-            })
-        };
-
-
-
-        order_btn.onclick = function(e) {
-            e.preventDefault();
-
-            if ("{{ Auth::guard('customer')->check() ? 'true' : 'false' }}" === "true") {
-
-                document.getElementById('shopping-cart').style.display = 'none'; //hide cart div
-                document.getElementById('checkout').style.display = 'block'; //show checkout div
-
-                document.getElementById('viewport').scrollIntoView({ behavior: "smooth", block: "start" }); //for view port
-
-                    let orderCompleteLi = document.querySelector(".cart-tab li.checkout a"); //for side navbar active
-                    if(orderCompleteLi){
-                        orderCompleteLi.classList.add("active");
-                    }
-            } else {
-                window.location.href = "{{route('customer.login')}}";
-            }
-        };
+        } else {
+            window.location.href = "{{route('customer.login')}}";
+        }
+    };
 
     for(let i = 0; i < updateBtn.length; i++ ) {
         updateBtn[i].addEventListener('click', function(e){

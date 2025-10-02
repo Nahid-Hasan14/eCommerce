@@ -34,8 +34,8 @@
                             <th class="column-title">Order Id</th>
                             <th class="column-title">Customer </th>
                             <th class="column-title">Date </th>
-                            <th class="column-title">Items </th>
                             <th class="column-title">Price </th>
+                            <th class="column-title">Payment Status </th>
                             <th class="column-title">Status </th>
                             <th class="column-title">Action </th>
                             {{-- <th class="column-title">Description</th> --}}
@@ -44,18 +44,20 @@
                         {{-- <pre>{{ print_r($products, true)}}</pre> --}}
 
                             <tbody>
-                          <tr class="even pointer">
-                            <td class="text-cen align-middle ">#E9723</td>
-                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Md Jobbar Ali</td>
-                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">02/aug/25</td>
-                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">2</td>
-                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">420</td>
-                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Pending</td>
-                            {{-- <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$product->description}}</i></td> --}}
-                            <td class="text-cen align-middle">
-                                <a href="{{route('order.details')}}" class="btn btn-dark btn-sm">View</a>
-                            </td>
-                          </tr>
+                          @foreach ($orders as $order)
+                                <tr class="even pointer">
+                                    <td class="text-cen align-middle ">{{$order->order_number}}</td>
+                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->customer->name}}</td>
+                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->created_at->format('Y-m-d')}} ({{$order->created_at->format('h:i A')}})</td>
+                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->total_price}}</td>
+                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->payment_status_id}}</td>
+                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->order_status_id}}</td>
+                                    {{-- <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$product->description}}</i></td> --}}
+                                    <td class="text-cen align-middle">
+                                        <a href="{{route('order.details', $order->id)}}" class="btn btn-dark btn-sm">View</a>
+                                    </td>
+                                </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     </div>

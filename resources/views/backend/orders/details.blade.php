@@ -19,9 +19,14 @@
                   </div>
                   <div class="x_title">
                     <div class="pull-left">
-                        <h7><strong>Order Id: </strong> #E6757</h7> <br/>
-                        <h7><strong>Status: </strong> Panding</h7> <br/>
-                        <h7><strong>Date: </strong> 25 Aug 2025</h7> <br>
+                        <h7><strong>Order Number: </strong> {{$order->order_number}}</h7> <br/>
+                        <h7><strong>Order Status: </strong>{{$order->orderStatus->name}}</h7> <br/>
+                        <h7><strong>Payment Status: </strong>{{$order->paymentStatus->name ?? ''}}</h7> <br/>
+                        <h7><strong>Payment Method: </strong>{{$order->paymentMethod->name}}</h7> <br/>
+                        @if ($order->paymentMethod->name != "Cash on delivery")
+                                <h7><strong>Transaction id: </strong>{{$order->orderDetails->first()->payment_transaction_id}}</h7> <br/>
+                        @endif
+                        <h7><strong>Date: </strong> {{$order->created_at->format('d-m-Y')}} ({{$order->created_at->format('h:i A')}})</h7> <br>
                     </div>
                     <div class="pull-right">
                         <a href="#" class="btn btn-success btn-sm pull-right">Deliverd</a>
@@ -34,7 +39,7 @@
 
                   <div class="x_content">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                             <div class="table-responsive">
                               <table class="table table-striped jambo_table bulk_action">
                                 <thead>
@@ -45,18 +50,21 @@
                                 {{-- <pre>{{ print_r($products, true)}}</pre> --}}
                                     <tbody>
                                   <tr class="even pointer">
+                                    @php
+                                        $address = explode('|', $order->shipping_address)
+                                    @endphp
                                     <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">
-                                        <span><strong>Name: </strong>Md. Jabbar Ali</span> <br/>
-                                        <span><strong>Email: </strong>jabbar@example.com</span> <br/>
-                                        <span><strong>Phone: </strong>01774641500</span> <br/>
-                                        <span><strong>Shipping Address: </strong>Division, District, Thana, Kochakata-5660, Dholuabari</span> <br/>
+                                        <span><strong>Name: </strong>{{$order->customer->name}}</span> <br/>
+                                        <span><strong>Email: </strong>{{$order->customer->email}}</span> <br/>
+                                        <span><strong>Phone: </strong>{{$address[1]}}</span> <br/>
+                                        <span><strong>Shipping Address: </strong>{{$address[3]}}->{{$address[4]}}->{{$address[5]}}, {{$address[2]}}</span> <br/>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
                             </div>
                         </div>
-                        <div class="col-md-8 col-sm-12">
+                        <div class="col-md-12 col-sm-12">
                             <div class="table-responsive">
                               <table class="table table-striped jambo_table bulk_action">
                                 <thead>
@@ -69,16 +77,25 @@
                                   </tr>
                                 </thead>
                                 {{-- <pre>{{ print_r($products, true)}}</pre> --}}
-                                    <tbody>
-                                  <tr class="even pointer">
-                                    <td class="text-cen align-middle ">
-                                        <img src="" alt="Image" height="80px" width="150px"/>
-                                    </td>
-                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Title</td>
-                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">3</td>
-                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">1200</td>
-                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">3600</td>
-                                  </tr>
+                                <tbody>
+                                    @php
+                                        $subTotal = 0;
+                                    @endphp
+                                    @foreach ($order->orderDetails as $detail)
+                                        @php
+                                            $lineTotal = $detail->quantity * $detail->price;
+                                            $subTotal += $lineTotal;
+                                        @endphp
+                                        <tr class="even pointer">
+                                            <td class="text-cen align-middle ">
+                                                <img src="{{asset('storage/' . $detail->product->image) }}" alt="Image" height="80px" width="150px"/>
+                                            </td>
+                                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$detail->product->title}}</td>
+                                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$detail->quantity}}</td>
+                                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$detail->price}}</td>
+                                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$detail->quantity}}*{{$detail->price}} = {{$detail->total}}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                               </table>
                             </div>
@@ -90,31 +107,23 @@
                                             <tbody>
                                             <tr class="even pointer">
                                                 <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Sub Total</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 3600</td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{number_format($subTotal, 2)}}</td>
                                             </tr>
                                             <tr class="even pointer">
                                                 <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Shipping Fee</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 150</td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 100</td>
                                             </tr>
                                             <tr class="even pointer">
                                                 <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Discount</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 70</td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 00</td>
                                             </tr>
                                             <tr class="even pointer">
                                                 <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Vat</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 10</td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">$ 00</td>
                                             </tr>
                                             <tr class="even pointer">
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">TOTAL</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">3830</td>
-                                            </tr>
-                                            <tr class="even pointer">
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Payment Method</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Bkash</td>
-                                            </tr>
-                                            <tr class="even pointer">
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Payment Status</td>
-                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">Unpaid</td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;"><strong>TOTAL</strong></td>
+                                                <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;"><strong>{{$subTotal + 100}}</strong></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -122,6 +131,7 @@
                                 </div>
                             </div>
                         </div>
+                        <a href="{{route('order.invoice')}}" class="btn btn-success btn-sm pull-right">Invoice</a>
                     </div>
                   </div>
                 </div>

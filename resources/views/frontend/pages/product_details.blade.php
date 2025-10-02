@@ -221,7 +221,7 @@
                                                                 <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                             </li>
                                                             <li>
-                                                                <a href="#" data-toggle="modal"  data-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                                <a href="#" class="productQuickViewModal" data-id="{{ $reletedProduct->id }}"><i class="zmdi zmdi-zoom-in"></i></a>
                                                             </li>
                                                             <li>
                                                                 <a href="javascript:void(0)" onclick="addToCart({{ $reletedProduct->id }})" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>

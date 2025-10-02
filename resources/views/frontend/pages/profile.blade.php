@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-    <h1 class="text-center">User Profile</h1>
+    {{-- <h1 class="text-center">User Profile</h1> --}}
     <div class="row">
         <div class="col-md-3">
             <div class="navbar">
@@ -31,23 +31,29 @@
                             <h5><strong>Email: </strong>{{auth('customer')->user()->email}}</h5>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                            <h5><strong>Phone: </strong>017xxxxxxxx</h5>
+                            <h5><strong>Phone: </strong>{{auth('customer')->user()->phone}}</h5>
                         </div>
                         <div class="col-md-4 col-sm-12">
-                            <h5><strong>Gender: </strong>Male</h5>
+                            @if (auth('customer')->user()->gender == 1) <h5><strong>Gender: </strong>Male</h5>
+                            @elseif (auth('customer')->user()->gender == 2) <h5><strong>Gender: </strong>Female</h5>
+                            @elseif (auth('customer')->user()->gender == 3) <h5><strong>Gender: </strong>Others</h5>
+                            @else <h5><strong>Gender: </strong>No Gender</h5>
+                            @endif
                         </div>
                         <div class="col-md-5 col-sm-12">
-                            <h5><strong>Date of Birth: </strong>25/09/2000</h5>
+                            <h5><strong>Date of Birth: </strong>{{auth('customer')->user()->dob}}</h5>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                            <a style="color: #f0ad4e">Edit Bio</a>
+                            <a href="{{route('customer.profile.edit')}}" style="color: #f0ad4e">Edit Bio</a>
                         </div>
                     </div>
                 </div>
                 <div class="shipping">
                     <div class="shipping-header clearfix">
                         <h3 class="pull-left">Shipping Addresss ({{$data['addresses']->count()}}/4)</h3>
-                        <button class="pull-right red-btn">Add New Address</button>
+                        @if ($data['addresses']->count() <4)
+                            <a href="{{route('customer.address.create')}}" class="pull-right red-btn">Add New Address</a>
+                        @endif
                     </div>
                     <div class="shipping-address">
                         <div class="row">
@@ -59,8 +65,8 @@
                                             <p>{{$address->address}}</p>
                                             <p>{{$address->phone}}</p>
                                             <div style="display: flex; justify-content: space-between">
-                                                <a class="btn btn-sm btn-primary edit-btn">Edit</a>
-                                                <a class="btn btn-sm btn-danger edit-btn">Delete</a>
+                                                <a href="{{route('customer.address.edit', $address->id)}}" class="btn btn-sm btn-primary edit-btn">Edit</a>
+                                                <a href="{{route('customer.address.delete', $address->id)}}" class="btn btn-sm btn-danger edit-btn">Delete</a>
                                             </div>
                                         </div>
                                     </div>

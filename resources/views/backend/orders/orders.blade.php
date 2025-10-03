@@ -16,10 +16,16 @@
                     <h2>product Manage</h2>
                         <div class="form-group pull-right top_search">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
+                                <input id="productSearch" type="text" class="form-control" placeholder="Search for...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">Search</button>
                                 </span>
+                                <div id="searchResults"
+                                    style="position:absolute; margin-top:5px; top:100%; left:0; right:0;
+                                        background:#fff; border:1px solid #ddd;
+                                        z-index:9999; display:none; max-height:250px;
+                                        overflow-y:auto;">
+                                </div>
                             </div>
                         </div>
                     <div class="clearfix"></div>
@@ -69,3 +75,50 @@
           </div>
         </div>
 @endsection
+
+@push('script')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("productSearch");
+        const resultsBox = document.getElementById("searchResults");
+
+        searchInput.addEventListener("keyup", function() {
+            let query = this.value.trim();
+
+            if(query.length < 3) {
+                resultsBox.style.display = "none";
+                return;
+            }
+
+            $.ajax({
+                url: `/search-order?q=${query}`,
+                type: "GET",
+                dataType: "json",
+                success: function(responce) {
+                    console.log(responce)
+
+                    if(responce.html.trim() !== '') {
+                        resultsBox.innerHTML = responce.html;
+                        resultsBox.style.display = "block";
+                    } else {
+                        resultsBox.innerHTML = '<div style="padding:8px;">No products found</div>';
+                        resultsBox.style.display = "block";
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                    resultsBox.innerHTML = '<div style="padding:8px; color: red;">Sorry, an error occurred while searching.</div>';
+                    resultsBox.style.display = "block";
+                }
+            })
+        })
+
+        //click out of input hide search result
+        document.addEventListener("click", function(e) {
+            if (!searchInput.contains(e.target) && !resultsBox.contains(e.target)) {
+                resultsBox.style.display = "none";
+            }
+        })
+    })
+</script>
+@endpush

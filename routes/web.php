@@ -131,6 +131,8 @@ Route::post('/orders/{id}/confirmed', [OrderController::class, 'confirmed'])->na
 Route::post('/orders/{id}/shipped', [OrderController::class, 'shipped'])->name('admin.order.shipped');
 Route::post('/orders/{id}/deliverd', [OrderController::class, 'deliverd'])->name('admin.order.deliverd');
 
+Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('admin.order.search');
+
 
 
 

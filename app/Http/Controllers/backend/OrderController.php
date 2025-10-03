@@ -63,6 +63,20 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Order Deliverd Successfully.');
     }
 
+    public function searchOrder(Request $request) {
+        // dd($request);
+        $query = $request->get('q');
+        // dd($qurey);
+        $orders = Order::where('order_number', 'like', "%{$query}%")
+                    ->take(5)
+                    ->get(['id', 'order_number']);
+        // dd($orders);
+
+        $html = view('backend.layouts.order_search', compact('orders'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
     public function invoice() {
         return view('backend.invoice.invoice');
     }

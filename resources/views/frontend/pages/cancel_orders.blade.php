@@ -178,9 +178,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($data['cancel_order'] as $order)
-                                    @php
-                                        $address = explode('|', $order->shipping_address);
-                                    @endphp
+                                        @php
+                                            $address = explode('|', $order->shipping_address);
+                                        @endphp
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>#{{ $order->order_number }}</td>

@@ -17,9 +17,10 @@
     <link href="{{asset('backend')}}/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
     <link href="{{asset('backend')}}/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <link href="{{asset('toastr')}}/css/toastr.min.css" data-style="styles" rel="stylesheet">
+    {{-- <link href="{{asset('toastr')}}/css/toastr.min.css" data-style="styles" rel="stylesheet"> --}}
     <!-- Custom styling plus plugins -->
     <link href="{{asset('backend')}}/build/css/custom.min.css" rel="stylesheet">
+    <script src="{{asset('sweetalert')}}/sweetalert2@11.js"></script>
 
     @stack('style')
   </head>
@@ -302,6 +303,18 @@
 
         <!-- page content -->
         @yield('content')
+
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "{{ session('success') }}",
+                    timer: 3000,
+                    showConfirmButton: false
+                })
+            </script>
+        @endif
         <!-- /page content -->
 
         <!-- footer content -->
@@ -407,7 +420,7 @@
 
     <!-- jQuery -->
     <script src="{{asset('backend')}}/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="{{asset('toastr')}}/js/toastr.min.js"></script>
+    {{-- <script src="{{asset('toastr')}}/js/toastr.min.js"></script> --}}
     <!-- Bootstrap -->
    <script src="{{asset('backend')}}/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
@@ -418,10 +431,10 @@
     <script src="{{asset('backend')}}/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="{{asset('backend')}}/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="{{asset('backend')}}/vendors/google-code-prettify/src/prettify.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="{{asset('backend')}}/build/js/custom.min.js"></script>
+
       @stack('script')
-      {!! Toastr::message() !!}
+      {{-- {!! Toastr::message() !!} --}}
   </body>
 </html>

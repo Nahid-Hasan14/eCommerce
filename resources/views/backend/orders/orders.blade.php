@@ -18,7 +18,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search for...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Search</button>
+                                    <button class="btn btn-default" type="button">Search</button>
                                 </span>
                             </div>
                         </div>
@@ -50,8 +50,8 @@
                                     <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->customer->name}}</td>
                                     <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->created_at->format('Y-m-d')}} ({{$order->created_at->format('h:i A')}})</td>
                                     <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">{{$order->total_price}}</td>
-                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->payment_status_id}}</td>
-                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->order_status_id}}</td>
+                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->paymentStatus->name}}</td>
+                                    <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->orderStatus->name}}</td>
                                     {{-- <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$product->description}}</i></td> --}}
                                     <td class="text-cen align-middle">
                                         <a href="{{route('order.details', $order->id)}}" class="btn btn-dark btn-sm">View</a>
@@ -60,6 +60,7 @@
                           @endforeach
                         </tbody>
                       </table>
+                      {{ $orders->links('pagination::bootstrap-4')}}
                     </div>
                   </div>
                 </div>

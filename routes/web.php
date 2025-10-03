@@ -125,7 +125,11 @@ Route::get('/admin/orders-manage', [OrderController::class, 'orders'])->name('or
 Route::get('/admin/order-details/{id}', [OrderController::class, 'details'])->name('order.details');
 Route::get('/admin/invoice', [OrderController::class, 'invoice'])->name('order.invoice');
 
-
+//Admin Order Status Function handle
+Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('admin.order.cancel');
+Route::post('/orders/{id}/confirmed', [OrderController::class, 'confirmed'])->name('admin.order.confirmed');
+Route::post('/orders/{id}/shipped', [OrderController::class, 'shipped'])->name('admin.order.shipped');
+Route::post('/orders/{id}/deliverd', [OrderController::class, 'deliverd'])->name('admin.order.deliverd');
 
 
 

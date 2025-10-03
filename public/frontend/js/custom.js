@@ -10,7 +10,7 @@ function orderCancel(id) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Yes, Cancel Order!"
     }).then((result) => {
         if (result.isConfirmed) {
             delete_form.submit();

@@ -24,46 +24,28 @@
                         <h7><strong>Payment Status: </strong>{{$order->paymentStatus->name ?? ''}}</h7> <br/>
                         <h7><strong>Payment Method: </strong>{{$order->paymentMethod->name}}</h7> <br/>
                         @if ($order->paymentMethod->name != "Cash on delivery")
-                                <h7><strong>Transaction id: </strong>{{$order->orderDetails->first()->payment_transaction_id}}</h7> <br/>
+                            <h7><strong>Transaction id: </strong>{{$order->orderDetails->first()->payment_transaction_id}}</h7> <br/>
                         @endif
                         <h7><strong>Date: </strong> {{$order->created_at->format('d-m-Y')}} ({{$order->created_at->format('h:i A')}})</h7> <br>
                     </div>
-                    <div class="pull-right">
-                        <a href="#" class="btn btn-success btn-sm pull-right">Deliverd</a>
-                        <a href="#" class="btn btn-info btn-sm pull-right">Shipped</a>
-                        <a href="#" class="btn btn-primary btn-sm pull-right">Confirmed</a>
-                        <a href="#" class="btn btn-danger btn-sm pull-right">Cancel Order</a>
+                    <div class="pull-right" style="display: flex; align-items: center; height: 130px;">
+                        {{-- hidden form for order status change --}}
+                        <form id="cancel-form-{{$order->id}}" action="{{route('admin.order.cancel', $order->id)}}" method="POST" style="display:none;">@csrf</form>
+                        <form id="confirmed-form-{{$order->id}}" action="{{route('admin.order.confirmed', $order->id)}}" method="POST" style="display:none;">@csrf</form>
+                        <form id="shipped-form-{{$order->id}}" action="{{route('admin.order.shipped', $order->id)}}" method="POST" style="display:none;">@csrf</form>
+                        <form id="deliverd-form-{{$order->id}}" action="{{route('admin.order.deliverd', $order->id)}}" method="POST" style="display:none;">@csrf</form>
+
+                        <button type="submit" onclick="confirmAction('deliverd', {{$order->id}})" class="btn btn-success btn-sm pull-right">Deliverd</button>
+                        <button type="submit" onclick="confirmAction('shipped', {{$order->id}})" class="btn btn-info btn-sm pull-right">Shipped</button>
+                        <button type="button" onclick="confirmAction('confirmed', {{$order->id}})" class="btn btn-primary btn-sm pull-right">Confirmed</button>
+                        <button type="button" onclick="confirmAction('cancel', {{$order->id}})" class="btn btn-danger btn-sm pull-right">Cancel Order</button>
                     </div>
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="x_content">
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="table-responsive">
-                              <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                  <tr class="headings">
-                                    <th class="column-title">Coustomer Information</th>
-                                  </tr>
-                                </thead>
-                                {{-- <pre>{{ print_r($products, true)}}</pre> --}}
-                                    <tbody>
-                                  <tr class="even pointer">
-                                    @php
-                                        $address = explode('|', $order->shipping_address)
-                                    @endphp
-                                    <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">
-                                        <span><strong>Name: </strong>{{$order->customer->name}}</span> <br/>
-                                        <span><strong>Email: </strong>{{$order->customer->email}}</span> <br/>
-                                        <span><strong>Phone: </strong>{{$address[1]}}</span> <br/>
-                                        <span><strong>Shipping Address: </strong>{{$address[3]}}->{{$address[4]}}->{{$address[5]}}, {{$address[2]}}</span> <br/>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                        </div>
+
                         <div class="col-md-12 col-sm-12">
                             <div class="table-responsive">
                               <table class="table table-striped jambo_table bulk_action">
@@ -100,7 +82,31 @@
                               </table>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-sm-6"></div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="table-responsive">
+                                    <table class="table table-striped jambo_table bulk_action">
+                                        <thead>
+                                        <tr class="headings">
+                                            <th class="column-title">Coustomer Information</th>
+                                        </tr>
+                                        </thead>
+                                        {{-- <pre>{{ print_r($products, true)}}</pre> --}}
+                                            <tbody>
+                                        <tr class="even pointer">
+                                            @php
+                                                $address = explode('|', $order->shipping_address)
+                                            @endphp
+                                            <td class="text-cen align-middle " style="max-width: 150px; word-wrap: break-word;">
+                                                <span><strong>Name: </strong>{{$order->customer->name}}</span> <br/>
+                                                <span><strong>Email: </strong>{{$order->customer->email}}</span> <br/>
+                                                <span><strong>Phone: </strong>{{$address[1]}}</span> <br/>
+                                                <span><strong>Shipping Address: </strong>{{$address[3]}}->{{$address[4]}}->{{$address[5]}}, {{$address[2]}}</span> <br/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="table-responsive">
                                         <table class="table table-striped jambo_table bulk_action">
@@ -140,3 +146,36 @@
           </div>
         </div>
 @endsection
+
+@push('script')
+<script>
+    function confirmAction(action, orderId) {
+        let messages = {
+            cancel: "Are you sure cancel this order?",
+            confirmed: "Are you sure Confirmed this order?",
+            shipped: "Are you sure Shipped this order?",
+            deliverd: "Are you sure Deliverd this order?"
+        }
+        let titles = {
+            cancel: "Yes, Cancel it!",
+            confirmed: "Yes, Confirmed it!",
+            shipped: "Yes, Shipped it!",
+            deliverd: "Yes, Deliverd it!"
+        }
+
+        Swal.fire({
+            // title: "Are you sure?",
+            text: messages[action],
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: titles[action]
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(action + '-form-' + orderId).submit();
+            }
+        });
+    }
+</script>
+@endpush

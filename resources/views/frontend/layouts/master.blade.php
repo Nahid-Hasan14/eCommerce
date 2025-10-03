@@ -811,7 +811,6 @@
 
     <!-- jquery latest version -->
     <script src="{{asset('frontend')}}/js/vendor/jquery-3.1.1.min.js"></script>
-    {{-- <script src="{{asset('toastr')}}/js/jquery.min.js"></script> --}}
     <!-- Bootstrap framework js -->
     <script src="{{asset('frontend')}}/js/bootstrap.min.js"></script>
     <!-- jquery.nivo.slider js -->
@@ -822,7 +821,6 @@
     <script src="{{asset('frontend')}}/js/main.js"></script>
     <!-- Custome js file function for multiple pages(my js). -->
     <script src="{{asset('frontend')}}/js/custom.js"></script>
-    {{-- <script src="{{asset('toastr')}}/js/toastr.min.js"></script> --}}
 
 
     @stack('script')

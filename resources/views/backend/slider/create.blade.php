@@ -7,7 +7,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
-                <form action="{{route('slider.store')}}" method="POST" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <form action="{{route('admin.slider.store')}}" method="POST" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                     @csrf
                     <div class="dashboard_graph">
                         <div class="row">
@@ -15,7 +15,7 @@
                                 <div class="x_panel">
                                     <div class="x_title">
                                         <h2>Slider Create</h2>
-                                        <a href="{{route('slider.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
+                                        <a href="{{route('admin.slider.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
@@ -61,7 +61,7 @@
                                         <div class="ln_solid"></div>
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <a href="{{route('slider.index')}}" class="btn btn-dark" type="button">Back</a>
+                                                <a href="{{route('admin.slider.index')}}" class="btn btn-dark" type="button">Back</a>
                                                 <button class="btn btn-success" type="submit">Create</button>
                                             </div>
                                         </div>

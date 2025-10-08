@@ -52,7 +52,7 @@ class CategoryController extends Controller
         }
         $category->save();
 
-        return redirect()->route('category.index')->with('success', 'Category successfully create');
+        return redirect()->route('admin.category.index')->with('success', 'Category successfully create');
     }
 
     /**
@@ -101,7 +101,7 @@ class CategoryController extends Controller
         }
         $category->update();
 
-        return redirect()->route('category.index');
+        return redirect()->route('admin.category.index');
 
     }
 
@@ -113,7 +113,7 @@ class CategoryController extends Controller
        $category = Category::find($id);
 
        $category->delete();
-       return redirect()->route('category.index');
+       return redirect()->route('admin.category.index');
     }
 
     /**
@@ -128,6 +128,6 @@ class CategoryController extends Controller
             $category->status = 1;
         }
        $category->save();
-       return redirect()->route('category.index');
+       return redirect()->route('admin.category.index');
     }
 }

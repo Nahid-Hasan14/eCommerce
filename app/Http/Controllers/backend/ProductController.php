@@ -82,7 +82,7 @@ class productController extends Controller
         $product->save();
         // dd("Redirecting to index");
 
-        return redirect()->route('product.index')->with('success', 'product Create Successfully');
+        return redirect()->route('admin.product.index')->with('success', 'product Create Successfully');
 
     }
 
@@ -102,7 +102,7 @@ class productController extends Controller
         $product = Product::find($id);
         $categories = Category::all();
         $brands = Brand::all();
-        // dd($products);
+        // dd($product);
 
         session()->put('delete_image', []);
         return view('backend.product.edit', compact('product', 'categories', 'brands'));
@@ -120,8 +120,8 @@ class productController extends Controller
             'stock'      => 'required|integer',
             'color'      => 'required|string',
             'size'       => 'required|string',
-            'category_id'=> 'required|exists:categories,id',
-            'brand_id'   => 'required|exists:brands,id',
+            'category_id'=> 'nullable|exists:categories,id',
+            'brand_id'   => 'nullable|exists:brands,id',
             'image'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'images'      => 'nullable|array',
             'status'     => 'nullable|in:0,1',
@@ -179,7 +179,7 @@ class productController extends Controller
 
         $product->update();
         session()->forget('delete_image');
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
 
     }
 
@@ -191,7 +191,7 @@ class productController extends Controller
         $product = Product::find($id);
 
         $product->delete();
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 
     //Multiple image delete function
@@ -235,6 +235,20 @@ class productController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
+    }
+
+    public function status($status) {
+
+        if($status === 'active') {
+            $products = Product::where('status', 1)->paginate(20);
+        }  elseif ($status === 'low-stock') {
+            $products = Product::where('stock', '<=', 5)->where('stock', '>', 0)->paginate(20);
+        } elseif($status === 'out-of-stock') {
+            $products = Product::where('stock', '=', 0)->paginate(20);
+        }
+
+        return view('backend.product.manage', compact('products', 'status'));
+
     }
 }

@@ -52,7 +52,7 @@ class BrandController extends Controller
         }
         $brand->save();
 
-        return redirect()->route('brand.index')->with('success', 'brand successfully create');
+        return redirect()->route('admin.brand.index')->with('success', 'brand successfully create');
     }
 
     /**
@@ -101,7 +101,7 @@ class BrandController extends Controller
         }
         $brand->update();
 
-        return redirect()->route('brand.index');
+        return redirect()->route('admin.brand.index');
 
     }
 
@@ -113,7 +113,7 @@ class BrandController extends Controller
        $brand = Brand::find($id);
 
        $brand->delete();
-       return redirect()->route('brand.index');
+       return redirect()->route('admin.brand.index');
     }
     /**
      * Change Status.
@@ -127,6 +127,6 @@ class BrandController extends Controller
             $brand->status = 1;
         }
        $brand->save();
-       return redirect()->route('brand.index');
+       return redirect()->route('admin.brand.index');
     }
 }

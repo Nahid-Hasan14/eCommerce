@@ -77,6 +77,24 @@ class OrderController extends Controller
         return response()->json(['html' => $html]);
     }
 
+    //Admin Dashboard to order view page with Status
+    public function status($status) {
+
+        $StatusMap = [
+            'pending' => 1,
+            'complete' => 2,
+            'cancel' => 3
+        ];
+
+        if(!isset($StatusMap[$status])) {
+            abort(404);
+        }
+
+        $orders = Order::where('order_status_id', $StatusMap[$status])->latest()->paginate(20);
+
+        return view('backend.orders.orders', compact('orders', 'status'));
+    }
+
     public function invoice() {
         return view('backend.invoice.invoice');
     }

@@ -2,257 +2,215 @@
 
 @section('title', 'Admin Dashboard')
 
+@push('style')
+<style>
+    .stat-card {
+        border-left: 4px solid;
+        border-radius: 10px;
+        transition: transform 0.3s;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    .stat-card.orders {
+        border-left-color: #3498DB;
+    }
+    .stat-card.completed {
+        border-left-color: #9B59B6;
+    }
+    .stat-card.canceled {
+        border-left-color: #E74C3C;
+    }
+    .stat-card.pending {
+        border-left-color: #1ABB9C;
+    }
+    .stat-card.lowstock {
+        border-left-color: #F59E0B;
+    }
+    .sales-overview {
+        background: #fff;
+        border: 1px solid #ff9800;
+        box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
+    }
+    .sales-overview h6 {
+        color: #6c757d;
+    }
+    .sales-overview h3 {
+        color: #ff9800;
+    }
+    .sales-overview small {
+        color: #495057;
+    }
+</style>
+@endpush
 @section('content')
-
-
-<div class="right_col" role="main">
-          <div class="">
-
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Inbox Design <small>Some examples to get you started</small></h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Inbox Design<small>User Mail</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                          </div>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div class="row">
-                      <div class="col-sm-3 mail_list_column">
-                        <button id="compose" class="btn btn-sm btn-success btn-block" type="button">COMPOSE</button>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Dennis Mugo <small>3.00 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-star"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Jane Nobert <small>4.09 PM</small></h3>
-                              <p><span class="badge">To</span> Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-circle-o"></i><i class="fa fa-paperclip"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Musimbi Anne <small>4.09 PM</small></h3>
-                              <p><span class="badge">CC</span> Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-paperclip"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Jon Dibbs <small>4.09 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              .
-                            </div>
-                            <div class="right">
-                              <h3>Debbis & Raymond <small>4.09 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              .
-                            </div>
-                            <div class="right">
-                              <h3>Debbis & Raymond <small>4.09 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Dennis Mugo <small>3.00 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                        <a href="#">
-                          <div class="mail_list">
-                            <div class="left">
-                              <i class="fa fa-star"></i>
-                            </div>
-                            <div class="right">
-                              <h3>Jane Nobert <small>4.09 PM</small></h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation enim ad minim veniam, quis nostrud exercitation...</p>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <!-- /MAIL LIST -->
-
-                      <!-- CONTENT MAIL -->
-                      <div class="col-sm-9 mail_view">
-                        <div class="inbox-body">
-                          <div class="mail_heading row">
-                            <div class="col-md-8">
-                              <div class="btn-group">
-                                <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-reply"></i> Reply</button>
-                                <button class="btn btn-sm btn-default" type="button"  data-placement="top" data-toggle="tooltip" data-original-title="Forward"><i class="fa fa-share"></i></button>
-                                <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Print"><i class="fa fa-print"></i></button>
-                                <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Trash"><i class="fa fa-trash-o"></i></button>
-                              </div>
-                            </div>
-                            <div class="col-md-4 text-right">
-                              <p class="date"> 8:02 PM 12 FEB 2014</p>
-                            </div>
-                            <div class="col-md-12">
-                              <h4> Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.</h4>
-                            </div>
-                          </div>
-                          <div class="sender-info">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <strong>Jon Doe</strong>
-                                <span>(jon.doe@gmail.com)</span> to
-                                <strong>me</strong>
-                                <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="view-mail">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-                            <p>Riusmod tempor incididunt ut labor erem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                              mollit anim id est laborum.</p>
-                            <p>Modesed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                          </div>
-                          <div class="attachment">
-                            <p>
-                              <span><i class="fa fa-paperclip"></i> 3 attachments — </span>
-                              <a href="#">Download all attachments</a> |
-                              <a href="#">View all images</a>
-                            </p>
-                            <ul>
-                              <li>
-                                <a href="#" class="atch-thumb">
-                                  <img src="{{asset('backend')}}/images/inbox.png" alt="img" />
-                                </a>
-
-                                <div class="file-name">
-                                  image-name.jpg
+    <div class="right_col" role="main">
+        <br />
+        <div>
+            <h3>Orders History</h3>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-3">
+                    <a href="{{route('admin.orders.manage')}}">
+                        <div class="card stat-card orders">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Total Orders</h6>
+                                    <h3>{{$data['orders']->totalOrders}}</h3>
+                                    <small>Good sell for this month</small>
                                 </div>
-                                <span>12KB</span>
-
-
-                                <div class="links">
-                                  <a href="#">View</a> -
-                                  <a href="#">Download</a>
-                                </div>
-                              </li>
-
-                              <li>
-                                <a href="#" class="atch-thumb">
-                                  <img src="{{asset('backend')}}/images/inbox.png" alt="img" />
-                                </a>
-
-                                <div class="file-name">
-                                  img_name.jpg
-                                </div>
-                                <span>40KB</span>
-
-                                <div class="links">
-                                  <a href="#">View</a> -
-                                  <a href="#">Download</a>
-                                </div>
-                              </li>
-                              <li>
-                                <a href="#" class="atch-thumb">
-                                  <img src="{{asset('backend')}}/images/inbox.png" alt="img" />
-                                </a>
-
-                                <div class="file-name">
-                                  img_name.jpg
-                                </div>
-                                <span>30KB</span>
-
-                                <div class="links">
-                                  <a href="#">View</a> -
-                                  <a href="#">Download</a>
-                                </div>
-                              </li>
-
-                            </ul>
-                          </div>
-                          <div class="btn-group">
-                            <button class="btn btn-sm btn-primary" type="button"><i class="fa fa-reply"></i> Reply</button>
-                            <button class="btn btn-sm btn-default" type="button"  data-placement="top" data-toggle="tooltip" data-original-title="Forward"><i class="fa fa-share"></i></button>
-                            <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Print"><i class="fa fa-print"></i></button>
-                            <button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Trash"><i class="fa fa-trash-o"></i></button>
-                          </div>
+                            </div>
                         </div>
-
-                      </div>
-                      <!-- /CONTENT MAIL -->
-                    </div>
-                  </div>
+                    </a>
                 </div>
-              </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.order.status', 'complete')}}">
+                        <div class="card stat-card completed">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Completed</h6>
+                                    <h3>{{ $data['orders']->completedOrders }}</h3>
+                                    <small>Good sell for this month</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.order.status', 'cancel')}}">
+                        <div class="card stat-card canceled">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Canceled</h6>
+                                    <h3>{{ $data['orders']->canceledOrders }}</h3>
+                                    <small>Good sell for this month</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.order.status', 'pending')}}">
+                        <div class="card stat-card pending">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Order Pending</h6>
+                                    <h3>{{ $data['orders']->pendingOrders }}</h3>
+                                    <small>Good sell for this month</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
         </div>
-
-        @endsection
+        <div style="margin-top: 40px;">
+            <h3>Sales & Customer Overview</h3>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-3">
+                    <div class="card sales-overview">
+                        <div class="card-body">
+                            <div>
+                                <h6>Total Customers</h6>
+                                <h3>{{$data['customers']}}</h3>
+                                <small>Good sell for this month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card sales-overview">
+                        <div class="card-body">
+                            <div>
+                                <h6>Total Sales</h6>
+                                <h3>{{$data['orders']->total_price}}</h3>
+                                <small>Good sell for this month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card sales-overview">
+                        <div class="card-body">
+                            <div>
+                                <h6>Yesterday's Orders</h6>
+                                <h3>{{ $data['orders']->yesterdayOrders }}</h3>
+                                <small>Good sell for this month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card sales-overview">
+                        <div class="card-body">
+                            <div>
+                                <h6>Today's Orders</h6>
+                                <h3>{{ $data['orders']->todayOrders }}</h3>
+                                <small>Good sell for this month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 40px; margin-bottom:20px">
+            <h3>Product History</h3>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-md-3">
+                    <a href="{{route('admin.product.index')}}">
+                        <div class="card stat-card orders">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Total Product</h6>
+                                    <h3>{{ $data['products']->totalProducts }}</h3>
+                                    <small>Good sell for this month</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.products.view', 'active')}}">
+                        <div class="card stat-card pending">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Active Product</h6>
+                                    <h3>{{ $data['products']->activeProducts }}</h3>
+                                    <small>Ready for sell</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.products.view', 'low-stock')}}">
+                        <div class="card stat-card lowstock">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Stock Low</h6>
+                                    <h3>{{ $data['products']->lowStockProducts}}</h3>
+                                    <small>Stock Low When Product >= 5</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('admin.products.view', 'out-of-stock')}}">
+                        <div class="card stat-card canceled">
+                            <div class="card-body">
+                                <div>
+                                    <h6>Stock Out</h6>
+                                    <h3>{{ $data['products']->outOfStockProducts }}</h3>
+                                    <small>Now Your Product Stock 0</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /page content -->
+@endsection

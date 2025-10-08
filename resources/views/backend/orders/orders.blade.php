@@ -13,7 +13,7 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>product Manage</h2>
+                    <h2>Orders Manage: {{ ucwords($status?? 'All Orders')}}</h2>
                         <div class="form-group pull-right top_search">
                             <div class="input-group">
                                 <input id="productSearch" type="text" class="form-control" placeholder="Search for...">
@@ -60,7 +60,7 @@
                                     <td class="text-cen align-middle text-center" style="max-width: 150px; word-wrap: break-word;">{{$order->orderStatus->name}}</td>
                                     {{-- <td class="text-cen align-middle " style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$product->description}}</i></td> --}}
                                     <td class="text-cen align-middle">
-                                        <a href="{{route('order.details', $order->id)}}" class="btn btn-dark btn-sm">View</a>
+                                        <a href="{{route('admin.order.details', $order->id)}}" class="btn btn-dark btn-sm">View</a>
                                     </td>
                                 </tr>
                           @endforeach
@@ -91,7 +91,7 @@
             }
 
             $.ajax({
-                url: `/search-order?q=${query}`,
+                url: `/admin/search-order?q=${query}`,
                 type: "GET",
                 dataType: "json",
                 success: function(responce) {

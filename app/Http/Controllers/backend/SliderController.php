@@ -57,7 +57,7 @@ class SliderController extends Controller
         $slider->save();
         // dd("Redirecting to index");
 
-        return redirect()->route('slider.index')->with('success', 'Slider Create Successfully');
+        return redirect()->route('admin.slider.index')->with('success', 'Slider Create Successfully');
 
     }
 
@@ -106,7 +106,7 @@ class SliderController extends Controller
         }
         $slider->update();
 
-        return redirect()->route('slider.index');
+        return redirect()->route('admin.slider.index');
 
     }
 
@@ -118,7 +118,7 @@ class SliderController extends Controller
         $slider = Slider::find($id);
 
         $slider->delete();
-        return redirect()->route('slider.index');
+        return redirect()->route('admin.slider.index');
     }
 
     /**
@@ -134,6 +134,6 @@ class SliderController extends Controller
         }
 
         $slider->save();
-        return redirect()->route('slider.index');
+        return redirect()->route('admin.slider.index');
     }
 }

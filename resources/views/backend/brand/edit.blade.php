@@ -7,7 +7,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
-                <form action="{{route('brand.update', $brand->id)}}" method="POST" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <form action="{{route('admin.brand.update', $brand->id)}}" method="POST" enctype="multipart/form-data" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                     @csrf
                     <div class="dashboard_graph">
                         <div class="row">
@@ -15,7 +15,7 @@
                                 <div class="x_panel">
                                     <div class="x_title">
                                         <h2>Brand Edit</h2>
-                                        <a href="{{route('brand.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
+                                        <a href="{{route('admin.brand.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
@@ -58,7 +58,7 @@
                                         <div class="ln_solid"></div>
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <a href="{{route('brand.index')}}" class="btn btn-dark" type="button">Back</a>
+                                                <a href="{{route('admin.brand.index')}}" class="btn btn-dark" type="button">Back</a>
                                                 <button class="btn btn-success" type="submit">Update</button>
                                             </div>
                                         </div>

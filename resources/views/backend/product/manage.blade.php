@@ -13,9 +13,9 @@
               <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>product Manage</h2>
+                    <h2>Products Manage: {{ ucwords($status?? 'All Products') }}</h2>
                     {{-- <button class="btn btn-dark btn-sm pull-right">Edit</button> --}}
-                    <a href="{{route('product.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
+                    <a href="{{route('admin.product.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
                     <div class="clearfix"></div>
                   </div>
 
@@ -58,12 +58,12 @@
                             <td class="text-cen align-middle ">{{$product->status == 1 ? 'Public' : 'Draft'}}</td>
                             <td class="text-cen align-middle">
                                 @if ($product->status == 1)
-                                    <a href="{{route('product.status' , $product->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                    <a href="{{route('admin.product.status' , $product->id)}}" class="btn btn-dark btn-sm">Disable</a>
                                 @else
-                                     <a href="{{route('product.status', $product->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                     <a href="{{route('admin.product.status', $product->id)}}" class="btn btn-dark btn-sm">Enable</a>
                                 @endif
-                                <a href="{{route('product.edit', $product->id)}}" class="btn btn-success btn-sm">Edit</a>
-                                <a href="{{route('product.delete', $product->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('admin.product.edit', $product->id)}}" class="btn btn-success btn-sm">Edit</a>
+                                <a href="{{route('admin.product.delete', $product->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                           </tr>
                         </tbody>

@@ -50,7 +50,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 ">
-                <form action="{{route('product.update', $product->id)}}" method="POST"  enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+                <form action="{{route('admin.product.update', $product->id)}}" method="POST"  enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
                     @csrf
                     <div class="dashboard_graph">
                         <div class="row">
@@ -58,7 +58,7 @@
                                 <div class="x_panel">
                                     <div class="x_title">
                                         <h2>product Edit</h2>
-                                        <a href="{{route('product.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
+                                        <a href="{{route('admin.product.index')}}" class="btn btn-info btn-sm pull-right">Manage</a>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
@@ -76,21 +76,21 @@
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label for="category_id">Category<span class="required">*</span></label>
+                                                <label for="category_id">Category</label>
                                                 <select name="category_id" id="category_id" class="form-control">
                                                     <option value="">-- Select Category --</option>
                                                     @foreach ($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    <option value="{{ $category->id}}" {{ $category->id == $product->category_id ? 'selected' : '' }}>{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
 
                                             <div class="col-md-6 col-sm-6">
-                                                <label for="brand_id">Brand<span class="required">*</span></label>
+                                                <label for="brand_id">Brand</label>
                                                 <select name="brand_id" id="brand_id" class="form-control">
                                                     <option value="">-- Select Brand --</option>
                                                     @foreach ($brands as $brand)
-                                                      <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                      <option value="{{$brand->id}}" {{ $brand->id == $product->brand_id ? 'selected' : '' }}>{{$brand->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -105,30 +105,30 @@
 
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="first-name">Description<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="first-name">Description</span></label>
                                                 <textarea type="text" name="description" rows="8" id="first-name" required class="form-control ">{{$product->description}}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="price">Price<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="price">Price</label>
                                                 <input type="number" name="price" step="0.01" value="{{$product->price}}"  required class="form-control ">
                                             </div>
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="stock">Stock<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="stock">Stock</span></label>
                                                 <input type="number" name="stock" value="{{$product->stock}}"  required class="form-control ">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="color">Color<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="color">Color</span></label>
                                                 <input type="text" name="color" value="{{$product->color}}"  required class="form-control ">
                                             </div>
 
                                             <div class="col-md-6 col-sm-6">
-                                                <label class="col-form-label label-align" for="size">Size<span class="required">*</span></label>
+                                                <label class="col-form-label label-align" for="size">Size</label>
                                                 <input type="text" name="size" value="{{$product->size}}" required class="form-control ">
                                             </div>
                                         </div>
@@ -163,7 +163,7 @@
 
                                         <div class="item form-group">
                                             <div class="col-md-12 col-sm-12">
-                                                <label class="col-form-label label-align" for="images">Images<span class="required"></span></label>
+                                                <label class="col-form-label label-align" for="images">Images</label>
                                                 <input type="file" name="images[]" id="images" class="form-control" multiple>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
 
                                         <div class="item form-group">
                                             <div class="col-md-6 col-sm-6">
-                                                <a href="{{route('product.index')}}" class="btn btn-dark" type="button">Back</a>
+                                                <a href="{{route('admin.product.index')}}" class="btn btn-dark" type="button">Back</a>
                                                 <button class="btn btn-success" type="submit">Update</button>
                                             </div>
                                         </div>
@@ -227,7 +227,7 @@
 
             $.ajax({
                 type: "POST",
-                url:"{{route('product.image.delete')}}",
+                url:"{{route('admin.product.image.delete')}}",
                 dataType: "json",
                 data: {
                         image_index:image_index,

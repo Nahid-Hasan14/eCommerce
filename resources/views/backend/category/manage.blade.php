@@ -14,7 +14,7 @@
                   <div class="x_title">
                     <h2>Slider Manage</h2>
                     {{-- <button class="btn btn-dark btn-sm pull-right">Edit</button> --}}
-                    <a href="{{route('category.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
+                    <a href="{{route('admin.category.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
                     <div class="clearfix"></div>
                   </div>
 
@@ -49,12 +49,12 @@
                             <td class="text-cen align-middle ">{{$category->status== 1 ? "Public" : "Draft"}}</td>
                             <td class="text-cen align-middle">
                                 @if ($category->status == 1)
-                                    <a href="{{route('category.status', $category->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                    <a href="{{route('admin.category.status', $category->id)}}" class="btn btn-dark btn-sm">Disable</a>
                                 @else
-                                    <a href="{{route('category.status', $category->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                    <a href="{{route('admin.category.status', $category->id)}}" class="btn btn-dark btn-sm">Enable</a>
                                 @endif
-                                <a href="{{route('category.edit', $category->id)}}" class="btn btn-success btn-sm">Edit</a>
-                                <a href="{{route('category.delete', $category->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('admin.category.edit', $category->id)}}" class="btn btn-success btn-sm">Edit</a>
+                                <a href="{{route('admin.category.delete', $category->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                           </tr>
                         </tbody>

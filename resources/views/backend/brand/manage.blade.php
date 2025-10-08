@@ -14,7 +14,7 @@
                   <div class="x_title">
                     <h2>Brand Manage</h2>
                     {{-- <button class="btn btn-dark btn-sm pull-right">Edit</button> --}}
-                    <a href="{{route('brand.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
+                    <a href="{{route('admin.brand.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
                     <div class="clearfix"></div>
                   </div>
 
@@ -49,12 +49,12 @@
                             <td class="text-cen align-middle ">{{$brand->status== 1 ? "Public" : "Draft"}}</td>
                             <td class="text-cen align-middle">
                                 @if ($brand->status == 1)
-                                <a href="{{route('brand.status', $brand->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                <a href="{{route('admin.brand.status', $brand->id)}}" class="btn btn-dark btn-sm">Disable</a>
                                 @else
-                                <a href="{{route('brand.status', $brand->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                <a href="{{route('admin.brand.status', $brand->id)}}" class="btn btn-dark btn-sm">Enable</a>
                                 @endif
-                                <a href="{{route('brand.edit', $brand->id)}}" class="btn btn-success btn-sm">Edit</a>
-                                <a href="{{route('brand.delete', $brand->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('admin.brand.edit', $brand->id)}}" class="btn btn-success btn-sm">Edit</a>
+                                <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                           </tr>
                         </tbody>

@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Auth\RegisterController as AuthRegisterController;
 use App\Http\Controllers\Customer\ResetPasswordController;
 use App\Http\Controllers\Customer\ForgotPasswordController;
 use App\Http\Controllers\Customer\VerificationController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\frontend\BaseController;
@@ -81,62 +84,65 @@ Route::prefix('customer')->group(function (){
 
 
 
-
 //Admin Pannel
-Route::get('/home', function () {
-    return view('backend.index');
-});
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
 
-Route::get('/admin/slider/create', [SliderController::class,'create'])->name('slider.create');
-Route::post('/admin/slider/store', [SliderController::class,'store'])->name('slider.store');
-Route::get('/admin/slider/manage', [SliderController::class,'index'])->name('slider.index');
-Route::get('/admin/slider/edit/{id}', [SliderController::class,'edit'])->name('slider.edit');
-Route::post('/admin/slider/update/{id}', [SliderController::class,'update'])->name('slider.update');
-Route::get('/admin/slider/delete/{id}', [SliderController::class,'destroy'])->name('slider.delete');
-Route::get('/admin/slider/status/{id}', [SliderController::class,'changeStatus'])->name('slider.status');
+Route::get('/slider/create', [SliderController::class,'create'])->name('slider.create');
+Route::post('/slider/store', [SliderController::class,'store'])->name('slider.store');
+Route::get('/slider/manage', [SliderController::class,'index'])->name('slider.index');
+Route::get('/slider/edit/{id}', [SliderController::class,'edit'])->name('slider.edit');
+Route::post('/slider/update/{id}', [SliderController::class,'update'])->name('slider.update');
+Route::get('/slider/delete/{id}', [SliderController::class,'destroy'])->name('slider.delete');
+Route::get('/slider/status/{id}', [SliderController::class,'changeStatus'])->name('slider.status');
 
-Route::get('/admin/category/create', [CategoryController::class,'create'])->name('category.create');
-Route::post('/admin/category/store', [CategoryController::class,'store'])->name('category.store');
-Route::get('/admin/category/manage', [CategoryController::class,'index'])->name('category.index');
-Route::get('/admin/category/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
-Route::post('/admin/category/update/{id}', [CategoryController::class,'update'])->name('category.update');
-Route::get('/admin/category/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
-Route::get('/admin/category/status/{id}', [CategoryController::class,'changeStatus'])->name('category.status');
+Route::get('/category/create', [CategoryController::class,'create'])->name('category.create');
+Route::post('/category/store', [CategoryController::class,'store'])->name('category.store');
+Route::get('/category/manage', [CategoryController::class,'index'])->name('category.index');
+Route::get('/category/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
+Route::post('/category/update/{id}', [CategoryController::class,'update'])->name('category.update');
+Route::get('/category/delete/{id}', [CategoryController::class,'destroy'])->name('category.delete');
+Route::get('/category/status/{id}', [CategoryController::class,'changeStatus'])->name('category.status');
 
-Route::get('/admin/brand/create', [BrandController::class,'create'])->name('brand.create');
-Route::post('/admin/brand/store', [BrandController::class,'store'])->name('brand.store');
-Route::get('/admin/brand/manage', [BrandController::class,'index'])->name('brand.index');
-Route::get('/admin/brand/edit/{id}', [BrandController::class,'edit'])->name('brand.edit');
-Route::post('/admin/brand/update/{id}', [BrandController::class,'update'])->name('brand.update');
-Route::get('/admin/brand/delete/{id}', [BrandController::class,'destroy'])->name('brand.delete');
-Route::get('/admin/brand/status/{id}', [BrandController::class,'changeStatus'])->name('brand.status');
+Route::get('/brand/create', [BrandController::class,'create'])->name('brand.create');
+Route::post('/brand/store', [BrandController::class,'store'])->name('brand.store');
+Route::get('/brand/manage', [BrandController::class,'index'])->name('brand.index');
+Route::get('/brand/edit/{id}', [BrandController::class,'edit'])->name('brand.edit');
+Route::post('/brand/update/{id}', [BrandController::class,'update'])->name('brand.update');
+Route::get('/brand/delete/{id}', [BrandController::class,'destroy'])->name('brand.delete');
+Route::get('/brand/status/{id}', [BrandController::class,'changeStatus'])->name('brand.status');
 
-Route::get('/admin/product/create', [ProductController::class,'create'])->name('product.create');
-Route::post('/admin/product/store', [ProductController::class,'store'])->name('product.store');
-Route::get('/admin/product/manage', [ProductController::class,'index'])->name('product.index');
-Route::get('/admin/product/edit/{id}', [ProductController::class,'edit'])->name('product.edit');
-Route::post('/admin/product/update/{id}', [ProductController::class,'update'])->name('product.update');
-Route::get('/admin/product/delete/{id}', [ProductController::class,'destroy'])->name('product.delete');
+Route::get('/product/create', [ProductController::class,'create'])->name('product.create');
+Route::post('/product/store', [ProductController::class,'store'])->name('product.store');
+Route::get('/product/manage', [ProductController::class,'index'])->name('product.index');
+Route::get('/product/{status}', [ProductController::class,'status'])->name('products.view');
+Route::get('/product/edit/{id}', [ProductController::class,'edit'])->name('product.edit');
+Route::post('/product/update/{id}', [ProductController::class,'update'])->name('product.update');
+Route::get('/product/delete/{id}', [ProductController::class,'destroy'])->name('product.delete');
 // Route::get('/admin/product/image/delete/{id}/{index}', [ProductController::class,'deleteImage'])->name('product.image.delete');
-Route::post('/admin/product/image/delete', [ProductController::class,'deleteImage'])->name('product.image.delete');
-Route::get('/admin/product/status/{id}', [ProductController::class,'changeStatus'])->name('product.status');
+Route::post('/product/image/delete', [ProductController::class,'deleteImage'])->name('product.image.delete');
+Route::get('/product/status/{id}', [ProductController::class,'changeStatus'])->name('product.status');
 
-Route::get('/admin/orders-manage', [OrderController::class, 'orders'])->name('orders.manage');
-Route::get('/admin/order-details/{id}', [OrderController::class, 'details'])->name('order.details');
-Route::get('/admin/invoice', [OrderController::class, 'invoice'])->name('order.invoice');
+Route::get('/orders-manage', [OrderController::class, 'orders'])->name('orders.manage');
+Route::get('/order-details/{id}', [OrderController::class, 'details'])->name('order.details');
+Route::get('/orders/{status}', [OrderController::class, 'status'])->name('order.status');
+Route::get('/invoice', [OrderController::class, 'invoice'])->name('order.invoice');
 
 //Admin Order Status Function handle
-Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('admin.order.cancel');
-Route::post('/orders/{id}/confirmed', [OrderController::class, 'confirmed'])->name('admin.order.confirmed');
-Route::post('/orders/{id}/shipped', [OrderController::class, 'shipped'])->name('admin.order.shipped');
-Route::post('/orders/{id}/deliverd', [OrderController::class, 'deliverd'])->name('admin.order.deliverd');
+Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
+Route::post('/orders/{id}/confirmed', [OrderController::class, 'confirmed'])->name('order.confirmed');
+Route::post('/orders/{id}/shipped', [OrderController::class, 'shipped'])->name('order.shipped');
+Route::post('/orders/{id}/deliverd', [OrderController::class, 'deliverd'])->name('order.deliverd');
 
-Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('admin.order.search');
+Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('order.search');
 
+Route::get('/register', [AuthRegisterController::class, 'registerShow'])->name('register');
+Route::get('/login', [AuthLoginController::class, 'loginShow'])->name('login');
+Route::post('/login/submit', [AuthLoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthLoginController::class, 'logout'])->name('logout');
 
-
+});
 
 Auth::routes();
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');

@@ -14,7 +14,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Order Details</h2>
-                    <a href="{{route('orders.manage')}}" class="btn btn-dark btn-sm pull-right">Order Manage</a>
+                    <a href="{{route('admin.orders.manage')}}" class="btn btn-dark btn-sm pull-right">Order Manage</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_title">
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{route('order.invoice')}}" class="btn btn-success btn-sm pull-right">Invoice</a>
+                        <a href="{{route('admin.order.invoice')}}" class="btn btn-success btn-sm pull-right">Invoice</a>
                     </div>
                   </div>
                 </div>

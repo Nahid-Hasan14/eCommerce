@@ -15,7 +15,7 @@
                   <div class="x_title">
                     <h2>Slider Manage</h2>
                     {{-- <button class="btn btn-dark btn-sm pull-right">Edit</button> --}}
-                    <a href="{{route('slider.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
+                    <a href="{{route('admin.slider.create')}}" class="btn btn-primary btn-sm pull-right">Create</a>
                     <div class="clearfix"></div>
                   </div>
 
@@ -50,12 +50,12 @@
                             <td class="text-cen align-middle ">{{$slider->status == 1 ? 'Public' : 'Draft'}}</td>
                             <td class="text-cen align-middle">
                                 @if ($slider->status == 1)
-                                    <a href="{{route('slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Disable</a>
+                                    <a href="{{route('admin.slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Disable</a>
                                 @else
-                                    <a href="{{route('slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Enable</a>
+                                    <a href="{{route('admin.slider.status', $slider->id)}}" class="btn btn-dark btn-sm">Enable</a>
                                 @endif
-                                <a href="{{route('slider.edit', $slider->id)}}" class="btn btn-success btn-sm">Edit</a>
-                                <a href="{{route('slider.delete', $slider->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('admin.slider.edit', $slider->id)}}" class="btn btn-success btn-sm">Edit</a>
+                                <a href="{{route('admin.slider.delete', $slider->id)}}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                           </tr>
                         </tbody>

@@ -31,7 +31,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Nahid Hasan!</span></a>
+              <a href="{{route('admin.home')}}" class="site_title"><i class="fa fa-paw"></i> <span>Nahid Hasan!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -74,37 +74,36 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Orders <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      {{-- <li><a href="{{route('slider.create')}}">Create</a></li> --}}
-                      <li><a href="{{route('orders.manage')}}">Manage</a></li>
+                      <li><a href="{{route('admin.orders.manage')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Slider <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('slider.create')}}">Create</a></li>
-                      <li><a href="{{route('slider.index')}}">Manage</a></li>
+                      <li><a href="{{route('admin.slider.create')}}">Create</a></li>
+                      <li><a href="{{route('admin.slider.index')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Category <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('category.create')}}">Create</a></li>
-                      <li><a href="{{route('category.index')}}">Manage</a></li>
+                      <li><a href="{{route('admin.category.create')}}">Create</a></li>
+                      <li><a href="{{route('admin.category.index')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Brand <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('brand.create')}}">Create</a></li>
-                      <li><a href="{{route('brand.index')}}">Manage</a></li>
+                      <li><a href="{{route('admin.brand.create')}}">Create</a></li>
+                      <li><a href="{{route('admin.brand.index')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Product <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('product.create')}}">Create</a></li>
-                      <li><a href="{{route('product.index')}}">Manage</a></li>
+                      <li><a href="{{route('admin.product.create')}}">Create</a></li>
+                      <li><a href="{{route('admin.product.index')}}">Manage</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Invoice <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('order.invoice')}}">Invoice</a></li>
+                      <li><a href="{{route('admin.order.invoice')}}">Invoice</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
@@ -221,13 +220,16 @@
                       <img src="{{asset('backend')}}/images/img.jpg" alt="">John Doe
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                      {{-- <a class="dropdown-item"  href="javascript:;"> Profile</a>
                         <a class="dropdown-item"  href="javascript:;">
                           <span class="badge bg-red pull-right">50%</span>
                           <span>Settings</span>
                         </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <a class="dropdown-item"  href="javascript:;">Help</a> --}}
+                      <form action="{{route('admin.logout')}}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item"><i class="fa fa-sign-out pull-right"></i> Log Out</button>
+                      </form>
                     </div>
                   </li>
 
@@ -320,7 +322,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            SobKichu.com - This website developed by <a href="https://colorlib.com" style="color: blue">Md. Nahid Hasan</a>
+            SobKichu.com - This website developed by <a href="#" style="color: blue">Md. Nahid Hasan</a>
           </div>
           <div class="clearfix"></div>
         </footer>

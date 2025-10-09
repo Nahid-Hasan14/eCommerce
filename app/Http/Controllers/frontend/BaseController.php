@@ -11,7 +11,7 @@ use DB;
 
 class BaseController extends Controller
 {
-    public function index() {
+    public function homePage() {
         $sliders = Slider::where(['status' => 1])->get();
 
         $products = Product::select('id', 'image', 'title', 'price', 'color')
@@ -35,14 +35,10 @@ class BaseController extends Controller
         return view('frontend.pages.contact');
     }
 
-    public function checkout() {
-        return view('frontend.pages.checkout');
-    }
-
     public function cart() {
         //For Register User Address Find
         $data['customer'] = auth('customer')->user();
-        $data['customer'] = 
+        $data['customer'] =
 
         $data['addresses'] = DB::table('addresses as a')
         ->join('divisions as d', 'd.id', 'a.division')

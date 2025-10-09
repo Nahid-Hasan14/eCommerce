@@ -16,7 +16,7 @@ class productController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function productIndex()
     {
         $products= Product::all();
         Toastr::success('Hello World');

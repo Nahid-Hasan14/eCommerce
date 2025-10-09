@@ -14,7 +14,7 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function brandIndex()
     {
         $brands = Brand::all();
         return view('backend.brand.manage', compact('brands'));

@@ -68,9 +68,15 @@ class OrderController extends Controller
         $query = $request->get('q');
         // dd($qurey);
         $orders = Order::where('order_number', 'like', "%{$query}%")
+                    ->orWhere('shipping_address', 'like', "%{$query}%")
                     ->take(5)
-                    ->get(['id', 'order_number']);
+                    ->get(['id', 'order_number', 'shipping_address']);
+
         // dd($orders);
+        foreach ($orders as $order) {
+            $parts = explode('|', $order->shipping_address);
+            $order->phone = isset($parts[1]) ? trim($parts[1]) : 'N/A';
+        }
 
         $html = view('backend.layouts.order_search', compact('orders'))->render();
 

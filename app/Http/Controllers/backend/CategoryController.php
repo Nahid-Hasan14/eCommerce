@@ -14,7 +14,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function categoryIndex()
     {
         $categories = Category::all();
         return view('backend.category.manage', compact('categories'));

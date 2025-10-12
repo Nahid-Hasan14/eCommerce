@@ -34,6 +34,7 @@
                             <div class="new-customers">
                                 <form action="{{route('customer.login.submit')}}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="redirect_to" value="{{ $redirectTo ?? '' }}">
                                     {{-- <h6 class="widget-title border-left mb-50">REGISTERED CUSTOMERS</h6> --}}
                                     <div class="login-account p-30 box-shadow">
                                         <input type="text" name="email"  placeholder="Email address here..." required>

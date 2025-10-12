@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -39,9 +39,10 @@ class LoginController extends Controller
         $this->middleware('auth:customer')->only('logout');
     }
 
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
-        return view('customer.login');
+        $redirectTo = $request->get('redirect_to', '');
+        return view('customer.login', compact('redirectTo'));
     }
 
     protected function guard()
@@ -54,5 +55,16 @@ class LoginController extends Controller
         $this->guard('customer')->logout();
 
         return redirect('/');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($request->has('redirect_to') && $request->redirect_to === 'checkout') {
+            // session এ flag রাখো
+            session(['show_checkout' => true]);
+            return redirect()->route('cart');
+        }
+
+        return redirect()->route('customer.dashboard');
     }
 }

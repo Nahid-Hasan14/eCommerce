@@ -70,7 +70,7 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <!-- shopping-cart start -->
-                                <div class="tab-pane active" id="shopping-cart">
+                                <div class="tab-pane active" id="shopping-cart" style="@if (session('show_checkout') && Auth::guard('customer')->check()) display:none; @endif">
                                     <div class="shopping-cart-content">
                                         <form action="#" >
                                             <div class="table-content table-responsive mb-50">
@@ -180,7 +180,7 @@
                                 <!-- wishlist start -->
                                 <!-- wishlist end -->
                                 <!-- checkout start -->
-                                <div class="tab-pane" id="checkout">
+                                <div class="tab-pane" id="checkout" style="@if (session('show_checkout') && Auth::guard('customer')->check()) display:block; @else display:none; @endif">
                                     <div class="checkout-content box-shadow p-30">
                                         <form id="cart_form">
                                             @csrf
@@ -355,28 +355,43 @@
 {{-- Update & Remove Item --}}
 <script>
 
-    let updateBtn = document.getElementsByClassName('update-cart');
-    const order_btn = document.getElementById("order_btn");
+    //Start Check auth and login redirect checkout
+    const showCheckout = () => {
+        const cart = document.getElementById('shopping-cart');
+        const checkout = document.getElementById('checkout');
+        const viewport = document.getElementById('viewport');
+        const orderCompleteLi = document.querySelector('.cart-tab li.checkout a');
 
-    order_btn.onclick = function(e) {
-        e.preventDefault();
-
-        if ("{{ Auth::guard('customer')->check() ? 'true' : 'false' }}" === "true") {
-
-            document.getElementById('shopping-cart').style.display = 'none'; //hide cart div
-            document.getElementById('checkout').style.display = 'block'; //show checkout div
-
-            document.getElementById('viewport').scrollIntoView({ behavior: "smooth", block: "start" }); //for view port
-
-                let orderCompleteLi = document.querySelector(".cart-tab li.checkout a"); //for side navbar active
-                if(orderCompleteLi){
-                    orderCompleteLi.classList.add("active");
-                }
-        } else {
-            window.location.href = "{{route('customer.login')}}";
+        if (cart && checkout) {
+            cart.style.display = 'none';
+            checkout.style.display = 'block';
         }
+
+        viewport?.scrollIntoView({ behavior: 'smooth', block: 'start' }); //for view port
+        orderCompleteLi?.classList.add('active'); //for side navbar active
     };
 
+    const orderBtn = document.getElementById('order_btn');
+        if (orderBtn) {
+            orderBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if ("{{ Auth::guard('customer')->check() ? 'true' : 'false' }}" === 'true') {
+                    showCheckout();
+                } else {
+                    window.location.href = "{{ route('customer.login') }}?redirect_to=checkout";
+                }
+            });
+        }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        @if (session('show_checkout') && Auth::guard('customer')->check())
+            showCheckout();
+            @php(session()->forget('show_checkout')) //Clear Session
+        @endif
+    });
+    //End Check auth and login redirect checkout
+
+    let updateBtn = document.getElementsByClassName('update-cart');
     for(let i = 0; i < updateBtn.length; i++ ) {
         updateBtn[i].addEventListener('click', function(e){
             e.preventDefault();
